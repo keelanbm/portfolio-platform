@@ -1,0 +1,20 @@
+import { Suspense } from 'react'
+import { DiscoverFeed } from '@/components/discover/discover-feed'
+import { DiscoverFeedSkeleton } from '@/components/discover/discover-feed-skeleton'
+
+export default function DiscoverPage() {
+  return (
+    <div className="container py-8">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold mb-2">Discover</h1>
+        <p className="text-muted-foreground">
+          Explore amazing projects from talented creators
+        </p>
+      </div>
+
+      <Suspense fallback={<DiscoverFeedSkeleton />}>
+        <DiscoverFeed />
+      </Suspense>
+    </div>
+  )
+} 
