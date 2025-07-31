@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import { Heart, MessageCircle, Share, MoreHorizontal } from 'lucide-react'
+import { Heart, MessageCircle, Share } from 'lucide-react'
 import Link from 'next/link'
 import { ActivityFeedSkeleton } from './activity-feed-skeleton'
 

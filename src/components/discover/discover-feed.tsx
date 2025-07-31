@@ -6,8 +6,9 @@ import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Heart, MessageCircle, Share, MoreHorizontal, UserPlus } from 'lucide-react'
+import { Heart, MessageCircle, Share, UserPlus } from 'lucide-react'
 import Link from 'next/link'
+import { DiscoverFeedSkeleton } from './discover-feed-skeleton'
 
 interface Project {
   id: string

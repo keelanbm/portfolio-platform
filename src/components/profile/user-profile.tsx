@@ -8,8 +8,9 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
-import { Heart, MessageCircle, Share, MoreHorizontal, Users, UserPlus, Settings } from 'lucide-react'
+import { Heart, MessageCircle, Share, UserPlus, Settings } from 'lucide-react'
 import Link from 'next/link'
+import { UserProfileSkeleton } from './user-profile-skeleton'
 
 interface User {
   id: string
@@ -62,7 +63,7 @@ export function UserProfile({ username }: UserProfileProps) {
           id: '1',
           username: username,
           name: 'John Doe',
-          bio: 'UI/UX Designer passionate about creating beautiful digital experiences. I love working with modern design systems and user-centered design principles.',
+          bio: "UI/UX Designer passionate about creating beautiful digital experiences. I love working with modern design systems and user-centered design principles.",
           avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face',
           website: 'https://johndoe.design',
           location: 'San Francisco, CA',
@@ -201,7 +202,7 @@ export function UserProfile({ username }: UserProfileProps) {
                     <DialogHeader>
                       <DialogTitle>Followers</DialogTitle>
                     </DialogHeader>
-                    <FollowersList userId={user.id} />
+                    <FollowersList />
                   </DialogContent>
                 </Dialog>
                 
@@ -216,7 +217,7 @@ export function UserProfile({ username }: UserProfileProps) {
                     <DialogHeader>
                       <DialogTitle>Following</DialogTitle>
                     </DialogHeader>
-                    <FollowingList userId={user.id} />
+                    <FollowingList />
                   </DialogContent>
                 </Dialog>
                 
@@ -378,7 +379,7 @@ function ProjectCard({ project }: { project: Project }) {
   )
 }
 
-function FollowersList({ userId }: { userId: string }) {
+function FollowersList() {
   // TODO: Implement followers list
   return (
     <div className="space-y-4">
@@ -387,7 +388,7 @@ function FollowersList({ userId }: { userId: string }) {
   )
 }
 
-function FollowingList({ userId }: { userId: string }) {
+function FollowingList() {
   // TODO: Implement following list
   return (
     <div className="space-y-4">
