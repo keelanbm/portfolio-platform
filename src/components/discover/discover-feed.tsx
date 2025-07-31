@@ -202,78 +202,77 @@ function ProjectCard({ project }: { project: Project }) {
         </div>
 
         {/* Project Content */}
-        <div className="p-4">
-          {/* User Info */}
-          <div className="flex items-center space-x-2 mb-3">
+        <div className="px-4 pb-3">
+          {/* User Info with Follow Icon */}
+          <div className="flex items-center space-x-2 mb-2 mt-2">
             <Avatar className="h-6 w-6">
               <AvatarImage src={project.user.avatar} />
               <AvatarFallback className="text-xs">
                 {project.user.name.charAt(0).toUpperCase()}
               </AvatarFallback>
             </Avatar>
-            <div className="flex-1 min-w-0">
+            <div className="flex-1 min-w-0 flex items-center space-x-1">
               <Link 
                 href={`/profile/${project.user.username}`}
-                className="text-sm font-medium hover:underline truncate block"
+                className="text-sm font-medium hover:underline truncate block text-text-primary"
               >
                 {project.user.name}
               </Link>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleFollow}
+                className={`h-4 w-4 p-0 ${isFollowing ? 'text-accent-primary' : 'text-text-secondary'}`}
+              >
+                <UserPlus className={`h-3 w-3 ${isFollowing ? 'fill-current' : ''}`} />
+              </Button>
             </div>
-            <Button
-              variant={isFollowing ? "outline" : "ghost"}
-              size="sm"
-              onClick={handleFollow}
-              className="h-6 px-2 text-xs"
-            >
-              <UserPlus className="h-3 w-3 mr-1" />
-              {isFollowing ? 'Following' : 'Follow'}
-            </Button>
+            <div className="flex items-center space-x-1">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleLike}
+                className={`h-6 w-6 p-0 ${liked ? 'text-accent-pink' : 'text-text-secondary'}`}
+              >
+                <Heart className={`h-3 w-3 ${liked ? 'fill-current' : ''}`} />
+              </Button>
+              <Button variant="ghost" size="sm" className="h-6 w-6 p-0 text-text-secondary">
+                <MessageCircle className="h-3 w-3" />
+              </Button>
+              <Button variant="ghost" size="sm" className="h-6 w-6 p-0 text-text-secondary">
+                <Share className="h-3 w-3" />
+              </Button>
+            </div>
           </div>
 
           {/* Project Title */}
           <Link 
             href={`/project/${project.id}`}
-            className="text-base font-semibold hover:underline block mb-2 line-clamp-1"
+            className="text-base font-semibold hover:underline block mb-1 line-clamp-1 text-text-primary"
           >
             {project.title}
           </Link>
 
           {/* Tags */}
           {project.tags.length > 0 && (
-            <div className="flex flex-wrap gap-1 mb-3">
+            <div className="flex flex-wrap gap-1 mb-1">
               {project.tags.slice(0, 2).map((tag) => (
-                <Badge key={tag} variant="secondary" className="text-xs">
+                <Badge key={tag} variant="secondary" className="text-xs bg-background-tertiary text-text-secondary">
                   {tag}
                 </Badge>
               ))}
               {project.tags.length > 2 && (
-                <Badge variant="secondary" className="text-xs">
+                <Badge variant="secondary" className="text-xs bg-background-tertiary text-text-secondary">
                   +{project.tags.length - 2}
                 </Badge>
               )}
             </div>
           )}
 
-          {/* Actions */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handleLike}
-                className={`h-8 px-2 ${liked ? 'text-red-500' : ''}`}
-              >
-                <Heart className={`h-4 w-4 mr-1 ${liked ? 'fill-current' : ''}`} />
-                <span className="text-sm">{likeCount}</span>
-              </Button>
-              <Button variant="ghost" size="sm" className="h-8 px-2">
-                <MessageCircle className="h-4 w-4 mr-1" />
-                <span className="text-sm">{project.comments}</span>
-              </Button>
-            </div>
-            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-              <Share className="h-4 w-4" />
-            </Button>
+          {/* Stats */}
+          <div className="flex items-center space-x-3 text-xs text-text-secondary">
+            <span>{likeCount} likes</span>
+            <span>{project.comments} comments</span>
           </div>
         </div>
       </CardContent>

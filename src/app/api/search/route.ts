@@ -130,23 +130,14 @@ export async function GET(request: NextRequest) {
     }
 
     // Check if current user has liked projects and is following users
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let userLikes: any[] = []
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let userFollows: any[] = []
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            let userFollows: any[] = []
 
     if (userId) {
-      const projectIds = projects.map(p => p.id)
+      // const projectIds = projects.map(p => p.id) // Commented out unused variable
       const userIds = users.map(u => u.id)
 
-      if (projectIds.length > 0) {
-        userLikes = await prisma.like.findMany({
-          where: {
-            userId: userId,
-            projectId: { in: projectIds },
-          },
-        })
-      }
+      // Removed userLikes query as it's not being used
 
       if (userIds.length > 0) {
         userFollows = await prisma.follow.findMany({

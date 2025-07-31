@@ -21,13 +21,13 @@ export function Header() {
   }
 
   return (
-    <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
-      <div className="container mx-auto px-4 flex h-16 items-center">
+    <header className="border-b border-border-primary bg-background-secondary/95 backdrop-blur supports-[backdrop-filter]:bg-background-secondary/60 sticky top-0 z-50">
+      <div className="container mx-auto px-4 flex h-16 items-center max-w-7xl">
         {/* Logo */}
         <div className="flex-shrink-0">
           <Link href="/" className="flex items-center space-x-2">
-            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-purple-600 to-blue-600" />
-            <span className="text-xl font-bold">PortfolioHub</span>
+            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-accent-primary to-accent-secondary" />
+            <span className="text-xl font-bold text-text-primary">PortfolioHub</span>
           </Link>
         </div>
 
@@ -41,7 +41,7 @@ export function Header() {
                 placeholder="Search projects, creators..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 pr-4 w-full"
+                className="pl-10 pr-4 w-full bg-background-tertiary border-border-primary text-text-primary placeholder:text-text-muted"
               />
             </div>
           </form>
@@ -52,7 +52,7 @@ export function Header() {
           {isSignedIn ? (
             <>
               {/* Create Button */}
-              <Button asChild size="sm">
+              <Button asChild size="sm" className="btn-primary">
                 <Link href="/create">
                   <Plus className="h-4 w-4 mr-2" />
                   Create
@@ -117,17 +117,17 @@ export function Header() {
       </div>
 
       {/* Mobile Search Bar */}
-      <div className="md:hidden border-t">
-        <div className="container mx-auto px-4 py-2">
+              <div className="md:hidden border-t border-border-primary">
+          <div className="container mx-auto px-4 py-2 max-w-7xl">
           <form onSubmit={handleSearch}>
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-text-muted" />
               <Input
                 type="text"
                 placeholder="Search projects, creators..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 pr-4 w-full"
+                className="pl-10 pr-4 w-full bg-background-tertiary border-border-primary text-text-primary placeholder:text-text-muted"
               />
             </div>
           </form>

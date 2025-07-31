@@ -63,11 +63,11 @@ export function ActivityFeed() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center max-w-md">
-          <h3 className="text-xl font-semibold mb-3 text-gray-900">Your feed is empty</h3>
-          <p className="text-gray-600 mb-6 leading-relaxed">
+          <h3 className="text-portfolio-title">Your feed is empty</h3>
+          <p className="text-portfolio-description">
             Follow some creators to see their latest projects here
           </p>
-          <Button asChild size="lg">
+          <Button asChild size="lg" className="btn-primary">
             <Link href="/discover">Discover Creators</Link>
           </Button>
         </div>
@@ -78,7 +78,7 @@ export function ActivityFeed() {
   return (
     <div className="space-y-8">
       {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="portfolio-grid">
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}
@@ -86,7 +86,7 @@ export function ActivityFeed() {
       
       {hasMore && (
         <div className="text-center py-8">
-          <Button variant="outline" onClick={() => {/* TODO: Load more */}}>
+          <Button variant="outline" className="btn-secondary" onClick={() => {/* TODO: Load more */}}>
             Load More
           </Button>
         </div>
@@ -128,14 +128,14 @@ function ProjectCard({ project }: { project: Project }) {
 
   return (
     <Card 
-      className="overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out group cursor-pointer bg-white border-gray-200 hover:border-gray-300 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2"
+      className="portfolio-card group"
       tabIndex={0}
       role="article"
       aria-label={`Project: ${project.title} by ${project.user.name}`}
     >
       <CardContent className="p-0">
         {/* Project Image */}
-        <div className="relative aspect-[4/3] bg-muted overflow-hidden">
+        <div className="image-container">
           <img
             src={project.coverImage}
             alt={project.title}
@@ -147,7 +147,7 @@ function ProjectCard({ project }: { project: Project }) {
           
           {/* Image Count Badge */}
           {project.images.length > 1 && (
-            <Badge className="absolute top-3 right-3 text-xs bg-white/90 backdrop-blur-sm border-0 shadow-sm">
+            <Badge className="absolute top-3 right-3 text-xs bg-background-overlay/90 backdrop-blur-sm border-0 shadow-sm text-text-primary">
               {project.images.length} images
             </Badge>
           )}
@@ -161,8 +161,8 @@ function ProjectCard({ project }: { project: Project }) {
                 onClick={handleLike}
                 disabled={isLiking}
                 aria-label={liked ? 'Unlike project' : 'Like project'}
-                className={`h-9 w-9 p-0 rounded-full shadow-lg backdrop-blur-sm bg-white/90 hover:bg-white transition-all duration-200 ${
-                  liked ? 'text-red-500 scale-110' : 'text-gray-600'
+                className={`h-9 w-9 p-0 rounded-full shadow-lg backdrop-blur-sm bg-background-overlay/90 hover:bg-background-overlay transition-all duration-200 ${
+                  liked ? 'text-accent-pink scale-110' : 'text-text-muted'
                 } ${isLiking ? 'animate-pulse' : ''}`}
               >
                 <Heart className={`h-4 w-4 ${liked ? 'fill-current' : ''} ${isLiking ? 'animate-bounce' : ''}`} />
@@ -171,7 +171,7 @@ function ProjectCard({ project }: { project: Project }) {
                 variant="secondary"
                 size="sm"
                 aria-label="Share project"
-                className="h-9 w-9 p-0 rounded-full shadow-lg backdrop-blur-sm bg-white/90 hover:bg-white text-gray-600 transition-all duration-200"
+                className="h-9 w-9 p-0 rounded-full shadow-lg backdrop-blur-sm bg-background-overlay/90 hover:bg-background-overlay text-text-muted transition-all duration-200"
               >
                 <Share className="h-4 w-4" />
               </Button>
@@ -183,16 +183,16 @@ function ProjectCard({ project }: { project: Project }) {
         <div className="p-4">
           {/* User Info */}
           <div className="flex items-center space-x-2 mb-3">
-            <Avatar className="h-6 w-6 ring-2 ring-white shadow-sm">
+            <Avatar className="h-6 w-6 ring-2 ring-background-primary shadow-sm">
               <AvatarImage src={project.user.avatar} />
-              <AvatarFallback className="text-xs bg-gradient-to-br from-blue-500 to-purple-600 text-white">
+              <AvatarFallback className="text-xs bg-gradient-to-br from-accent-primary to-accent-secondary text-white">
                 {project.user.name.charAt(0).toUpperCase()}
               </AvatarFallback>
             </Avatar>
             <div className="flex-1 min-w-0">
               <Link 
                 href={`/profile/${project.user.username}`}
-                className="text-sm font-medium text-gray-700 hover:text-gray-900 hover:underline truncate block transition-colors duration-200"
+                className="text-sm font-medium text-text-secondary hover:text-text-primary hover:underline truncate block transition-colors duration-200"
               >
                 {project.user.name}
               </Link>
@@ -202,7 +202,7 @@ function ProjectCard({ project }: { project: Project }) {
           {/* Project Title */}
           <Link 
             href={`/project/${project.id}`}
-            className="text-base font-semibold text-gray-900 hover:text-blue-600 mb-2 block line-clamp-1 transition-colors duration-200"
+            className="text-base font-semibold text-text-primary hover:text-accent-primary mb-2 block line-clamp-1 transition-colors duration-200"
           >
             {project.title}
           </Link>
@@ -214,7 +214,7 @@ function ProjectCard({ project }: { project: Project }) {
                 <Badge 
                   key={tag} 
                   variant="secondary" 
-                  className="text-xs bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200"
+                  className="text-xs bg-background-tertiary text-text-secondary hover:bg-background-overlay transition-colors duration-200"
                 >
                   {tag}
                 </Badge>
@@ -222,7 +222,7 @@ function ProjectCard({ project }: { project: Project }) {
               {project.tags.length > 2 && (
                 <Badge 
                   variant="secondary" 
-                  className="text-xs bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200"
+                  className="text-xs bg-background-tertiary text-text-secondary hover:bg-background-overlay transition-colors duration-200"
                 >
                   +{project.tags.length - 2}
                 </Badge>
@@ -231,7 +231,7 @@ function ProjectCard({ project }: { project: Project }) {
           )}
 
           {/* Actions */}
-          <div className="flex items-center justify-between pt-2 border-t border-gray-100">
+          <div className="flex items-center justify-between pt-2 border-t border-border-primary">
             <div className="flex items-center space-x-1">
               <Button
                 variant="ghost"
@@ -241,8 +241,8 @@ function ProjectCard({ project }: { project: Project }) {
                 aria-label={liked ? 'Unlike project' : 'Like project'}
                 className={`h-8 px-2 rounded-md transition-all duration-200 ${
                   liked 
-                    ? 'text-red-500 bg-red-50 hover:bg-red-100' 
-                    : 'text-gray-500 hover:text-red-500 hover:bg-red-50'
+                    ? 'text-accent-pink bg-accent-pink/10 hover:bg-accent-pink/20' 
+                    : 'text-text-muted hover:text-accent-pink hover:bg-accent-pink/10'
                 } ${isLiking ? 'animate-pulse' : ''}`}
               >
                 <Heart className={`h-4 w-4 mr-1 transition-all duration-200 ${liked ? 'fill-current scale-110' : ''} ${isLiking ? 'animate-bounce' : ''}`} />
@@ -252,7 +252,7 @@ function ProjectCard({ project }: { project: Project }) {
                 variant="ghost" 
                 size="sm" 
                 aria-label={`${project.comments} comments`}
-                className="h-8 px-2 rounded-md text-gray-500 hover:text-blue-500 hover:bg-blue-50 transition-all duration-200"
+                className="h-8 px-2 rounded-md text-text-muted hover:text-accent-primary hover:bg-accent-primary/10 transition-all duration-200"
               >
                 <MessageCircle className="h-4 w-4 mr-1" />
                 <span className="text-sm font-medium">{project.comments}</span>
@@ -262,7 +262,7 @@ function ProjectCard({ project }: { project: Project }) {
               variant="ghost" 
               size="sm" 
               aria-label="Share project"
-              className="h-8 w-8 p-0 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-all duration-200"
+              className="h-8 w-8 p-0 rounded-md text-text-muted hover:text-text-secondary hover:bg-background-tertiary transition-all duration-200"
             >
               <Share className="h-4 w-4" />
             </Button>

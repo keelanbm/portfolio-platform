@@ -118,19 +118,19 @@ export function ImageUpload({
         {...getRootProps()}
         className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
           isDragActive
-            ? 'border-blue-500 bg-blue-50'
-            : 'border-gray-300 hover:border-gray-400'
+            ? 'border-accent-primary bg-accent-primary/10'
+            : 'border-border-secondary hover:border-border-accent'
         }`}
       >
         <input {...getInputProps()} />
-        <Upload className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-        <p className="text-lg font-medium text-gray-900 mb-2">
+        <Upload className="mx-auto h-12 w-12 text-text-secondary mb-4" />
+        <p className="text-lg font-medium text-text-primary mb-2">
           {isDragActive ? 'Drop images here' : 'Drag & drop images here'}
         </p>
-        <p className="text-sm text-gray-600 mb-4">
+        <p className="text-sm text-text-secondary mb-4">
           or click to select files
         </p>
-        <div className="text-xs text-gray-500 space-y-1">
+        <div className="text-xs text-text-muted space-y-1">
           <p>Supported formats: JPEG, PNG, WebP</p>
           <p>Maximum file size: {formatBytes(maxFileSize)}</p>
           <p>Maximum files: {maxFiles}</p>
@@ -139,9 +139,9 @@ export function ImageUpload({
 
       {/* Error Messages */}
       {errors.length > 0 && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-          <h4 className="text-sm font-medium text-red-800 mb-2">Upload Errors:</h4>
-          <ul className="text-sm text-red-700 space-y-1">
+        <div className="bg-accent-error/10 border border-accent-error/20 rounded-lg p-4">
+          <h4 className="text-sm font-medium text-accent-error mb-2">Upload Errors:</h4>
+          <ul className="text-sm text-accent-error/80 space-y-1">
             {errors.map((error, index) => (
               <li key={index}>• {error}</li>
             ))}
@@ -153,10 +153,10 @@ export function ImageUpload({
       {uploadedFiles.length > 0 && (
         <div>
           <div className="flex items-center justify-between mb-3">
-            <h4 className="text-sm font-medium text-gray-900">
+            <h4 className="text-sm font-medium text-text-primary">
               Uploaded Images ({uploadedFiles.length}/{maxFiles})
             </h4>
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-text-secondary">
               Click checkbox to set cover image
             </span>
           </div>
@@ -209,10 +209,10 @@ export function ImageUpload({
                     )}
                   </div>
                   <div className="mt-2">
-                    <p className="text-xs font-medium text-gray-900 truncate">
+                    <p className="text-xs font-medium text-text-primary truncate">
                       {file.name}
                     </p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-text-secondary">
                       {formatBytes(file.size)}
                     </p>
                   </div>

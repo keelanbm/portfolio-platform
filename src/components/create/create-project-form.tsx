@@ -109,8 +109,8 @@ export function CreateProjectForm() {
       {/* Left Column - Form */}
       <div className="space-y-6">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Create New Project</h2>
-          <p className="text-gray-600">
+          <h2 className="text-2xl font-bold text-text-primary mb-2">Create New Project</h2>
+          <p className="text-text-secondary">
             Share your creative work with the community
           </p>
         </div>
@@ -118,8 +118,8 @@ export function CreateProjectForm() {
         {/* Image Upload */}
         <Card>
           <CardHeader>
-            <CardTitle>Upload Images</CardTitle>
-            <p className="text-sm text-gray-600">
+            <CardTitle className="text-text-primary">Upload Images</CardTitle>
+            <p className="text-sm text-text-secondary">
               Upload up to {constraints.slidesPerProject} images for your project.
               Recommended size: {DIMENSIONS.recommendedRatio} ({DIMENSIONS.minWidth}x{DIMENSIONS.minHeight} minimum)
             </p>
@@ -139,8 +139,8 @@ export function CreateProjectForm() {
         {/* Project Details */}
         <Card>
           <CardHeader>
-            <CardTitle>Project Details</CardTitle>
-            <p className="text-sm text-gray-600">
+            <CardTitle className="text-text-primary">Project Details</CardTitle>
+            <p className="text-sm text-text-secondary">
               Tell us about your project
             </p>
           </CardHeader>
@@ -173,8 +173,8 @@ export function CreateProjectForm() {
         {/* Tags */}
         <Card>
           <CardHeader>
-            <CardTitle>Add Tags</CardTitle>
-            <p className="text-sm text-gray-600">
+            <CardTitle className="text-text-primary">Add Tags</CardTitle>
+            <p className="text-sm text-text-secondary">
               Help others discover your work with relevant tags
             </p>
           </CardHeader>
@@ -200,8 +200,8 @@ export function CreateProjectForm() {
       {/* Right Column - Preview */}
       <div className="lg:sticky lg:top-8 lg:h-fit">
         <div className="mb-4">
-          <h3 className="text-lg font-semibold text-gray-900">Preview</h3>
-          <p className="text-sm text-gray-600">How your project will appear</p>
+          <h3 className="text-lg font-semibold text-text-primary">Preview</h3>
+          <p className="text-sm text-text-secondary">How your project will appear</p>
         </div>
         
         <ProjectPreview projectData={projectData} user={user} />
