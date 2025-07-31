@@ -115,10 +115,14 @@ export function Header() {
           ) : (
             <div className="flex items-center space-x-2">
               <SignInButton mode="modal">
-                <Button variant="ghost">Sign in</Button>
+                <Button variant="ghost" className="text-text-secondary hover:text-text-primary hover:bg-background-tertiary">
+                  Sign in
+                </Button>
               </SignInButton>
               <SignInButton mode="modal">
-                <Button>Get started</Button>
+                <Button className="btn-primary">
+                  Get started
+                </Button>
               </SignInButton>
             </div>
           )}

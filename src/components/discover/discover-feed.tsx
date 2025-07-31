@@ -49,8 +49,8 @@ export function DiscoverFeed() {
             id: '1',
             title: 'Modern Web Design',
             description: 'A clean and modern web design project showcasing minimalist principles and user-centered design.',
-            coverImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
-            images: ['https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop'],
+            coverImage: 'https://picsum.photos/800/600?random=1',
+            images: ['https://picsum.photos/800/600?random=1'],
             tags: ['web design', 'minimalist', 'modern'],
             likes: 42,
             comments: 8,
@@ -59,7 +59,7 @@ export function DiscoverFeed() {
               id: '1',
               username: 'johndoe',
               name: 'John Doe',
-              avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
+              avatar: 'https://picsum.photos/100/100?random=10',
               isFollowing: false
             }
           },
@@ -67,8 +67,8 @@ export function DiscoverFeed() {
             id: '2',
             title: 'Mobile App UI Kit',
             description: 'Complete UI kit for mobile applications with 50+ components and dark/light themes.',
-            coverImage: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=600&fit=crop',
-            images: ['https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=600&fit=crop'],
+            coverImage: 'https://picsum.photos/800/600?random=2',
+            images: ['https://picsum.photos/800/600?random=2'],
             tags: ['mobile', 'ui kit', 'components'],
             likes: 128,
             comments: 23,
@@ -77,7 +77,7 @@ export function DiscoverFeed() {
               id: '2',
               username: 'janedoe',
               name: 'Jane Doe',
-              avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face',
+              avatar: 'https://picsum.photos/100/100?random=11',
               isFollowing: true
             }
           },
@@ -85,8 +85,8 @@ export function DiscoverFeed() {
             id: '3',
             title: 'Brand Identity Design',
             description: 'Complete brand identity package including logo, color palette, and brand guidelines.',
-            coverImage: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&h=600&fit=crop',
-            images: ['https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&h=600&fit=crop'],
+            coverImage: 'https://picsum.photos/800/600?random=3',
+            images: ['https://picsum.photos/800/600?random=3'],
             tags: ['branding', 'logo', 'identity'],
             likes: 89,
             comments: 15,
@@ -95,7 +95,7 @@ export function DiscoverFeed() {
               id: '3',
               username: 'mikecreative',
               name: 'Mike Creative',
-              avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
+              avatar: 'https://picsum.photos/100/100?random=12',
               isFollowing: false
             }
           },
@@ -103,8 +103,8 @@ export function DiscoverFeed() {
             id: '4',
             title: 'Dashboard UI Design',
             description: 'Modern analytics dashboard with data visualization and interactive charts.',
-            coverImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
-            images: ['https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop'],
+            coverImage: 'https://picsum.photos/800/600?random=4',
+            images: ['https://picsum.photos/800/600?random=4'],
             tags: ['dashboard', 'analytics', 'ui design'],
             likes: 156,
             comments: 31,
@@ -113,7 +113,7 @@ export function DiscoverFeed() {
               id: '4',
               username: 'sarahdesigner',
               name: 'Sarah Designer',
-              avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face',
+              avatar: 'https://picsum.photos/100/100?random=13',
               isFollowing: true
             }
           },
@@ -121,8 +121,8 @@ export function DiscoverFeed() {
             id: '5',
             title: 'E-commerce Website',
             description: 'Complete e-commerce platform with product catalog and shopping cart functionality.',
-            coverImage: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop',
-            images: ['https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop'],
+            coverImage: 'https://picsum.photos/800/600?random=5',
+            images: ['https://picsum.photos/800/600?random=5'],
             tags: ['e-commerce', 'web design', 'shopping'],
             likes: 203,
             comments: 45,
@@ -131,7 +131,7 @@ export function DiscoverFeed() {
               id: '5',
               username: 'alexkim',
               name: 'Alex Kim',
-              avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
+              avatar: 'https://picsum.photos/100/100?random=14',
               isFollowing: false
             }
           },
@@ -370,6 +370,7 @@ function ProjectCard({ project }: { project: Project }) {
   const [liked, setLiked] = useState(false)
   const [likeCount, setLikeCount] = useState(project.likes)
   const [isFollowing, setIsFollowing] = useState(project.user.isFollowing)
+  const [imageError, setImageError] = useState(false)
 
   const handleLike = () => {
     setLiked(!liked)
@@ -382,18 +383,35 @@ function ProjectCard({ project }: { project: Project }) {
     // TODO: Call API to follow/unfollow
   }
 
+  const handleImageError = () => {
+    setImageError(true)
+  }
+
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition-all duration-200 group">
+    <Card className="overflow-hidden hover:shadow-lg transition-all duration-200 group bg-background-secondary border-border-primary">
       <CardContent className="p-0">
         {/* Project Image */}
-        <div className="relative aspect-[4/3] bg-muted overflow-hidden">
-          <img
-            src={project.coverImage}
-            alt={project.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
-          />
+        <div className="relative aspect-[4/3] bg-background-tertiary overflow-hidden">
+          {imageError ? (
+            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-accent-primary/20 to-accent-secondary/20">
+              <div className="text-center">
+                <div className="w-16 h-16 mx-auto mb-2 rounded-full bg-accent-primary/30 flex items-center justify-center">
+                  <span className="text-2xl">🎨</span>
+                </div>
+                <p className="text-sm text-text-secondary">Image unavailable</p>
+              </div>
+            </div>
+          ) : (
+            <img
+              src={project.coverImage}
+              alt={project.title}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+              onError={handleImageError}
+              loading="lazy"
+            />
+          )}
           {project.images.length > 1 && (
-            <Badge className="absolute top-3 right-3 text-xs">
+            <Badge className="absolute top-3 right-3 text-xs bg-background-overlay/80 text-text-primary">
               {project.images.length} images
             </Badge>
           )}
@@ -405,7 +423,7 @@ function ProjectCard({ project }: { project: Project }) {
           <div className="flex items-center space-x-2 mb-2 mt-2">
             <Avatar className="h-6 w-6">
               <AvatarImage src={project.user.avatar} />
-              <AvatarFallback className="text-xs">
+              <AvatarFallback className="text-xs bg-accent-primary/20 text-accent-primary">
                 {project.user.name.charAt(0).toUpperCase()}
               </AvatarFallback>
             </Avatar>
