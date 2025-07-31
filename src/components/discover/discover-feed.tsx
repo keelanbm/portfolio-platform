@@ -98,6 +98,204 @@ export function DiscoverFeed() {
               avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
               isFollowing: false
             }
+          },
+          {
+            id: '4',
+            title: 'Dashboard UI Design',
+            description: 'Modern analytics dashboard with data visualization and interactive charts.',
+            coverImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
+            images: ['https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop'],
+            tags: ['dashboard', 'analytics', 'ui design'],
+            likes: 156,
+            comments: 31,
+            createdAt: '2024-01-12T14:20:00Z',
+            user: {
+              id: '4',
+              username: 'sarahdesigner',
+              name: 'Sarah Designer',
+              avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face',
+              isFollowing: true
+            }
+          },
+          {
+            id: '5',
+            title: 'E-commerce Website',
+            description: 'Complete e-commerce platform with product catalog and shopping cart functionality.',
+            coverImage: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop',
+            images: ['https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop'],
+            tags: ['e-commerce', 'web design', 'shopping'],
+            likes: 203,
+            comments: 45,
+            createdAt: '2024-01-11T11:15:00Z',
+            user: {
+              id: '5',
+              username: 'alexkim',
+              name: 'Alex Kim',
+              avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
+              isFollowing: false
+            }
+          },
+          {
+            id: '6',
+            title: 'Illustration Series',
+            description: 'Collection of hand-drawn illustrations for children\'s books and educational materials.',
+            coverImage: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop',
+            images: ['https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop'],
+            tags: ['illustration', 'children', 'art'],
+            likes: 67,
+            comments: 12,
+            createdAt: '2024-01-10T16:30:00Z',
+            user: {
+              id: '6',
+              username: 'lilypark',
+              name: 'Lily Park',
+              avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face',
+              isFollowing: true
+            }
+          },
+          {
+            id: '7',
+            title: 'Fitness App Interface',
+            description: 'Mobile app design for fitness tracking with workout plans and progress monitoring.',
+            coverImage: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop',
+            images: ['https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop'],
+            tags: ['fitness', 'mobile app', 'ui design'],
+            likes: 134,
+            comments: 28,
+            createdAt: '2024-01-09T09:45:00Z',
+            user: {
+              id: '7',
+              username: 'emmathompson',
+              name: 'Emma Thompson',
+              avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face',
+              isFollowing: false
+            }
+          },
+          {
+            id: '8',
+            title: 'Restaurant Branding',
+            description: 'Complete branding package for a modern restaurant including logo, menu design, and signage.',
+            coverImage: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop',
+            images: ['https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop'],
+            tags: ['restaurant', 'branding', 'print design'],
+            likes: 98,
+            comments: 19,
+            createdAt: '2024-01-08T13:20:00Z',
+            user: {
+              id: '8',
+              username: 'marcusrodriguez',
+              name: 'Marcus Rodriguez',
+              avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
+              isFollowing: true
+            }
+          },
+          {
+            id: '9',
+            title: 'Social Media App',
+            description: 'Modern social media platform with photo sharing and community features.',
+            coverImage: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop',
+            images: ['https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop'],
+            tags: ['social media', 'mobile app', 'ui design'],
+            likes: 187,
+            comments: 42,
+            createdAt: '2024-01-07T10:10:00Z',
+            user: {
+              id: '9',
+              username: 'davidchen',
+              name: 'David Chen',
+              avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
+              isFollowing: false
+            }
+          },
+          {
+            id: '10',
+            title: 'Travel Website Design',
+            description: 'Comprehensive travel booking platform with destination guides and booking system.',
+            coverImage: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&h=600&fit=crop',
+            images: ['https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&h=600&fit=crop'],
+            tags: ['travel', 'web design', 'booking'],
+            likes: 145,
+            comments: 33,
+            createdAt: '2024-01-06T15:30:00Z',
+            user: {
+              id: '10',
+              username: 'sophiawang',
+              name: 'Sophia Wang',
+              avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face',
+              isFollowing: true
+            }
+          },
+          {
+            id: '11',
+            title: 'Product Packaging Design',
+            description: 'Creative packaging solutions for consumer products with sustainable materials.',
+            coverImage: 'https://images.unsplash.com/photo-1607082349566-187342175e2f?w=800&h=600&fit=crop',
+            images: ['https://images.unsplash.com/photo-1607082349566-187342175e2f?w=800&h=600&fit=crop'],
+            tags: ['packaging', 'product design', 'sustainable'],
+            likes: 76,
+            comments: 14,
+            createdAt: '2024-01-05T12:45:00Z',
+            user: {
+              id: '11',
+              username: 'jessicagarcia',
+              name: 'Jessica Garcia',
+              avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face',
+              isFollowing: false
+            }
+          },
+          {
+            id: '12',
+            title: 'Banking App Interface',
+            description: 'Secure and user-friendly banking application with transaction history and payment features.',
+            coverImage: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop',
+            images: ['https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop'],
+            tags: ['banking', 'fintech', 'ui design'],
+            likes: 167,
+            comments: 38,
+            createdAt: '2024-01-04T08:20:00Z',
+            user: {
+              id: '12',
+              username: 'robertlee',
+              name: 'Robert Lee',
+              avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
+              isFollowing: true
+            }
+          },
+          {
+            id: '13',
+            title: 'Event Poster Collection',
+            description: 'Series of event posters for music festivals and cultural events with bold typography.',
+            coverImage: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop',
+            images: ['https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop'],
+            tags: ['poster design', 'typography', 'events'],
+            likes: 92,
+            comments: 21,
+            createdAt: '2024-01-03T17:15:00Z',
+            user: {
+              id: '13',
+              username: 'amandawright',
+              name: 'Amanda Wright',
+              avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face',
+              isFollowing: false
+            }
+          },
+          {
+            id: '14',
+            title: 'Healthcare App Design',
+            description: 'Patient portal and healthcare management system with appointment scheduling and medical records.',
+            coverImage: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800&h=600&fit=crop',
+            images: ['https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800&h=600&fit=crop'],
+            tags: ['healthcare', 'medical', 'ui design'],
+            likes: 123,
+            comments: 26,
+            createdAt: '2024-01-02T11:30:00Z',
+            user: {
+              id: '14',
+              username: 'michaelbrown',
+              name: 'Michael Brown',
+              avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
+              isFollowing: true
+            }
           }
         ]
         

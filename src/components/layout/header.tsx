@@ -22,7 +22,7 @@ export function Header() {
 
   return (
     <header className="border-b border-border-primary bg-background-secondary/95 backdrop-blur supports-[backdrop-filter]:bg-background-secondary/60 sticky top-0 z-50">
-      <div className="w-full px-6 flex h-16 items-center">
+      <div className="w-full px-6 flex h-16 items-center justify-between">
         {/* Logo */}
         <div className="flex-shrink-0">
           <Link href="/" className="flex items-center space-x-2">
@@ -32,7 +32,7 @@ export function Header() {
         </div>
 
         {/* Permanent Search Bar - Desktop */}
-        <div className="hidden md:flex flex-1 max-w-md mx-auto">
+        <div className="hidden md:flex flex-1 max-w-md mx-auto px-8">
           <form onSubmit={handleSearch} className="w-full">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -47,6 +47,28 @@ export function Header() {
           </form>
         </div>
 
+        {/* Main Navigation - Desktop */}
+        <div className="hidden md:flex items-center space-x-8">
+          {/* Discover - Always visible */}
+          <Link href="/discover" className="text-text-secondary hover:text-text-primary transition-colors duration-200 font-medium">
+            Discover
+          </Link>
+
+          {/* Feed - Authenticated only */}
+          {isSignedIn && (
+            <Link href="/feed" className="text-text-secondary hover:text-text-primary transition-colors duration-200 font-medium">
+              Feed
+            </Link>
+          )}
+
+          {/* Profile - Authenticated only */}
+          {isSignedIn && (
+            <Link href={`/profile/${user?.username || user?.id}`} className="text-text-secondary hover:text-text-primary transition-colors duration-200 font-medium">
+              Profile
+            </Link>
+          )}
+        </div>
+
         {/* Auth Section */}
         <div className="flex-shrink-0 flex items-center space-x-4">
           {isSignedIn ? (
@@ -59,7 +81,7 @@ export function Header() {
                 </Link>
               </Button>
 
-              {/* User Menu */}
+              {/* User Menu - Simplified */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="sm" className="relative h-8 w-8 rounded-full">
@@ -81,17 +103,11 @@ export function Header() {
                   </div>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <Link href="/profile">Profile</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
                     <Link href="/settings">Settings</Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                    <Link href="/feed">Activity Feed</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/discover">Discover</Link>
+                  <DropdownMenuItem>
+                    <UserButton afterSignOutUrl="/" />
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -117,8 +133,8 @@ export function Header() {
       </div>
 
       {/* Mobile Search Bar */}
-              <div className="md:hidden border-t border-border-primary">
-          <div className="w-full px-6 py-2">
+      <div className="md:hidden border-t border-border-primary">
+        <div className="w-full px-6 py-2">
           <form onSubmit={handleSearch}>
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-text-muted" />
