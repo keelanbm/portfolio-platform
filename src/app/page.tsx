@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Upload, Users, Zap, Heart, MessageCircle, Share } from "lucide-react";
+import { ArrowRight, Upload, Users, Zap, Heart, Share } from "lucide-react";
 
 export default function Home() {
   // Sample projects for the carousel
