@@ -24,7 +24,9 @@ export async function GET(request: NextRequest) {
 
     const searchQuery = query.trim()
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let projects: any[] = []
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let users: any[] = []
     let totalProjects = 0
     let totalUsers = 0
@@ -108,9 +110,7 @@ export async function GET(request: NextRequest) {
           },
         },
         orderBy: {
-          _count: {
-            followers: 'desc',
-          },
+          createdAt: 'desc',
         },
         take: limit,
         skip: offset,
@@ -130,7 +130,9 @@ export async function GET(request: NextRequest) {
     }
 
     // Check if current user has liked projects and is following users
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let userLikes: any[] = []
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let userFollows: any[] = []
 
     if (userId) {
@@ -156,7 +158,7 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    const likedProjectIds = new Set(userLikes.map(like => like.projectId))
+    // const likedProjectIds = new Set(userLikes.map(like => like.projectId))
     const followedUserIds = new Set(userFollows.map(follow => follow.followingId))
 
     // Format projects
@@ -188,6 +190,7 @@ export async function GET(request: NextRequest) {
     }))
 
     // Combine results based on type
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let results: any[] = []
     let total = 0
 

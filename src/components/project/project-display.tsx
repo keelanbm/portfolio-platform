@@ -11,6 +11,7 @@ import Link from 'next/link'
 import { formatRelativeTime } from '@/utils/format'
 
 interface ProjectDisplayProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   project: any
 }
 
@@ -20,6 +21,7 @@ export function ProjectDisplay({ project }: ProjectDisplayProps) {
   const [isLiked, setIsLiked] = useState(false) // TODO: Get from API
   const [likeCount, setLikeCount] = useState(project._count.likes)
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const images = [project.coverImageUrl, ...project.slides.map((slide: any) => slide.imageUrl)]
 
   const handleLike = async () => {

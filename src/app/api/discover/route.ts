@@ -14,7 +14,10 @@ export async function GET(request: NextRequest) {
     const offset = (page - 1) * limit
 
     // Build where clause
-    const where: any = {
+    const where: {
+      isPublic: boolean
+      tags?: { has: string }
+    } = {
       isPublic: true,
     }
 
@@ -25,7 +28,10 @@ export async function GET(request: NextRequest) {
     }
 
     // Build order by clause
-    let orderBy: any = {}
+    const orderBy: {
+      createdAt?: 'asc' | 'desc'
+      likeCount?: 'asc' | 'desc'
+    } = {}
     switch (sortBy) {
       case 'recent':
         orderBy.createdAt = 'desc'
@@ -77,8 +83,8 @@ export async function GET(request: NextRequest) {
     const projectIds = projects.map(p => p.id)
     const userIds = projects.map(p => p.user.id)
 
-    let userLikes: any[] = []
-    let userFollows: any[] = []
+    let userLikes: Array<{ projectId: string }> = []
+    let userFollows: Array<{ followingId: string }> = []
 
     if (userId) {
       [userLikes, userFollows] = await Promise.all([

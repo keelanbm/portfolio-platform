@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
       const file = images[i]
       const fileName = `${projectId}/slide_${i + 1}.${file.name.split('.').pop()}`
       
-      const { data, error } = await supabase.storage
+      const { error } = await supabase.storage
         .from('project-images')
         .upload(fileName, file, {
           cacheControl: '3600',
@@ -114,7 +114,7 @@ export async function POST(request: NextRequest) {
     })
 
     // Create project slides
-    const slides = await Promise.all(
+    await Promise.all(
       uploadedUrls.map((url, index) =>
         prisma.projectSlide.create({
           data: {

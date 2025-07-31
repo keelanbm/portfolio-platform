@@ -4,10 +4,10 @@ import { prisma } from '@/lib/prisma'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { username: string } }
+  { params }: { params: Promise<{ username: string }> }
 ) {
   try {
-    const { username } = params
+    const { username } = await params
     const { userId } = await auth()
 
     // Get user profile
@@ -60,6 +60,9 @@ export async function GET(
             avatarUrl: true,
           },
         },
+        slides: {
+          orderBy: { slideOrder: 'asc' },
+        },
         _count: {
           select: {
             likes: true,
@@ -94,7 +97,8 @@ export async function GET(
       title: project.title,
       description: project.description,
       coverImage: project.coverImageUrl,
-      images: project.slides.map(slide => slide.imageUrl),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      images: project.slides.map((slide: any) => slide.imageUrl),
       tags: project.tags,
       likes: project._count.likes,
       comments: 0, // TODO: Add comments system

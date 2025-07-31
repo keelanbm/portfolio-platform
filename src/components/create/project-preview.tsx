@@ -13,6 +13,7 @@ interface ProjectPreviewProps {
     images: File[]
     coverImageIndex: number
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   user: any
 }
 

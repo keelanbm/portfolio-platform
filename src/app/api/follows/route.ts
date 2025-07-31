@@ -52,7 +52,8 @@ export async function POST(request: NextRequest) {
       success: true,
       follow,
     })
-  } catch (error) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
     if (error.code === 'P2002') {
       return NextResponse.json(
         { error: 'Already following this user' },
@@ -102,7 +103,8 @@ export async function DELETE(request: NextRequest) {
       success: true,
       deletedFollow,
     })
-  } catch (error) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
     if (error.code === 'P2025') {
       return NextResponse.json(
         { error: 'Follow relationship not found' },

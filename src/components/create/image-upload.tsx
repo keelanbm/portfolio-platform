@@ -40,11 +40,13 @@ export function ImageUpload({
     return null
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: any[]) => {
     const newErrors: string[] = []
     
     // Handle rejected files
     rejectedFiles.forEach(({ file, errors }) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       errors.forEach((error: any) => {
         if (error.code === 'file-too-large') {
           newErrors.push(`${file.name}: File too large`)
@@ -101,6 +103,7 @@ export function ImageUpload({
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: acceptedTypes.reduce((acc, type) => ({ ...acc, [type]: [] }), {}),

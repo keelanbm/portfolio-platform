@@ -5,11 +5,11 @@ import { ProjectDisplaySkeleton } from '@/components/project/project-display-ske
 import { prisma } from '@/lib/prisma'
 
 interface ProjectPageProps {
-  params: { projectId: string }
+  params: Promise<{ projectId: string }>
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
-  const { projectId } = params
+  const { projectId } = await params
 
   // Check if project exists
   const project = await prisma.project.findUnique({

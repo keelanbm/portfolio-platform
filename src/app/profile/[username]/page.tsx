@@ -4,11 +4,11 @@ import { UserProfileSkeleton } from '@/components/profile/user-profile-skeleton'
 import { notFound } from 'next/navigation'
 
 interface ProfilePageProps {
-  params: { username: string }
+  params: Promise<{ username: string }>
 }
 
-export default function ProfilePage({ params }: ProfilePageProps) {
-  const { username } = params
+export default async function ProfilePage({ params }: ProfilePageProps) {
+  const { username } = await params
 
   if (!username) {
     notFound()

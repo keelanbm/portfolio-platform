@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma'
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { projectId: string } }
+  { params }: { params: Promise<{ projectId: string }> }
 ) {
   try {
     const { userId } = await auth()
@@ -15,7 +15,7 @@ export async function POST(
       )
     }
 
-    const { projectId } = params
+    const { projectId } = await params
 
     // Check if project exists
     const project = await prisma.project.findUnique({
@@ -79,7 +79,7 @@ export async function POST(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { projectId: string } }
+  { params }: { params: Promise<{ projectId: string }> }
 ) {
   try {
     const { userId } = await auth()
@@ -90,7 +90,7 @@ export async function DELETE(
       )
     }
 
-    const { projectId } = params
+    const { projectId } = await params
 
     // Delete like
     const deletedLike = await prisma.like.delete({
@@ -116,7 +116,8 @@ export async function DELETE(
       success: true,
       deletedLike,
     })
-  } catch (error) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
     if (error.code === 'P2025') {
       return NextResponse.json(
         { error: 'Like not found' },

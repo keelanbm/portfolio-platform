@@ -3,11 +3,12 @@ import { SearchResults } from '@/components/search/search-results'
 import { SearchResultsSkeleton } from '@/components/search/search-results-skeleton'
 
 interface SearchPageProps {
-  searchParams: { q?: string }
+  searchParams: Promise<{ q?: string }>
 }
 
-export default function SearchPage({ searchParams }: SearchPageProps) {
-  const query = searchParams.q || ''
+export default async function SearchPage({ searchParams }: SearchPageProps) {
+  const { q } = await searchParams
+  const query = q || ''
 
   return (
     <div className="container py-8">
