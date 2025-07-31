@@ -1,0 +1,148 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String    @id @default(cuid())
+  email           String    @unique
+  username        String    @unique
+  displayName     String?
+  bio             String?
+  avatarUrl       String?
+  websiteUrl      String?
+  location        String?
+  walletAddress   String? @unique
+  subscriptionTier SubscriptionTier @default(FREE)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  // Relations
+  projects        Project[]
+  likes           Like[]
+  saves           Save[]
+  followers       Follow[]  @relation("UserFollowers")
+  following       Follow[]  @relation("UserFollowing")
+  nftMints        NftMint[]
+
+  @@map("users")
+}
+
+model Project {
+  id              String    @id @default(cuid())
+  userId          String
+  title           String
+  description     String?
+  coverImageUrl   String
+  slideCount      Int       @default(0)
+  tags            String[]
+  viewCount       Int       @default(0)
+  likeCount       Int       @default(0)
+  isPublic        Boolean   @default(true)
+  ipfsHash        String?
+  contractAddress String?
+  tokenId         String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  // Relations
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  slides          ProjectSlide[]
+  likes           Like[]
+  saves           Save[]
+  nftMints        NftMint[]
+
+  @@map("projects")
+}
+
+model ProjectSlide {
+  id          String   @id @default(cuid())
+  projectId   String
+  imageUrl    String
+  slideOrder  Int
+  createdAt   DateTime @default(now())
+
+  // Relations
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@map("project_slides")
+}
+
+model Like {
+  id        String   @id @default(cuid())
+  userId    String
+  projectId String
+  createdAt DateTime @default(now())
+
+  // Relations
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, projectId])
+  @@map("likes")
+}
+
+model Save {
+  id        String   @id @default(cuid())
+  userId    String
+  projectId String
+  createdAt DateTime @default(now())
+
+  // Relations
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, projectId])
+  @@map("saves")
+}
+
+model Follow {
+  id           String   @id @default(cuid())
+  followerId   String
+  followingId  String
+  createdAt    DateTime @default(now())
+
+  // Relations
+  follower     User     @relation("UserFollowers", fields: [followerId], references: [id], onDelete: Cascade)
+  following    User     @relation("UserFollowing", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId])
+  @@map("follows")
+}
+
+model Tag {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  usageCount  Int      @default(0)
+  isFeatured  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  @@map("tags")
+}
+
+model NftMint {
+  id              String   @id @default(cuid())
+  projectId       String
+  minterWallet    String
+  transactionHash String
+  mintPrice       Decimal?
+  createdAt       DateTime @default(now())
+
+  // Relations
+  project         Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user            User     @relation(fields: [minterWallet], references: [walletAddress], onDelete: Cascade)
+
+  @@map("nft_mints")
+}
+
+enum SubscriptionTier {
+  FREE
+  PRO
+}
