@@ -22,7 +22,7 @@ export function Header() {
 
   return (
     <header className="border-b border-border-primary bg-background-secondary/95 backdrop-blur supports-[backdrop-filter]:bg-background-secondary/60 sticky top-0 z-50">
-      <div className="container mx-auto px-4 flex h-16 items-center">
+      <div className="w-full px-6 flex h-16 items-center">
         {/* Logo */}
         <div className="flex-shrink-0">
           <Link href="/" className="flex items-center space-x-2">
@@ -118,7 +118,7 @@ export function Header() {
 
       {/* Mobile Search Bar */}
               <div className="md:hidden border-t border-border-primary">
-          <div className="container mx-auto px-4 py-2">
+          <div className="w-full px-6 py-2">
           <form onSubmit={handleSearch}>
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-text-muted" />

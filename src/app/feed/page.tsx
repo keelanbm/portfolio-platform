@@ -4,10 +4,10 @@ import { ActivityFeedSkeleton } from '@/components/feed/activity-feed-skeleton'
 
 export default function FeedPage() {
   return (
-    <div className="container mx-auto px-4 py-8 max-w-7xl">
+    <div className="w-full px-8 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2 text-gray-900">Activity Feed</h1>
-        <p className="text-gray-600">
+        <h1 className="text-3xl font-bold mb-2 text-text-primary">Activity Feed</h1>
+        <p className="text-text-secondary">
           Latest projects from creators you follow
         </p>
       </div>

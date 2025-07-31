@@ -4,7 +4,7 @@ import { DiscoverFeedSkeleton } from '@/components/discover/discover-feed-skelet
 
 export default function DiscoverPage() {
   return (
-    <div className="container py-8">
+    <div className="w-full px-8 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">Discover</h1>
         <p className="text-muted-foreground">

@@ -57,8 +57,8 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="py-20 px-4 text-center">
-        <div className="container mx-auto max-w-4xl">
+      <section className="py-20 px-8 text-center">
+        <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 text-text-primary">
             Showcase Your Design Work
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-accent-primary to-accent-secondary">
@@ -84,8 +84,8 @@ export default function Home() {
       </section>
 
       {/* Auto-scrolling Projects Carousel */}
-      <section className="py-20 px-4 bg-background-secondary/30">
-        <div className="container mx-auto max-w-7xl">
+      <section className="py-20 px-8 bg-background-secondary/30">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-text-primary">
               Discover Amazing Work

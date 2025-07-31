@@ -11,7 +11,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const query = q || ''
 
   return (
-    <div className="container py-8">
+    <div className="w-full px-8 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">
           {query ? `Search results for "${query}"` : 'Search'}
