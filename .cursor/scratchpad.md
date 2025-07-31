@@ -67,6 +67,16 @@ The user has reported several visual issues with the current PortfolioHub websit
 5. Fixing image upload box text readability
 6. Further optimized card layout with minimal padding and better spacing
 
+🔧 **Latest Fixes:**
+- Fixed full-width content issue by removing `max-w-7xl` constraints
+- Updated layout to use proper container classes for responsive width
+- Content now spans full width while maintaining proper padding
+
+**Session Scratchpad Management:**
+- The `.cursor/scratchpad.md` file should automatically refresh each session
+- If it doesn't refresh, you can manually clear it at the start of each session
+- Consider adding a timestamp or session ID to track when it was last updated
+
 ## Lessons
 - Always test text contrast ratios for accessibility
 - Button borders need sufficient opacity to be visible

@@ -4,7 +4,7 @@ import { CreateProjectSkeleton } from '@/components/create/create-project-skelet
 
 export default function CreateProjectPage() {
   return (
-    <div className="container mx-auto px-4 py-8 max-w-7xl">
+    <div className="container mx-auto px-4 py-8">
       <Suspense fallback={<CreateProjectSkeleton />}>
         <CreateProjectForm />
       </Suspense>

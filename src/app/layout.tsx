@@ -23,14 +23,12 @@ export default function RootLayout({
         className="antialiased min-h-screen bg-background-primary"
       >
         <ClerkProvider>
-          <div className="flex min-h-screen flex-col items-center">
-            <div className="w-full max-w-7xl">
-              <Header />
-              <main className="flex-1">
-                {children}
-              </main>
-              <Footer />
-            </div>
+          <div className="flex min-h-screen flex-col">
+            <Header />
+            <main className="flex-1">
+              {children}
+            </main>
+            <Footer />
           </div>
           <Toaster />
         </ClerkProvider>
