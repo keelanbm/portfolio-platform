@@ -2,6 +2,8 @@
 
 A Web2-first design portfolio platform with optional Web3 features, allowing designers to showcase their work with social media-like feeds, profiles, and interactions.
 
+**Latest Update**: Build errors fixed and ready for deployment! 🚀
+
 ## Features
 
 ### Core Features (MVP)
