@@ -42,7 +42,7 @@ export default function Home() {
               Everything You Need to Showcase Your Work
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              From simple portfolios to advanced Web3 features, we've got you covered.
+              From simple portfolios to advanced Web3 features, we&apos;ve got you covered.
             </p>
           </div>
 

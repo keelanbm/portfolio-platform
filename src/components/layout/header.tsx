@@ -6,7 +6,7 @@ import { UserButton, SignInButton, useUser } from '@clerk/nextjs'
 import { Plus } from 'lucide-react'
 
 export function Header() {
-  const { user, isSignedIn } = useUser()
+  const { isSignedIn } = useUser()
 
   return (
     <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">

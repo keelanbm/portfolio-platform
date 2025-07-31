@@ -277,9 +277,12 @@ NEXT_PUBLIC_APP_URL=
 ## Next Steps Required
 1. ✅ **Clerk Project Setup**: Completed - credentials added to .env.local
 2. ✅ **Supabase Project Setup**: Completed - credentials added to .env.local
-3. **Database Deployment**: Deploy Prisma schema to Supabase
-4. **User Profile Creation**: Create user profiles in database after Clerk signup
-5. **Test Authentication Flow**: Verify signup, login, and dashboard access
+3. ✅ **Database Schema**: Created SQL file for manual deployment
+4. ✅ **GitHub Repository**: Created and pushed to https://github.com/keelanbm/portfolio-platform.git
+5. **Vercel Deployment**: Connect GitHub repository and deploy
+6. **Database Deployment**: Run SQL schema in Supabase SQL editor
+7. **User Profile Creation**: Create user profiles in database after Clerk signup
+8. **Test Authentication Flow**: Verify signup, login, and dashboard access
 
 ## Issues Found & Fixed ✅
 - [x] **File Extension Issue**: Fixed `use-auth.ts` → `use-auth.tsx` (JSX requires .tsx extension)
@@ -294,6 +297,12 @@ NEXT_PUBLIC_APP_URL=
 - [ ] Require smart contract audit before mainnet deployment
 - [ ] Need to determine IPFS pinning redundancy strategy
 - [ ] Clarify marketplace royalty structure for creators
+
+## Database Setup Note
+- [ ] **TODO**: Deploy database schema manually in Supabase SQL editor
+- [ ] **File**: Use `database-schema.sql` for manual deployment
+- [ ] **Issue**: Prisma CLI stalling on database push commands
+- [ ] **Alternative**: Run SQL directly in Supabase dashboard
 
 ## Next Steps Priority
 1. **Immediate**: Complete Phase 1 foundation and core portfolio features

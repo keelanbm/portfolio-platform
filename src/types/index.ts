@@ -1,4 +1,4 @@
-import { User, Project, ProjectSlide, Like, Save, Follow, Tag, NftMint, SubscriptionTier } from '@prisma/client'
+import { User, Project, ProjectSlide, Like, Save, SubscriptionTier } from '@prisma/client'
 
 // User types
 export type UserProfile = Pick<User, 'id' | 'username' | 'displayName' | 'bio' | 'avatarUrl' | 'websiteUrl' | 'location' | 'subscriptionTier' | 'createdAt'>
@@ -68,7 +68,7 @@ export interface UpdateProfileData {
 }
 
 // API Response types
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   success: boolean
   data?: T
   error?: string

@@ -4,7 +4,7 @@ import { useUser, Protect } from '@clerk/nextjs'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Plus, Image, Heart, Bookmark, Users } from 'lucide-react'
+import { Plus, Image as ImageIcon, Heart, Bookmark, Users } from 'lucide-react'
 import Link from 'next/link'
 
 export default function DashboardPage() {
@@ -25,7 +25,7 @@ export default function DashboardPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Projects</CardTitle>
-            <Image className="h-4 w-4 text-muted-foreground" />
+            <ImageIcon className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">0</div>
@@ -136,7 +136,7 @@ export default function DashboardPage() {
         </CardHeader>
         <CardContent>
           <div className="text-center py-8 text-muted-foreground">
-            <Image className="h-12 w-12 mx-auto mb-4 opacity-50" />
+            <ImageIcon className="h-12 w-12 mx-auto mb-4 opacity-50" />
             <p>No activity yet</p>
             <p className="text-sm">Start by uploading your first project!</p>
           </div>

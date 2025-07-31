@@ -5,7 +5,7 @@ import { headers } from 'next/headers'
 
 export async function POST(request: NextRequest) {
   try {
-    const headerPayload = headers()
+    const headerPayload = await headers()
     const svix_id = headerPayload.get("svix-id")
     const svix_timestamp = headerPayload.get("svix-timestamp")
     const svix_signature = headerPayload.get("svix-signature")
@@ -18,7 +18,16 @@ export async function POST(request: NextRequest) {
     const body = JSON.stringify(payload)
 
     const wh = new Webhook(process.env.CLERK_WEBHOOK_SECRET || '')
-    let evt: any
+                    let evt: {
+                  type: string
+                  data: {
+                    id: string
+                    email_addresses?: Array<{ email_address: string }>
+                    username?: string
+                    first_name?: string
+                    last_name?: string
+                  }
+                }
 
     try {
       evt = wh.verify(body, {
