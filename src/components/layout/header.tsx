@@ -32,7 +32,7 @@ export function Header() {
         </div>
 
         {/* Permanent Search Bar - Desktop */}
-        <div className="hidden md:flex flex-1 max-w-md mx-auto px-8">
+        <div className="hidden lg:flex flex-1 max-w-md mx-auto px-8">
           <form onSubmit={handleSearch} className="w-full">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -48,7 +48,7 @@ export function Header() {
         </div>
 
         {/* Main Navigation - Desktop */}
-        <div className="hidden md:flex items-center space-x-6">
+        <div className="hidden lg:flex items-center space-x-6">
           {/* Discover - Always visible */}
           <Link href="/discover" className="text-text-secondary hover:text-text-primary transition-colors duration-200 font-medium">
             Discover
@@ -70,7 +70,7 @@ export function Header() {
         </div>
 
         {/* Auth Section */}
-        <div className="flex-shrink-0 flex items-center space-x-3">
+        <div className="flex-shrink-0 flex items-center space-x-6 ml-8">
           {isSignedIn ? (
             <>
               {/* Create Button */}
@@ -129,7 +129,7 @@ export function Header() {
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="md:hidden flex-shrink-0">
+        <div className="lg:hidden flex-shrink-0">
           <Button variant="ghost" size="sm">
             <Menu className="h-4 w-4" />
           </Button>
@@ -137,7 +137,7 @@ export function Header() {
       </div>
 
       {/* Mobile Search Bar */}
-      <div className="md:hidden border-t border-border-primary">
+      <div className="lg:hidden border-t border-border-primary">
         <div className="w-full px-6 py-2">
           <form onSubmit={handleSearch}>
             <div className="relative">

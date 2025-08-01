@@ -15,7 +15,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
   }
 
   return (
-    <div className="container py-8">
+    <div className="w-full px-8 py-8">
       <Suspense fallback={<UserProfileSkeleton />}>
         <UserProfile username={username} />
       </Suspense>
