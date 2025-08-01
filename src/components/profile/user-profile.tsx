@@ -144,22 +144,28 @@ export function UserProfile({ username }: UserProfileProps) {
   return (
     <div className="space-y-8">
       {/* Profile Header */}
-      <Card>
+      <Card className="bg-background-secondary border-border-primary">
         <CardContent className="p-8">
-          <div className="flex items-start space-x-6">
-            <Avatar className="h-24 w-24">
-              <AvatarImage src={user.avatar} />
-              <AvatarFallback className="text-2xl">
-                {user.name.charAt(0).toUpperCase()}
-              </AvatarFallback>
-            </Avatar>
+          <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+            {/* Avatar Section */}
+            <div className="flex-shrink-0">
+              <Avatar className="h-24 w-24">
+                <AvatarImage src={user.avatar} />
+                <AvatarFallback className="text-2xl bg-accent-primary/20 text-accent-primary">
+                  {user.name.charAt(0).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+            </div>
             
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center space-x-3 mb-2">
-                <h1 className="text-2xl font-bold">{user.name}</h1>
-                <Badge variant="outline">@{user.username}</Badge>
+            {/* Content Section */}
+            <div className="flex-1 min-w-0 text-center md:text-left">
+              <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-3 mb-4">
+                <h1 className="text-2xl font-bold text-text-primary">{user.name}</h1>
+                <Badge variant="outline" className="bg-background-tertiary text-text-secondary border-border-primary">
+                  @{user.username}
+                </Badge>
                 {user.isOwnProfile && (
-                  <Button variant="ghost" size="sm">
+                  <Button variant="ghost" size="sm" className="text-text-secondary hover:text-text-primary hover:bg-background-tertiary">
                     <Settings className="h-4 w-4 mr-2" />
                     Edit Profile
                   </Button>
@@ -167,14 +173,14 @@ export function UserProfile({ username }: UserProfileProps) {
               </div>
               
               {user.bio && (
-                <p className="text-muted-foreground mb-4 max-w-2xl">
+                <p className="text-text-secondary mb-4 max-w-2xl mx-auto md:mx-0">
                   {user.bio}
                 </p>
               )}
               
-              <div className="flex items-center space-x-4 mb-4">
+              <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-4 mb-4">
                 {user.location && (
-                  <span className="text-sm text-muted-foreground">
+                  <span className="text-sm text-text-muted">
                     📍 {user.location}
                   </span>
                 )}
@@ -183,24 +189,24 @@ export function UserProfile({ username }: UserProfileProps) {
                     href={user.website} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-sm text-primary hover:underline"
+                    className="text-sm text-accent-primary hover:underline"
                   >
                     🌐 {user.website.replace(/^https?:\/\//, '')}
                   </a>
                 )}
               </div>
               
-              <div className="flex items-center space-x-6">
+              <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-6">
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button variant="ghost" className="p-0 h-auto">
+                    <Button variant="ghost" className="p-0 h-auto text-text-primary hover:text-accent-primary">
                       <span className="font-semibold">{user.followersCount}</span>
-                      <span className="text-muted-foreground ml-1">followers</span>
+                      <span className="text-text-muted ml-1">followers</span>
                     </Button>
                   </DialogTrigger>
-                  <DialogContent>
+                  <DialogContent className="bg-background-secondary border-border-primary">
                     <DialogHeader>
-                      <DialogTitle>Followers</DialogTitle>
+                      <DialogTitle className="text-text-primary">Followers</DialogTitle>
                     </DialogHeader>
                     <FollowersList />
                   </DialogContent>
@@ -208,48 +214,43 @@ export function UserProfile({ username }: UserProfileProps) {
                 
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button variant="ghost" className="p-0 h-auto">
+                    <Button variant="ghost" className="p-0 h-auto text-text-primary hover:text-accent-primary">
                       <span className="font-semibold">{user.followingCount}</span>
-                      <span className="text-muted-foreground ml-1">following</span>
+                      <span className="text-text-muted ml-1">following</span>
                     </Button>
                   </DialogTrigger>
-                  <DialogContent>
+                  <DialogContent className="bg-background-secondary border-border-primary">
                     <DialogHeader>
-                      <DialogTitle>Following</DialogTitle>
+                      <DialogTitle className="text-text-primary">Following</DialogTitle>
                     </DialogHeader>
                     <FollowingList />
                   </DialogContent>
                 </Dialog>
                 
-                <span className="text-sm text-muted-foreground">
-                  {user.projectsCount} projects
-                </span>
+                <Button variant="ghost" className="p-0 h-auto text-text-primary hover:text-accent-primary">
+                  <span className="font-semibold">{user.projectsCount}</span>
+                  <span className="text-text-muted ml-1">projects</span>
+                </Button>
               </div>
-              
+            </div>
+            
+            {/* Action Buttons */}
+            <div className="flex-shrink-0 flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
               {!user.isOwnProfile && (
-                <div className="mt-4">
+                <>
                   <Button 
                     onClick={handleFollow}
                     variant={user.isFollowing ? "outline" : "default"}
-                    className="mr-3"
+                    className={user.isFollowing ? "btn-secondary" : "btn-primary"}
                   >
-                    {user.isFollowing ? (
-                      <>
-                        <UserPlus className="h-4 w-4 mr-2" />
-                        Following
-                      </>
-                    ) : (
-                      <>
-                        <UserPlus className="h-4 w-4 mr-2" />
-                        Follow
-                      </>
-                    )}
+                    <UserPlus className="h-4 w-4 mr-2" />
+                    {user.isFollowing ? 'Following' : 'Follow'}
                   </Button>
-                  <Button variant="ghost">
+                  <Button variant="outline" className="btn-secondary">
                     <MessageCircle className="h-4 w-4 mr-2" />
                     Message
                   </Button>
-                </div>
+                </>
               )}
             </div>
           </div>
@@ -258,14 +259,14 @@ export function UserProfile({ username }: UserProfileProps) {
 
       {/* Profile Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="projects">
+        <TabsList className="grid w-full grid-cols-3 bg-background-secondary border-border-primary">
+          <TabsTrigger value="projects" className="text-text-secondary data-[state=active]:text-text-primary data-[state=active]:bg-background-tertiary">
             Projects ({projects.length})
           </TabsTrigger>
-          <TabsTrigger value="liked">
+          <TabsTrigger value="liked" className="text-text-secondary data-[state=active]:text-text-primary data-[state=active]:bg-background-tertiary">
             Liked
           </TabsTrigger>
-          <TabsTrigger value="collections">
+          <TabsTrigger value="collections" className="text-text-secondary data-[state=active]:text-text-primary data-[state=active]:bg-background-tertiary">
             Collections
           </TabsTrigger>
         </TabsList>
@@ -279,16 +280,16 @@ export function UserProfile({ username }: UserProfileProps) {
             </div>
           ) : (
             <div className="text-center py-12">
-              <h3 className="text-lg font-semibold mb-2">No projects yet</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-lg font-semibold mb-2 text-text-primary">No projects yet</h3>
+              <p className="text-text-secondary">
                 {user.isOwnProfile 
                   ? "Start creating your first project to showcase your work."
                   : "This user hasn't shared any projects yet."
                 }
               </p>
               {user.isOwnProfile && (
-                <Button asChild className="mt-4">
-                  <Link href="/upload">Create Project</Link>
+                <Button asChild className="mt-4 btn-primary">
+                  <Link href="/create">Create Project</Link>
                 </Button>
               )}
             </div>
@@ -296,8 +297,8 @@ export function UserProfile({ username }: UserProfileProps) {
         </TabsContent>
 
         <TabsContent value="liked" className="text-center py-12">
-          <h3 className="text-lg font-semibold mb-2">Liked Projects</h3>
-          <p className="text-muted-foreground">
+          <h3 className="text-lg font-semibold mb-2 text-text-primary">Liked Projects</h3>
+          <p className="text-text-secondary">
             {user.isOwnProfile 
               ? "Projects you've liked will appear here."
               : "This user's liked projects are private."
@@ -306,8 +307,8 @@ export function UserProfile({ username }: UserProfileProps) {
         </TabsContent>
 
         <TabsContent value="collections" className="text-center py-12">
-          <h3 className="text-lg font-semibold mb-2">Collections</h3>
-          <p className="text-muted-foreground">
+          <h3 className="text-lg font-semibold mb-2 text-text-primary">Collections</h3>
+          <p className="text-text-secondary">
             {user.isOwnProfile 
               ? "Create collections to organize your favorite projects."
               : "This user hasn't created any collections yet."
