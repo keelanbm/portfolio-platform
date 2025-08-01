@@ -22,7 +22,7 @@ export function Header() {
 
   return (
     <header className="border-b border-border-primary bg-background-secondary/95 backdrop-blur supports-[backdrop-filter]:bg-background-secondary/60 sticky top-0 z-50">
-      <div className="w-full px-6 flex h-16 items-center justify-between">
+      <div className="w-full px-8 flex h-16 items-center justify-between">
         {/* Logo */}
         <div className="flex-shrink-0">
           <Link href="/" className="flex items-center space-x-2">
@@ -48,7 +48,7 @@ export function Header() {
         </div>
 
         {/* Main Navigation - Desktop */}
-        <div className="hidden md:flex items-center space-x-8">
+        <div className="hidden md:flex items-center space-x-6">
           {/* Discover - Always visible */}
           <Link href="/discover" className="text-text-secondary hover:text-text-primary transition-colors duration-200 font-medium">
             Discover
@@ -70,7 +70,7 @@ export function Header() {
         </div>
 
         {/* Auth Section */}
-        <div className="flex-shrink-0 flex items-center space-x-4">
+        <div className="flex-shrink-0 flex items-center space-x-3">
           {isSignedIn ? (
             <>
               {/* Create Button */}

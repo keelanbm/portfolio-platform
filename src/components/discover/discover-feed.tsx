@@ -317,7 +317,7 @@ export function DiscoverFeed() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="max-w-7xl mx-auto px-8 space-y-6">
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-4">
         <Select value={sortBy} onValueChange={setSortBy}>

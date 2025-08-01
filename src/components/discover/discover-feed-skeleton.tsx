@@ -3,7 +3,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 
 export function DiscoverFeedSkeleton() {
   return (
-    <div className="space-y-6">
+    <div className="max-w-7xl mx-auto px-8 space-y-6">
       {/* Filters Skeleton */}
       <div className="flex flex-col sm:flex-row gap-4">
         <Skeleton className="h-10 w-48" />
