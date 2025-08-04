@@ -1,0 +1,130 @@
+
+> temp-portfolio@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.4.5
+   - Local:        http://localhost:3000
+   - Network:      http://10.144.27.207:3000
+   - Environments: .env.local, .env
+
+ ✓ Starting...
+ ✓ Ready in 1372ms
+ ✓ Compiled /middleware in 257ms (217 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 2.4s (1407 modules)
+✅ Environment configuration validated successfully
+ HEAD / 200 in 1867ms
+ ✓ Compiled in 205ms (536 modules)
+ GET / 200 in 3270ms
+ ✓ Compiled /favicon.ico in 336ms (876 modules)
+ GET /favicon.ico 200 in 452ms
+ GET /favicon.ico 200 in 7ms
+ GET /favicon.ico 200 in 285ms
+ ✓ Compiled /api/health in 355ms (1408 modules)
+✅ Environment configuration validated successfully
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+✅ Environment configuration validated successfully
+ GET / 200 in 350ms
+ GET /api/health 200 in 1411ms
+ GET /favicon.ico 200 in 11ms
+ GET /favicon.ico 200 in 9ms
+ GET /favicon.ico 200 in 6ms
+ ✓ Compiled /discover in 441ms (1413 modules)
+✅ Environment configuration validated successfully
+ GET /discover 200 in 834ms
+ ✓ Compiled in 196ms (875 modules)
+ ✓ Compiled in 223ms (538 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+✅ Environment configuration validated successfully
+ GET /discover 200 in 502ms
+ ✓ Compiled /favicon.ico in 197ms (880 modules)
+ GET /favicon.ico 200 in 321ms
+ GET /favicon.ico 200 in 396ms
+ ✓ Compiled in 834ms (538 modules)
+✅ Environment configuration validated successfully
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /discover 200 in 330ms
+ GET /favicon.ico 200 in 6ms
+ GET /favicon.ico 200 in 7ms
+ GET /favicon.ico 200 in 6ms
+ ✓ Compiled in 274ms (538 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /discover 200 in 177ms
+ GET /favicon.ico 200 in 10ms
+ GET /favicon.ico 200 in 8ms
+ GET /favicon.ico 200 in 6ms
+ ✓ Compiled in 168ms (538 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /discover 200 in 154ms
+ GET /favicon.ico 200 in 11ms
+ GET /favicon.ico 200 in 6ms
+ GET /favicon.ico 200 in 6ms
+ ✓ Compiled in 170ms (538 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /discover 200 in 138ms
+ GET /favicon.ico 200 in 11ms
+ GET /favicon.ico 200 in 5ms
+ GET /favicon.ico 200 in 16ms
+ ⨯ ./src/lib/env.ts
+Error: 
+
+Caused by:
+    0: Failed to read source code from /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/src/lib/env.ts
+    1: No such file or directory (os error 2)
+
+Import trace for requested module:
+./src/lib/env.ts
+./src/lib/features.ts
+./src/components/layout/header.tsx
+ ⨯ ./src/lib/env.ts
+Error: 
+
+Caused by:
+    0: Failed to read source code from /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/src/lib/env.ts
+    1: No such file or directory (os error 2)
+
+Import trace for requested module:
+./src/lib/env.ts
+./src/lib/features.ts
+./src/components/layout/header.tsx
+ ✓ Compiled in 559ms (1402 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /discover 200 in 1041ms
+ GET /favicon.ico 200 in 172ms
+ GET /favicon.ico 200 in 272ms
+ ○ Compiling /api/notifications ...
+ ✓ Compiled /api/notifications in 1178ms (1427 modules)
+ GET /api/notifications? 200 in 2013ms
+ GET /api/notifications? 200 in 664ms
+ GET /api/discover?sort=recent 200 in 2931ms
+ HEAD / 200 in 527ms
+ ✓ Compiled /api/health in 372ms (885 modules)
+ GET /discover 200 in 162ms
+ GET /api/health 200 in 1328ms
+ GET / 200 in 99ms
+ ✓ Compiled /api/discover in 165ms (904 modules)
+ GET /api/discover?sort=recent 200 in 1802ms
+ GET /api/discover?sort=recent 200 in 1119ms
+ ○ Compiling /project/[projectId] ...
+ ✓ Compiled /project/[projectId] in 793ms (1456 modules)
+ GET /project/proj_1 200 in 2095ms
+ ✓ Compiled /favicon.ico in 137ms (923 modules)
+ GET /favicon.ico 200 in 168ms
+ ✓ Compiled /api/comments in 269ms (1461 modules)
+ GET /api/comments?projectId=proj_1 200 in 1394ms
+ ✓ Compiled /api/comments/[commentId]/like in 209ms (1463 modules)
+ GET /api/comments/cmdv96t1e0003jlsmh0tn0d0x/like 200 in 990ms
+ GET /api/comments?projectId=proj_1 200 in 1077ms
+ GET /api/comments/cmdv96t1e0003jlsmh0tn0d0x/like 200 in 320ms
+ GET /api/comments/cmdv96sm10001jlsmz1oc5fma/like 200 in 1448ms
+ GET /api/comments/cmdv96tk70007jlsmf62euevt/like 200 in 1463ms
+ GET /api/comments/cmdv96taw0005jlsm98kqhpw9/like 200 in 1465ms
+ GET /api/comments/cmdv96sm10001jlsmz1oc5fma/like 200 in 328ms
+ GET /api/comments/cmdv96tk70007jlsmf62euevt/like 200 in 330ms
+ GET /api/comments/cmdv96taw0005jlsm98kqhpw9/like 200 in 330ms
+ ✓ Compiled /feed in 316ms (1478 modules)
+ GET /feed 200 in 411ms
+ GET /favicon.ico 200 in 10ms
+ ✓ Compiled /api/feed in 231ms (1480 modules)
+ GET /api/feed?page=1&limit=12 200 in 608ms
+ GET /api/feed?page=1&limit=12 200 in 325ms

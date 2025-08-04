@@ -1,24 +1,75 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { UserButton, SignInButton, useUser } from '@clerk/nextjs'
-import { Plus, Search, Menu } from 'lucide-react'
+import { Search, Menu, User, LogOut, Clock, TrendingUp } from 'lucide-react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Card, CardContent } from '@/components/ui/card'
+import { NotificationsDropdown } from './notifications-dropdown'
+import { isFeatureEnabled } from '@/lib/features'
 
 export function Header() {
   const { isSignedIn, user } = useUser()
   const [searchQuery, setSearchQuery] = useState('')
+  const [showSuggestions, setShowSuggestions] = useState(false)
+  const [recentSearches, setRecentSearches] = useState<string[]>([])
+  const searchRef = useRef<HTMLDivElement>(null)
 
-  const handleSearch = (e: React.FormEvent) => {
+  // Popular search suggestions
+  const popularSearches = [
+    'web design', 'mobile app', 'ui/ux', 'branding', 
+    'illustration', 'typography', 'dashboard', 'landing page'
+  ]
+
+  // Load recent searches from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem('recentSearches')
+    if (saved) {
+      setRecentSearches(JSON.parse(saved))
+    }
+  }, [])
+
+  // Save search to recent searches
+  const saveSearch = (query: string) => {
+    if (!query.trim()) return
+    
+    const updated = [query, ...recentSearches.filter(s => s !== query)].slice(0, 5)
+    setRecentSearches(updated)
+    localStorage.setItem('recentSearches', JSON.stringify(updated))
+  }
+
+  // Handle search submission
+  const handleSearch = (e: React.FormEvent, query?: string) => {
     e.preventDefault()
-    if (searchQuery.trim()) {
-      // Navigate to search results page
-      window.location.href = `/search?q=${encodeURIComponent(searchQuery.trim())}`
+    const searchTerm = query || searchQuery.trim()
+    if (searchTerm) {
+      saveSearch(searchTerm)
+      setShowSuggestions(false)
+      window.location.href = `/search?q=${encodeURIComponent(searchTerm)}`
     }
   }
+
+  // Handle suggestion click
+  const handleSuggestionClick = (suggestion: string) => {
+    setSearchQuery(suggestion)
+    handleSearch({ preventDefault: () => {} } as React.FormEvent, suggestion)
+  }
+
+  // Close suggestions when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setShowSuggestions(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   return (
     <header className="border-b border-border-primary bg-background-secondary/95 backdrop-blur supports-[backdrop-filter]:bg-background-secondary/60 sticky top-0 z-50">
@@ -31,8 +82,8 @@ export function Header() {
           </Link>
         </div>
 
-        {/* Permanent Search Bar - Desktop */}
-        <div className="hidden lg:flex flex-1 max-w-md mx-auto px-8">
+        {/* Enhanced Search Bar - Desktop */}
+        <div className="hidden lg:flex flex-1 max-w-md mx-auto relative" ref={searchRef}>
           <form onSubmit={handleSearch} className="w-full">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -40,11 +91,62 @@ export function Header() {
                 type="text"
                 placeholder="Search projects, creators..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value)
+                  setShowSuggestions(e.target.value.length > 0)
+                }}
+                onFocus={() => setShowSuggestions(true)}
                 className="pl-10 pr-4 w-full bg-background-tertiary border-border-primary text-text-primary placeholder:text-text-muted"
               />
             </div>
           </form>
+
+          {/* Search Suggestions Dropdown */}
+          {showSuggestions && (
+            <Card className="absolute top-full left-0 right-0 mt-2 z-50 bg-background-secondary border-border-primary shadow-lg">
+              <CardContent className="p-0">
+                {/* Recent Searches */}
+                {recentSearches.length > 0 && (
+                  <div className="p-3 border-b border-border-primary">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <Clock className="h-4 w-4 text-text-muted" />
+                      <span className="text-sm font-medium text-text-secondary">Recent searches</span>
+                    </div>
+                    <div className="space-y-1">
+                      {recentSearches.map((search, index) => (
+                        <button
+                          key={index}
+                          onClick={() => handleSuggestionClick(search)}
+                          className="w-full text-left px-2 py-1.5 text-sm text-text-primary hover:bg-background-tertiary rounded-md transition-colors"
+                        >
+                          {search}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Popular Searches */}
+                <div className="p-3">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <TrendingUp className="h-4 w-4 text-text-muted" />
+                    <span className="text-sm font-medium text-text-secondary">Popular searches</span>
+                  </div>
+                  <div className="flex flex-wrap gap-1">
+                    {popularSearches.map((search) => (
+                      <button
+                        key={search}
+                        onClick={() => handleSuggestionClick(search)}
+                        className="px-2 py-1 text-xs bg-background-tertiary text-text-primary hover:bg-accent-primary hover:text-white rounded-full transition-colors"
+                      >
+                        {search}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </div>
 
         {/* Main Navigation - Desktop */}
@@ -60,42 +162,44 @@ export function Header() {
               Feed
             </Link>
           )}
-
-          {/* Profile - Authenticated only */}
-          {isSignedIn && (
-            <Link href={`/profile/${user?.username || user?.id}`} className="text-text-secondary hover:text-text-primary transition-colors duration-200 font-medium">
-              Profile
-            </Link>
-          )}
         </div>
 
         {/* Auth Section */}
-        <div className="flex-shrink-0 flex items-center space-x-6 ml-8">
+        <div className="flex-shrink-0 flex items-center space-x-4">
           {isSignedIn ? (
             <>
-              {/* Create Button */}
-              <Button asChild size="sm" className="btn-primary">
-                <Link href="/create">
-                  <Plus className="h-4 w-4 mr-2" />
-                  Create
-                </Link>
-              </Button>
-
-              {/* User Menu - Simplified */}
+              {/* Notifications - Feature flagged */}
+              {isFeatureEnabled('notifications') && <NotificationsDropdown />}
+              
+              {/* Combined Profile Button & Dropdown */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="relative h-8 w-8 rounded-full">
-                    <UserButton />
+                  <Button variant="ghost" size="sm" className="flex items-center space-x-2 h-9 px-3 rounded-full hover:bg-background-tertiary">
+                    <Avatar className="h-6 w-6">
+                      <AvatarImage src={user?.imageUrl} alt={user?.firstName || 'User'} />
+                      <AvatarFallback className="text-xs">
+                        {user?.firstName?.charAt(0)}{user?.lastName?.charAt(0)}
+                      </AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm font-medium text-text-primary">
+                      {user?.firstName || user?.username}
+                    </span>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56" align="end" forceMount>
-                  <div className="flex items-center justify-start gap-2 p-2">
+                  <div className="flex items-center justify-start gap-3 p-3">
+                    <Avatar className="h-10 w-10">
+                      <AvatarImage src={user?.imageUrl} alt={user?.firstName || 'User'} />
+                      <AvatarFallback>
+                        {user?.firstName?.charAt(0)}{user?.lastName?.charAt(0)}
+                      </AvatarFallback>
+                    </Avatar>
                     <div className="flex flex-col space-y-1 leading-none">
                       {user?.firstName && user?.lastName && (
-                        <p className="font-medium">{user.firstName} {user.lastName}</p>
+                        <p className="font-medium text-text-primary">{user.firstName} {user.lastName}</p>
                       )}
                       {user?.primaryEmailAddress && (
-                        <p className="w-[200px] truncate text-sm text-muted-foreground">
+                        <p className="w-[200px] truncate text-sm text-text-secondary">
                           {user.primaryEmailAddress.emailAddress}
                         </p>
                       )}
@@ -103,10 +207,14 @@ export function Header() {
                   </div>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <Link href="/settings">Settings</Link>
+                    <Link href={`/profile/${user?.username || user?.id}`} className="flex items-center">
+                      <User className="mr-2 h-4 w-4" />
+                      View Profile
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>
+                  <DropdownMenuItem className="flex items-center text-red-600 hover:text-red-700">
+                    <LogOut className="mr-2 h-4 w-4" />
                     <UserButton afterSignOutUrl="/" />
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -138,7 +246,7 @@ export function Header() {
 
       {/* Mobile Search Bar */}
       <div className="lg:hidden border-t border-border-primary">
-        <div className="w-full px-6 py-2">
+        <div className="w-full px-6 py-3">
           <form onSubmit={handleSearch}>
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-text-muted" />

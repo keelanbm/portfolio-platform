@@ -81,7 +81,7 @@ export function ImageUpload({
       setUploadedFiles(newFiles)
       onUpload(newFiles)
     }
-  }, [uploadedFiles, maxFiles, maxFileSize, acceptedTypes, onUpload])
+  }, [uploadedFiles, maxFiles, maxFileSize, acceptedTypes, onUpload, validateFile])
 
   const removeFile = (index: number) => {
     const newFiles = uploadedFiles.filter((_, i) => i !== index)
@@ -103,7 +103,6 @@ export function ImageUpload({
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: acceptedTypes.reduce((acc, type) => ({ ...acc, [type]: [] }), {}),

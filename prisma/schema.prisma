@@ -6,71 +6,76 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
-  id              String    @id @default(cuid())
-  email           String    @unique
-  username        String    @unique
-  displayName     String?
-  bio             String?
-  avatarUrl       String?
-  websiteUrl      String?
-  location        String?
-  walletAddress   String? @unique
+  id               String           @id @default(cuid())
+  email            String           @unique
+  username         String           @unique
+  displayName      String?
+  bio              String?
+  avatarUrl        String?
+  websiteUrl       String?
+  location         String?
+  walletAddress    String?          @unique
   subscriptionTier SubscriptionTier @default(FREE)
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
 
   // Relations
-  projects        Project[]
-  likes           Like[]
-  saves           Save[]
-  followers       Follow[]  @relation("UserFollowers")
-  following       Follow[]  @relation("UserFollowing")
-  nftMints        NftMint[]
+  projects      Project[]
+  likes         Like[]
+  saves         Save[]
+  followers     Follow[]       @relation("UserFollowers")
+  following     Follow[]       @relation("UserFollowing")
+  nftMints      NftMint[]
+  comments      Comment[]
+  notifications Notification[]
 
   @@map("users")
 }
 
 model Project {
-  id              String    @id @default(cuid())
+  id              String   @id @default(cuid())
   userId          String
   title           String
   description     String?
   coverImageUrl   String
-  slideCount      Int       @default(0)
+  slideCount      Int      @default(0)
   tags            String[]
-  viewCount       Int       @default(0)
-  likeCount       Int       @default(0)
-  isPublic        Boolean   @default(true)
+  questions       String[] // Creator's questions seeking feedback
+  viewCount       Int      @default(0)
+  likeCount       Int      @default(0)
+  isPublic        Boolean  @default(true)
   ipfsHash        String?
   contractAddress String?
   tokenId         String?
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
   // Relations
-  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  slides          ProjectSlide[]
-  likes           Like[]
-  saves           Save[]
-  nftMints        NftMint[]
+  user     User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  slides   ProjectSlide[]
+  likes    Like[]
+  saves    Save[]
+  nftMints NftMint[]
+  comments Comment[]
 
   @@map("projects")
 }
 
 model ProjectSlide {
-  id          String   @id @default(cuid())
-  projectId   String
-  imageUrl    String
-  slideOrder  Int
-  createdAt   DateTime @default(now())
+  id         String   @id @default(cuid())
+  projectId  String
+  imageUrl   String
+  slideOrder Int
+  createdAt  DateTime @default(now())
 
   // Relations
-  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   @@map("project_slides")
 }
@@ -78,15 +83,25 @@ model ProjectSlide {
 model Like {
   id        String   @id @default(cuid())
   userId    String
-  projectId String
+  projectId String?
+  commentId String?
+  voteType  VoteType @default(LIKE) // LIKE, UPVOTE, DOWNVOTE
   createdAt DateTime @default(now())
 
   // Relations
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project Project? @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  comment Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
 
   @@unique([userId, projectId])
+  @@unique([userId, commentId])
   @@map("likes")
+}
+
+enum VoteType {
+  LIKE
+  UPVOTE
+  DOWNVOTE
 }
 
 model Save {
@@ -96,33 +111,36 @@ model Save {
   createdAt DateTime @default(now())
 
   // Relations
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   @@unique([userId, projectId])
   @@map("saves")
 }
 
 model Follow {
-  id           String   @id @default(cuid())
-  followerId   String
-  followingId  String
-  createdAt    DateTime @default(now())
+  id          String   @id @default(cuid())
+  followerId  String
+  followingId String
+  createdAt   DateTime @default(now())
 
   // Relations
-  follower     User     @relation("UserFollowers", fields: [followerId], references: [id], onDelete: Cascade)
-  following    User     @relation("UserFollowing", fields: [followingId], references: [id], onDelete: Cascade)
+  follower  User @relation("UserFollowers", fields: [followerId], references: [id], onDelete: Cascade)
+  following User @relation("UserFollowing", fields: [followingId], references: [id], onDelete: Cascade)
 
   @@unique([followerId, followingId])
   @@map("follows")
 }
 
 model Tag {
-  id          String   @id @default(cuid())
-  name        String   @unique
-  usageCount  Int      @default(0)
-  isFeatured  Boolean  @default(false)
-  createdAt   DateTime @default(now())
+  id         String   @id @default(cuid())
+  name       String   @unique
+  usageCount Int      @default(0)
+  isFeatured Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  // Relations
+  // Tags can be used for projects and comments via string arrays
 
   @@map("tags")
 }
@@ -136,8 +154,8 @@ model NftMint {
   createdAt       DateTime @default(now())
 
   // Relations
-  project         Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  user            User     @relation(fields: [minterWallet], references: [walletAddress], onDelete: Cascade)
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [minterWallet], references: [walletAddress], onDelete: Cascade)
 
   @@map("nft_mints")
 }
@@ -145,4 +163,53 @@ model NftMint {
 enum SubscriptionTier {
   FREE
   PRO
+}
+
+// Comment System Models
+
+model Comment {
+  id        String      @id @default(cuid())
+  content   String
+  userId    String
+  projectId String      // Always required - all content tied to projects
+  parentId  String?     // For replies (self-referencing)
+  tags      String[]    // Simple array for tool tags
+  type      CommentType @default(COMMENT) // COMMENT, QUESTION, ANSWER
+  status    String?     // For questions: OPEN, ANSWERED, CLOSED
+  isAccepted Boolean    @default(false) // For answers: marked as best answer
+  viewCount Int         @default(0) // For questions: track views
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  // Relations
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  parent  Comment? @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies Comment[] @relation("CommentReplies")
+  likes   Like[]    // Reuse existing like system for upvotes/downvotes
+
+  @@map("comments")
+}
+
+enum CommentType {
+  COMMENT
+  QUESTION
+  ANSWER
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String   // COMMENT_REPLY, PROJECT_LIKE, NEW_FOLLOWER, etc.
+  title     String
+  message   String
+  actionUrl String?  // URL to navigate when notification is clicked
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
 }

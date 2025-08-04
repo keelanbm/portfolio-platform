@@ -9,6 +9,8 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Heart, Share2, Calendar, User } from 'lucide-react'
 import Link from 'next/link'
 import { formatRelativeTime } from '@/utils/format'
+import CommentSection from './comment-section'
+import CreatorQuestions from './creator-questions'
 
 interface ProjectDisplayProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -240,6 +242,15 @@ export function ProjectDisplay({ project }: ProjectDisplayProps) {
           </Card>
         </div>
       </div>
+
+      {/* Creator Questions */}
+      <CreatorQuestions 
+        questions={project.questions || []}
+        creatorName={project.user.displayName || project.user.username}
+      />
+
+      {/* Comments Section */}
+      <CommentSection projectId={project.id} />
     </div>
   )
 } 

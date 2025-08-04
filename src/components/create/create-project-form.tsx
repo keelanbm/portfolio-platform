@@ -12,11 +12,49 @@ import { TagSelector } from './tag-selector'
 import { ProjectPreview } from './project-preview'
 import { CONSTRAINTS, DIMENSIONS } from '@/lib/constants'
 import { useUser } from '@clerk/nextjs'
+import { Badge } from '@/components/ui/badge'
+import { X, Plus } from 'lucide-react'
+
+interface QuestionInputProps {
+  onAdd: (question: string) => void
+}
+
+function QuestionInput({ onAdd }: QuestionInputProps) {
+  const [question, setQuestion] = useState('')
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (question.trim()) {
+      onAdd(question)
+      setQuestion('')
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="flex gap-2">
+      <Input
+        value={question}
+        onChange={(e) => setQuestion(e.target.value)}
+        placeholder="e.g., What do you think of the color choices?"
+        className="flex-1"
+        maxLength={100}
+      />
+      <Button 
+        type="submit" 
+        size="sm" 
+        disabled={!question.trim()}
+      >
+        <Plus className="w-4 h-4" />
+      </Button>
+    </form>
+  )
+}
 
 interface ProjectData {
   title: string
   description: string
   tags: string[]
+  questions: string[]
   images: File[]
   coverImageIndex: number
 }
@@ -29,6 +67,7 @@ export function CreateProjectForm() {
     title: '',
     description: '',
     tags: [],
+    questions: [],
     images: [],
     coverImageIndex: 0,
   })
@@ -58,6 +97,22 @@ export function CreateProjectForm() {
     }))
   }
 
+  const addQuestion = (question: string) => {
+    if (question.trim() && projectData.questions.length < 3) {
+      setProjectData(prev => ({ 
+        ...prev, 
+        questions: [...prev.questions, question.trim()]
+      }))
+    }
+  }
+
+  const removeQuestion = (index: number) => {
+    setProjectData(prev => ({ 
+      ...prev, 
+      questions: prev.questions.filter((_, i) => i !== index)
+    }))
+  }
+
   const handleSubmit = async () => {
     if (!user) return
 
@@ -71,6 +126,7 @@ export function CreateProjectForm() {
       formData.append('title', projectData.title)
       formData.append('description', projectData.description)
       formData.append('tags', JSON.stringify(projectData.tags))
+      formData.append('questions', JSON.stringify(projectData.questions))
       formData.append('coverImageIndex', projectData.coverImageIndex.toString())
       
       projectData.images.forEach((image) => {
@@ -167,6 +223,68 @@ export function CreateProjectForm() {
                 rows={4}
               />
             </div>
+          </CardContent>
+        </Card>
+
+        {/* Questions for Feedback */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-text-primary">Questions for Feedback (Optional)</CardTitle>
+            <p className="text-sm text-text-secondary">
+              What specific feedback would you like on this project? (Up to 3 questions)
+            </p>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {/* Existing Questions */}
+            {projectData.questions.length > 0 && (
+              <div className="space-y-2">
+                {projectData.questions.map((question, index) => (
+                  <div key={index} className="flex items-center gap-2">
+                    <Badge variant="secondary" className="flex-1 justify-start py-2 px-3">
+                      {question}
+                      <button
+                        onClick={() => removeQuestion(index)}
+                        className="ml-2 hover:text-red-500"
+                        type="button"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </Badge>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Add Question */}
+            {projectData.questions.length < 3 && (
+              <QuestionInput onAdd={addQuestion} />
+            )}
+
+            {/* Example Questions */}
+            {projectData.questions.length === 0 && (
+              <div>
+                <p className="text-xs text-text-muted mb-2">Example questions:</p>
+                <div className="flex flex-wrap gap-1">
+                  {[
+                    "What do you think of the color palette?",
+                    "How could I improve the user flow?",
+                    "Does the typography feel right?"
+                  ].map((example) => (
+                    <Button
+                      key={example}
+                      variant="outline"
+                      size="sm"
+                      onClick={() => addQuestion(example)}
+                      className="text-xs h-7"
+                      type="button"
+                    >
+                      <Plus className="w-3 h-3 mr-1" />
+                      {example}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            )}
           </CardContent>
         </Card>
 

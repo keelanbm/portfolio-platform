@@ -1,16 +1,61 @@
 'use client'
 
 import { redirect } from 'next/navigation'
+import { useState, useEffect } from 'react'
 import { useUser } from '@clerk/nextjs'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
-import { User, Mail, Shield, Palette } from 'lucide-react'
+import { Switch } from '@/components/ui/switch'
+import { User, Mail, Shield, Palette, Bell } from 'lucide-react'
 
 export default function SettingsPage() {
   const { isSignedIn, user, isLoaded } = useUser()
+  
+  // Notification preferences state
+  const [notifications, setNotifications] = useState({
+    comments: true,
+    likes: true,
+    follows: true,
+    commentReplies: true,
+  })
+  const [savingNotifications, setSavingNotifications] = useState(false)
+
+  // Load notification preferences on mount
+  useEffect(() => {
+    const loadPreferences = () => {
+      if (typeof window !== 'undefined') {
+        const saved = localStorage.getItem('notificationPreferences')
+        if (saved) {
+          setNotifications(JSON.parse(saved))
+        }
+      }
+    }
+    if (isSignedIn) {
+      loadPreferences()
+    }
+  }, [isSignedIn])
+
+  // Save notification preferences
+  const saveNotificationPreferences = async (newPrefs: typeof notifications) => {
+    setSavingNotifications(true)
+    try {
+      // Save to localStorage for now (could be extended to server-side storage)
+      localStorage.setItem('notificationPreferences', JSON.stringify(newPrefs))
+      setNotifications(newPrefs)
+    } catch (error) {
+      console.error('Error saving notification preferences:', error)
+    } finally {
+      setSavingNotifications(false)
+    }
+  }
+
+  const toggleNotification = (type: keyof typeof notifications) => {
+    const newPrefs = { ...notifications, [type]: !notifications[type] }
+    saveNotificationPreferences(newPrefs)
+  }
   
   if (!isLoaded) {
     return (
@@ -82,6 +127,77 @@ export default function SettingsPage() {
           </CardContent>
         </Card>
 
+        {/* Notification Settings */}
+        <Card className="portfolio-card">
+          <CardHeader>
+            <div className="flex items-center space-x-2">
+              <Bell className="h-5 w-5 text-accent-secondary" />
+              <CardTitle className="text-text-primary">Notification Settings</CardTitle>
+            </div>
+            <CardDescription className="text-text-secondary">
+              Control which notifications you receive
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="space-y-0.5">
+                  <Label className="text-text-primary">Project Comments</Label>
+                  <p className="text-sm text-text-secondary">Get notified when someone comments on your projects</p>
+                </div>
+                <Switch
+                  checked={notifications.comments}
+                  onCheckedChange={() => toggleNotification('comments')}
+                  disabled={savingNotifications}
+                />
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <div className="space-y-0.5">
+                  <Label className="text-text-primary">Comment Replies</Label>
+                  <p className="text-sm text-text-secondary">Get notified when someone replies to your comments</p>
+                </div>
+                <Switch
+                  checked={notifications.commentReplies}
+                  onCheckedChange={() => toggleNotification('commentReplies')}
+                  disabled={savingNotifications}
+                />
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <div className="space-y-0.5">
+                  <Label className="text-text-primary">Likes</Label>
+                  <p className="text-sm text-text-secondary">Get notified when someone likes your projects or comments</p>
+                </div>
+                <Switch
+                  checked={notifications.likes}
+                  onCheckedChange={() => toggleNotification('likes')}
+                  disabled={savingNotifications}
+                />
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <div className="space-y-0.5">
+                  <Label className="text-text-primary">New Followers</Label>
+                  <p className="text-sm text-text-secondary">Get notified when someone follows you</p>
+                </div>
+                <Switch
+                  checked={notifications.follows}
+                  onCheckedChange={() => toggleNotification('follows')}
+                  disabled={savingNotifications}
+                />
+              </div>
+            </div>
+            
+            {savingNotifications && (
+              <div className="flex items-center text-sm text-text-secondary">
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-accent-primary mr-2"></div>
+                Saving preferences...
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
         {/* Email Settings */}
         <Card className="portfolio-card">
           <CardHeader>
@@ -90,7 +206,7 @@ export default function SettingsPage() {
               <CardTitle className="text-text-primary">Email Settings</CardTitle>
             </div>
             <CardDescription className="text-text-secondary">
-              Manage your email preferences and notifications
+              Manage your email address and preferences
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -104,23 +220,6 @@ export default function SettingsPage() {
                 disabled
               />
               <p className="text-sm text-text-muted mt-1">Email address is managed by your authentication provider</p>
-            </div>
-            <Separator />
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label className="text-text-primary">New Follower Notifications</Label>
-                  <p className="text-sm text-text-secondary">Get notified when someone follows you</p>
-                </div>
-                <Button variant="outline" size="sm">Enable</Button>
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label className="text-text-primary">Like Notifications</Label>
-                  <p className="text-sm text-text-secondary">Get notified when someone likes your work</p>
-                </div>
-                <Button variant="outline" size="sm">Enable</Button>
-              </div>
             </div>
           </CardContent>
         </Card>

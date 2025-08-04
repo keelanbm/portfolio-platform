@@ -23,6 +23,7 @@ export async function POST(request: NextRequest) {
     const title = formData.get('title') as string
     const description = formData.get('description') as string
     const tags = JSON.parse(formData.get('tags') as string) as string[]
+    const questions = JSON.parse(formData.get('questions') as string || '[]') as string[]
     const coverImageIndex = parseInt(formData.get('coverImageIndex') as string)
     const images = formData.getAll('images') as File[]
 
@@ -99,6 +100,7 @@ export async function POST(request: NextRequest) {
         description: description || '',
         coverImageUrl: uploadedUrls[coverImageIndex] || uploadedUrls[0],
         tags: tags,
+        questions: questions,
         slideCount: images.length,
       },
       include: {

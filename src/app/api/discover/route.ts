@@ -1,10 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
+import { getProjectsWithMetadata } from '@/lib/query-optimizations'
 
 export async function GET(request: NextRequest) {
   try {
-    const { userId } = await auth()
+    // Make auth optional for discover page
+    let userId: string | null = null
+    try {
+      const authResult = await auth()
+      userId = authResult.userId
+    } catch (error) {
+      // User is not authenticated, which is fine for discover page
+      console.log('User not authenticated for discover page')
+    }
+    
     const { searchParams } = new URL(request.url)
     
     const page = parseInt(searchParams.get('page') || '1')
@@ -50,82 +60,17 @@ export async function GET(request: NextRequest) {
         orderBy.createdAt = 'desc'
     }
 
-    // Get projects
-    const projects = await prisma.project.findMany({
-      where,
-      include: {
-        user: {
-          select: {
-            id: true,
-            username: true,
-            displayName: true,
-            avatarUrl: true,
-          },
-        },
-        slides: {
-          orderBy: { slideOrder: 'asc' },
-        },
-        _count: {
-          select: {
-            likes: true,
-          },
-        },
-      },
-      orderBy,
-      take: limit,
-      skip: offset,
-    })
-
-    // Get total count for pagination
-    const total = await prisma.project.count({ where })
-
-    // Check if current user has liked each project and is following each user
-    const projectIds = projects.map(p => p.id)
-    const userIds = projects.map(p => p.user.id)
-
-    let userLikes: Array<{ projectId: string }> = []
-    let userFollows: Array<{ followingId: string }> = []
-
-    if (userId) {
-      [userLikes, userFollows] = await Promise.all([
-        prisma.like.findMany({
-          where: {
-            userId: userId,
-            projectId: { in: projectIds },
-          },
-        }),
-        prisma.follow.findMany({
-          where: {
-            followerId: userId,
-            followingId: { in: userIds },
-          },
-        }),
-      ])
-    }
-
-    const likedProjectIds = new Set(userLikes.map(like => like.projectId))
-    const followedUserIds = new Set(userFollows.map(follow => follow.followingId))
-
-    // Format the response
-    const formattedProjects = projects.map(project => ({
-      id: project.id,
-      title: project.title,
-      description: project.description,
-      coverImage: project.coverImageUrl,
-      images: project.slides.map(slide => slide.imageUrl),
-      tags: project.tags,
-      likes: project._count.likes,
-      comments: 0, // TODO: Add comments system
-      createdAt: project.createdAt.toISOString(),
-      user: {
-        id: project.user.id,
-        username: project.user.username,
-        name: project.user.displayName || project.user.username,
-        avatar: project.user.avatarUrl,
-        isFollowing: followedUserIds.has(project.user.id),
-      },
-      isLiked: likedProjectIds.has(project.id),
-    }))
+    // Get projects with optimized query
+    const [formattedProjects, total] = await Promise.all([
+      getProjectsWithMetadata({
+        where,
+        orderBy,
+        take: limit,
+        skip: offset,
+        userId,
+      }),
+      prisma.project.count({ where }),
+    ])
 
     return NextResponse.json({
       projects: formattedProjects,

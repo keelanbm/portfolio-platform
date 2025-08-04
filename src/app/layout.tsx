@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { FloatingCreateButton } from "@/components/layout/floating-create-button";
 import { Toaster } from "@/components/ui/sonner";
 import { ClerkProvider } from '@clerk/nextjs';
 
@@ -30,6 +31,7 @@ export default function RootLayout({
             </main>
             <Footer />
           </div>
+          <FloatingCreateButton />
           <Toaster />
         </ClerkProvider>
       </body>

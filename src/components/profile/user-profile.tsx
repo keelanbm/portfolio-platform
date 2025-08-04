@@ -2,13 +2,16 @@
 
 import { useEffect, useState } from 'react'
 import { useUser } from '@clerk/nextjs'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Separator } from '@/components/ui/separator'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
-import { Heart, MessageCircle, Share, UserPlus, Settings } from 'lucide-react'
+import { Heart, MessageCircle, Share, UserPlus, User, Mail, Shield, Palette } from 'lucide-react'
 import Link from 'next/link'
 import { UserProfileSkeleton } from './user-profile-skeleton'
 
@@ -133,18 +136,20 @@ export function UserProfile({ username }: UserProfileProps) {
   if (!user) {
     return (
       <div className="text-center py-12">
-        <h2 className="text-xl font-semibold mb-2">User not found</h2>
-        <p className="text-muted-foreground">
-          The user you&apos;re looking for doesn&apos;t exist or has been removed.
-        </p>
+        <h3 className="text-lg font-semibold mb-2 text-text-primary">User not found</h3>
+        <p className="text-text-secondary">The user you&apos;re looking for doesn&apos;t exist.</p>
       </div>
     )
   }
 
+  // Determine if we should show the Settings tab
+  const showSettingsTab = user.isOwnProfile
+  const tabCols = showSettingsTab ? 4 : 3
+
   return (
     <div className="space-y-8">
-      {/* Profile Header */}
-      <Card className="bg-background-secondary border-border-primary">
+      {/* Profile Header Card */}
+      <Card className="portfolio-card">
         <CardContent className="p-8">
           <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
             {/* Avatar Section */}
@@ -159,26 +164,20 @@ export function UserProfile({ username }: UserProfileProps) {
             
             {/* Content Section */}
             <div className="flex-1 min-w-0 text-center md:text-left">
-              <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-3 mb-4">
+              <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-3 sm:space-y-0 sm:space-x-4 mb-6">
                 <h1 className="text-2xl font-bold text-text-primary">{user.name}</h1>
                 <Badge variant="outline" className="bg-background-tertiary text-text-secondary border-border-primary">
                   @{user.username}
                 </Badge>
-                {user.isOwnProfile && (
-                  <Button variant="ghost" size="sm" className="text-text-secondary hover:text-text-primary hover:bg-background-tertiary">
-                    <Settings className="h-4 w-4 mr-2" />
-                    Edit Profile
-                  </Button>
-                )}
               </div>
               
               {user.bio && (
-                <p className="text-text-secondary mb-4 max-w-2xl mx-auto md:mx-0">
+                <p className="text-text-secondary mb-6 max-w-2xl mx-auto md:mx-0">
                   {user.bio}
                 </p>
               )}
               
-              <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-4 mb-4">
+              <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-3 sm:space-y-0 sm:space-x-6 mb-6">
                 {user.location && (
                   <span className="text-sm text-text-muted">
                     📍 {user.location}
@@ -196,7 +195,7 @@ export function UserProfile({ username }: UserProfileProps) {
                 )}
               </div>
               
-              <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-6">
+              <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-8">
                 <Dialog>
                   <DialogTrigger asChild>
                     <Button variant="ghost" className="p-0 h-auto text-text-primary hover:text-accent-primary">
@@ -235,7 +234,7 @@ export function UserProfile({ username }: UserProfileProps) {
             </div>
             
             {/* Action Buttons */}
-            <div className="flex-shrink-0 flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+            <div className="flex-shrink-0 flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
               {!user.isOwnProfile && (
                 <>
                   <Button 
@@ -259,7 +258,7 @@ export function UserProfile({ username }: UserProfileProps) {
 
       {/* Profile Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-3 bg-background-secondary border-border-primary">
+        <TabsList className={`grid w-full grid-cols-${tabCols} bg-background-secondary border-border-primary`}>
           <TabsTrigger value="projects" className="text-text-secondary data-[state=active]:text-text-primary data-[state=active]:bg-background-tertiary">
             Projects ({projects.length})
           </TabsTrigger>
@@ -269,9 +268,14 @@ export function UserProfile({ username }: UserProfileProps) {
           <TabsTrigger value="collections" className="text-text-secondary data-[state=active]:text-text-primary data-[state=active]:bg-background-tertiary">
             Collections
           </TabsTrigger>
+          {showSettingsTab && (
+            <TabsTrigger value="settings" className="text-text-secondary data-[state=active]:text-text-primary data-[state=active]:bg-background-tertiary">
+              Settings
+            </TabsTrigger>
+          )}
         </TabsList>
 
-        <TabsContent value="projects" className="space-y-6">
+        <TabsContent value="projects" className="space-y-8 mt-8">
           {projects.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {projects.map((project) => (
@@ -279,16 +283,16 @@ export function UserProfile({ username }: UserProfileProps) {
               ))}
             </div>
           ) : (
-            <div className="text-center py-12">
-              <h3 className="text-lg font-semibold mb-2 text-text-primary">No projects yet</h3>
+            <div className="text-center py-16">
+              <h3 className="text-lg font-semibold mb-3 text-text-primary">No projects yet</h3>
               <p className="text-text-secondary">
                 {user.isOwnProfile 
                   ? "Start creating your first project to showcase your work."
-                  : "This user hasn't shared any projects yet."
+                  : "This user hasn&apos;t shared any projects yet."
                 }
               </p>
               {user.isOwnProfile && (
-                <Button asChild className="mt-4 btn-primary">
+                <Button asChild className="mt-6 btn-primary">
                   <Link href="/create">Create Project</Link>
                 </Button>
               )}
@@ -296,18 +300,18 @@ export function UserProfile({ username }: UserProfileProps) {
           )}
         </TabsContent>
 
-        <TabsContent value="liked" className="text-center py-12">
-          <h3 className="text-lg font-semibold mb-2 text-text-primary">Liked Projects</h3>
+        <TabsContent value="liked" className="text-center py-16">
+          <h3 className="text-lg font-semibold mb-3 text-text-primary">Liked Projects</h3>
           <p className="text-text-secondary">
             {user.isOwnProfile 
-              ? "Projects you've liked will appear here."
-              : "This user's liked projects are private."
+              ? "Projects you&apos;ve liked will appear here."
+              : "This user&apos;s liked projects are private."
             }
           </p>
         </TabsContent>
 
-        <TabsContent value="collections" className="text-center py-12">
-          <h3 className="text-lg font-semibold mb-2 text-text-primary">Collections</h3>
+        <TabsContent value="collections" className="text-center py-16">
+          <h3 className="text-lg font-semibold mb-3 text-text-primary">Collections</h3>
           <p className="text-text-secondary">
             {user.isOwnProfile 
               ? "Create collections to organize your favorite projects."
@@ -315,6 +319,167 @@ export function UserProfile({ username }: UserProfileProps) {
             }
           </p>
         </TabsContent>
+
+        {showSettingsTab && (
+          <TabsContent value="settings" className="space-y-8 mt-8">
+            {/* Profile Settings */}
+            <Card className="portfolio-card">
+              <CardHeader>
+                <div className="flex items-center space-x-2">
+                  <User className="h-5 w-5 text-accent-primary" />
+                  <CardTitle className="text-text-primary">Profile Settings</CardTitle>
+                </div>
+                <CardDescription className="text-text-secondary">
+                  Update your profile information and display preferences
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="firstName" className="text-text-primary">First Name</Label>
+                    <Input 
+                      id="firstName" 
+                      defaultValue={currentUser?.firstName || ''} 
+                      className="mt-1"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="lastName" className="text-text-primary">Last Name</Label>
+                    <Input 
+                      id="lastName" 
+                      defaultValue={currentUser?.lastName || ''} 
+                      className="mt-1"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <Label htmlFor="bio" className="text-text-primary">Bio</Label>
+                  <Input 
+                    id="bio" 
+                    placeholder="Tell us about yourself..." 
+                    className="mt-1"
+                  />
+                </div>
+                <Button className="btn-primary">Save Profile</Button>
+              </CardContent>
+            </Card>
+
+            {/* Email Settings */}
+            <Card className="portfolio-card">
+              <CardHeader>
+                <div className="flex items-center space-x-2">
+                  <Mail className="h-5 w-5 text-accent-secondary" />
+                  <CardTitle className="text-text-primary">Email Settings</CardTitle>
+                </div>
+                <CardDescription className="text-text-secondary">
+                  Manage your email preferences and notifications
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <Label htmlFor="email" className="text-text-primary">Email Address</Label>
+                  <Input 
+                    id="email" 
+                    type="email" 
+                    defaultValue={currentUser?.primaryEmailAddress?.emailAddress || ''} 
+                    className="mt-1"
+                    disabled
+                  />
+                  <p className="text-sm text-text-muted mt-1">Email address is managed by your authentication provider</p>
+                </div>
+                <Separator />
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label className="text-text-primary">New Follower Notifications</Label>
+                      <p className="text-sm text-text-secondary">Get notified when someone follows you</p>
+                    </div>
+                    <Button variant="outline" size="sm">Enable</Button>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label className="text-text-primary">Like Notifications</Label>
+                      <p className="text-sm text-text-secondary">Get notified when someone likes your work</p>
+                    </div>
+                    <Button variant="outline" size="sm">Enable</Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Privacy Settings */}
+            <Card className="portfolio-card">
+              <CardHeader>
+                <div className="flex items-center space-x-2">
+                  <Shield className="h-5 w-5 text-accent-success" />
+                  <CardTitle className="text-text-primary">Privacy Settings</CardTitle>
+                </div>
+                <CardDescription className="text-text-secondary">
+                  Control your privacy and data settings
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label className="text-text-primary">Public Profile</Label>
+                      <p className="text-sm text-text-secondary">Allow others to view your profile and projects</p>
+                    </div>
+                    <Button variant="outline" size="sm">Public</Button>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label className="text-text-primary">Show Email</Label>
+                      <p className="text-sm text-text-secondary">Display your email address on your profile</p>
+                    </div>
+                    <Button variant="outline" size="sm">Private</Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Theme Settings */}
+            <Card className="portfolio-card">
+              <CardHeader>
+                <div className="flex items-center space-x-2">
+                  <Palette className="h-5 w-5 text-accent-warning" />
+                  <CardTitle className="text-text-primary">Theme Settings</CardTitle>
+                </div>
+                <CardDescription className="text-text-secondary">
+                  Customize your viewing experience
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <Label className="text-text-primary">Theme</Label>
+                    <p className="text-sm text-text-secondary">Choose your preferred theme</p>
+                  </div>
+                  <Button variant="outline" size="sm">Dark</Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Danger Zone */}
+            <Card className="portfolio-card border-red-500/20">
+              <CardHeader>
+                <CardTitle className="text-red-500">Danger Zone</CardTitle>
+                <CardDescription className="text-text-secondary">
+                  Irreversible and destructive actions
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <Label className="text-red-500">Delete Account</Label>
+                    <p className="text-sm text-text-secondary">Permanently delete your account and all data</p>
+                  </div>
+                  <Button variant="destructive" size="sm">Delete Account</Button>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        )}
       </Tabs>
     </div>
   )

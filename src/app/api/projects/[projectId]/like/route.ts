@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
+import { notifyProjectLike } from '@/utils/notifications'
 
 export async function POST(
   request: NextRequest,
@@ -20,6 +21,17 @@ export async function POST(
     // Check if project exists
     const project = await prisma.project.findUnique({
       where: { id: projectId },
+      select: { 
+        id: true, 
+        title: true, 
+        userId: true,
+        user: {
+          select: {
+            username: true,
+            displayName: true,
+          },
+        },
+      }
     })
 
     if (!project) {
@@ -33,43 +45,73 @@ export async function POST(
     const existingLike = await prisma.like.findUnique({
       where: {
         userId_projectId: {
-          userId: userId,
-          projectId: projectId,
+          userId,
+          projectId,
         },
       },
     })
 
     if (existingLike) {
-      return NextResponse.json(
-        { error: 'Project already liked' },
-        { status: 409 }
-      )
-    }
-
-    // Create like
-    const like = await prisma.like.create({
-      data: {
-        userId: userId,
-        projectId: projectId,
-      },
-    })
-
-    // Update project like count
-    await prisma.project.update({
-      where: { id: projectId },
-      data: {
-        likeCount: {
-          increment: 1,
+      // Unlike the project
+      await prisma.like.delete({
+        where: {
+          userId_projectId: {
+            userId,
+            projectId,
+          },
         },
-      },
-    })
+      })
 
-    return NextResponse.json({
-      success: true,
-      like,
-    })
+      // Decrease like count
+      await prisma.project.update({
+        where: { id: projectId },
+        data: {
+          likeCount: {
+            decrement: 1,
+          },
+        },
+      })
+
+      return NextResponse.json({ liked: false })
+    } else {
+      // Like the project
+      await prisma.like.create({
+        data: {
+          userId,
+          projectId,
+        },
+      })
+
+      // Increase like count
+      await prisma.project.update({
+        where: { id: projectId },
+        data: {
+          likeCount: {
+            increment: 1,
+          },
+        },
+      })
+
+      // Get liker info for notification
+      const liker = await prisma.user.findUnique({
+        where: { id: userId },
+        select: { username: true, displayName: true },
+      })
+
+      // Send notification to project owner (only if they're not liking their own project)
+      if (project.userId !== userId && liker) {
+        await notifyProjectLike({
+          projectOwnerId: project.userId,
+          likerName: liker.displayName || liker.username || 'Someone',
+          projectTitle: project.title,
+          projectId: project.id,
+        })
+      }
+
+      return NextResponse.json({ liked: true })
+    }
   } catch (error) {
-    console.error('Error liking project:', error)
+    console.error('Error toggling like:', error)
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
@@ -77,7 +119,7 @@ export async function POST(
   }
 }
 
-export async function DELETE(
+export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ projectId: string }> }
 ) {
@@ -92,40 +134,19 @@ export async function DELETE(
 
     const { projectId } = await params
 
-    // Delete like
-    const deletedLike = await prisma.like.delete({
+    // Check if user liked the project
+    const like = await prisma.like.findUnique({
       where: {
         userId_projectId: {
-          userId: userId,
-          projectId: projectId,
+          userId,
+          projectId,
         },
       },
     })
 
-    // Update project like count
-    await prisma.project.update({
-      where: { id: projectId },
-      data: {
-        likeCount: {
-          decrement: 1,
-        },
-      },
-    })
-
-    return NextResponse.json({
-      success: true,
-      deletedLike,
-    })
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    if (error.code === 'P2025') {
-      return NextResponse.json(
-        { error: 'Like not found' },
-        { status: 404 }
-      )
-    }
-
-    console.error('Error unliking project:', error)
+    return NextResponse.json({ liked: !!like })
+  } catch (error) {
+    console.error('Error checking like status:', error)
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

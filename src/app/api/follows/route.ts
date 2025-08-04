@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
+import { notifyNewFollower } from '@/utils/notifications'
 
 export async function POST(request: NextRequest) {
   try {
@@ -47,6 +48,21 @@ export async function POST(request: NextRequest) {
         followingId: followingId,
       },
     })
+
+    // Get follower info for notification
+    const follower = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { username: true, displayName: true },
+    })
+
+    // Send notification to the user being followed
+    if (follower) {
+      await notifyNewFollower({
+        userId: followingId,
+        followerName: follower.displayName || follower.username || 'Someone',
+        followerUsername: follower.username || 'unknown',
+      })
+    }
 
     return NextResponse.json({
       success: true,

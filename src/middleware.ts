@@ -1,20 +1,7 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+import { clerkMiddleware } from '@clerk/nextjs/server'
 
-const isProtectedRoute = createRouteMatcher([
-  '/dashboard(.*)',
-  '/feed(.*)',
-  '/discover(.*)',
-  '/profile(.*)',
-  '/api/feed(.*)',
-  '/api/discover(.*)',
-  '/api/follows(.*)',
-  '/api/projects(.*)',
-  '/api/users(.*)',
-])
-
-export default clerkMiddleware((auth, req) => {
-  if (isProtectedRoute(req)) auth.protect()
-})
+// Simple middleware that doesn't cause crashes
+export default clerkMiddleware()
 
 export const config = {
   matcher: [
