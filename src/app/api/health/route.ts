@@ -22,7 +22,7 @@ export async function GET() {
     }
 
     // Record performance
-    const duration = endTimer()
+    endTimer()
     PerformanceMonitor.recordMetric('health_check_success', 1)
 
     const statusCode = health.status === 'healthy' ? 200 : 

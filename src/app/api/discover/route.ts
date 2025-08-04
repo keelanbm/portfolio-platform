@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     try {
       const authResult = await auth()
       userId = authResult.userId
-    } catch (error) {
+    } catch {
       // User is not authenticated, which is fine for discover page
       console.log('User not authenticated for discover page')
     }

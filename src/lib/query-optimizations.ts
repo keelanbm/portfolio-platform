@@ -175,10 +175,10 @@ export async function getCommentsWithMetadata({
 
   return comments.map(comment => ({
     ...comment,
-    isLiked: userId ? (comment as any).likes?.length > 0 : false,
+    isLiked: userId ? (comment as unknown as { likes?: unknown[] }).likes?.length > 0 : false,
     replies: comment.replies.map(reply => ({
       ...reply,
-      isLiked: userId ? (reply as any).likes?.length > 0 : false,
+      isLiked: userId ? (reply as unknown as { likes?: unknown[] }).likes?.length > 0 : false,
     })),
   }))
 }
@@ -253,7 +253,7 @@ export async function searchProjects({
   limit?: number
   offset?: number
 }) {
-  const where: any = {
+  const where: Record<string, unknown> = {
     isPublic: true,
   }
 

@@ -239,10 +239,10 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
     }
   }
 
-  // Update fetchComments to also fetch like statuses
-  const fetchCommentsWithLikes = async () => {
-    await fetchComments()
-  }
+  // Remove unused function
+  // const fetchCommentsWithLikes = async () => {
+  //   await fetchComments()
+  // }
 
   useEffect(() => {
     if (comments.length > 0 && isSignedIn) {

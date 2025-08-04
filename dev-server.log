@@ -141,3 +141,13 @@ Import trace for requested module:
  GET /api/feed?page=1&limit=12 200 in 997ms
  GET /api/notifications? 200 in 1323ms
  GET /api/notifications? 200 in 663ms
+ ✓ Compiled in 421ms (554 modules)
+ GET /feed 200 in 120ms
+ ✓ Compiled in 263ms (554 modules)
+ GET /feed 200 in 52ms
+ ✓ Compiled in 158ms (554 modules)
+ GET /feed 200 in 44ms
+ ✓ Compiled in 201ms (554 modules)
+ GET /feed 200 in 63ms
+ ✓ Compiled in 626ms (1457 modules)
+ GET /feed 200 in 246ms

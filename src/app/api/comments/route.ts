@@ -113,8 +113,8 @@ export async function GET(request: NextRequest) {
       success: true,
       data: comments,
     })
-  } catch (error) {
-    console.error('Error fetching comments:', error)
+  } catch (err) {
+    console.error('Error fetching comments:', err)
     return NextResponse.json(
       { error: 'Failed to fetch comments' },
       { status: 500 }

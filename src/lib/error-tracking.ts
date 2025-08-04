@@ -306,7 +306,7 @@ export class PerformanceMonitor {
   }
 
   static getAllMetrics() {
-    const result: Record<string, any> = {}
+    const result: Record<string, unknown> = {}
     for (const [key] of this.metrics) {
       result[key] = this.getMetrics(key)
     }
@@ -321,7 +321,7 @@ export async function performHealthCheck(): Promise<{
   status: 'healthy' | 'degraded' | 'unhealthy'
   checks: Record<string, boolean>
   errors: ErrorLog[]
-  performance: Record<string, any>
+  performance: Record<string, unknown>
 }> {
   const checks: Record<string, boolean> = {}
   
