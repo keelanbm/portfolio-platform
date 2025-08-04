@@ -151,3 +151,7 @@ Import trace for requested module:
  GET /feed 200 in 63ms
  ✓ Compiled in 626ms (1457 modules)
  GET /feed 200 in 246ms
+ ✓ Compiled in 406ms (554 modules)
+ GET /feed 200 in 45ms
+ ✓ Compiled in 196ms (554 modules)
+ GET /feed 200 in 46ms

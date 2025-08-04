@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
     try {
       const authResult = await auth()
       currentUserId = authResult.userId
-    } catch (error) {
+    } catch {
       // User not authenticated, continue without user-specific data
     }
 

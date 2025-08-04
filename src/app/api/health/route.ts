@@ -33,7 +33,7 @@ export async function GET() {
     // Log critical error in health check itself
     errorTracker.logError(
       error as Error,
-      { endpoint: '/api/health' },
+      { url: '/api/health' },
       'critical',
       'api'
     )
