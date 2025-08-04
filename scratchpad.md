@@ -151,7 +151,7 @@ The goal is to create a Web2-first design portfolio platform that functions simi
 ## 10. Production Deployment & Domain Setup (Phase 7: 1 week) - COMPLETED ✅
 - [x] Production deployment on Vercel (free tier)
 - [x] Supabase production database setup
-- [x] Custom domain integration (`resin.gallery`)
+- [x] Custom domain integration (`hifi.design`)
 - [x] Environment variable configuration for production
 - [x] Basic error tracking (Vercel Analytics)
 - [x] **Defer**: Staging environment, advanced monitoring, security audit
@@ -1053,7 +1053,7 @@ Logo | Search Bar | Discover | Feed* | Profile* | Create* | User Avatar
 ### **Recent Achievements (Last 2 weeks):**
 - [x] **Complete Homepage Redesign**: Successfully converted homepage from marketing page to public content feed
 - [x] **Navigation Restructuring**: Moved Discover, Feed, and Profile to main navigation, simplified user dropdown
-- [x] **Production Deployment**: Successfully deployed to Vercel with custom domain `resin.gallery`
+- [x] **Production Deployment**: Successfully deployed to Vercel with custom domain `hifi.design`
 - [x] **UI/UX Polish**: Fixed button styling, image loading, and profile page layout issues
 - [x] **Authentication Flow**: Improved signup/login experience with proper redirects
 - [x] **Content Enhancement**: Added 14 high-quality UX/UI design examples to the feed
@@ -1076,7 +1076,7 @@ Logo | Search Bar | Discover | Feed* | Profile* | Create* | User Avatar
 - ✅ **Development Environment**: Local development server stable and reliable
 
 ### **Current Status:**
-- ✅ **Live Production Site**: `https://resin.gallery` is live and functional
+- ✅ **Live Production Site**: `https://hifi.design` is live and functional
 - ✅ **Core Navigation**: All main pages working (Home, Discover, Feed, Profile, Create, Settings)
 - ✅ **Authentication**: Clerk integration working with proper user management
 - ✅ **Responsive Design**: Mobile and desktop layouts optimized

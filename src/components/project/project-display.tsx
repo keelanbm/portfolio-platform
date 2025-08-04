@@ -20,7 +20,7 @@ interface ProjectDisplayProps {
 export function ProjectDisplay({ project }: ProjectDisplayProps) {
   const { user } = useUser()
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [isLiked, setIsLiked] = useState(false) // TODO: Get from API
+  const [isLiked, setIsLiked] = useState(project.isLiked || false)
   const [likeCount, setLikeCount] = useState(project._count.likes)
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -29,19 +29,30 @@ export function ProjectDisplay({ project }: ProjectDisplayProps) {
   const handleLike = async () => {
     if (!user) return
 
+    // Optimistic update
+    const wasLiked = isLiked
+    const originalCount = likeCount
+    setIsLiked(!isLiked)
+    setLikeCount(isLiked ? likeCount - 1 : likeCount + 1)
+
     try {
       const response = await fetch(`/api/projects/${project.id}/like`, {
-        method: isLiked ? 'DELETE' : 'POST',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
       })
 
-      if (response.ok) {
-        setIsLiked(!isLiked)
-        setLikeCount(isLiked ? likeCount - 1 : likeCount + 1)
+      if (!response.ok) {
+        throw new Error('Failed to toggle like')
       }
+
+      const result = await response.json()
+      setIsLiked(result.liked)
     } catch (error) {
+      // Revert optimistic update on error
+      setIsLiked(wasLiked)
+      setLikeCount(originalCount)
       console.error('Error toggling like:', error)
     }
   }

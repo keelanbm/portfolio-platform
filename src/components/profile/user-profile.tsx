@@ -117,14 +117,48 @@ export function UserProfile({ username }: UserProfileProps) {
   const handleFollow = async () => {
     if (!user) return
     
+    // Optimistic update
+    const wasFollowing = user.isFollowing
+    const originalCount = user.followersCount
+    setUser(prev => prev ? {
+      ...prev,
+      isFollowing: !prev.isFollowing,
+      followersCount: prev.isFollowing ? prev.followersCount - 1 : prev.followersCount + 1
+    } : null)
+    
     try {
-      // TODO: Call API to follow/unfollow
+      if (wasFollowing) {
+        // Unfollow
+        const response = await fetch(`/api/follows?followingId=${user.id}`, {
+          method: 'DELETE',
+        })
+        
+        if (!response.ok) {
+          throw new Error('Failed to unfollow')
+        }
+      } else {
+        // Follow
+        const response = await fetch('/api/follows', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            followingId: user.id,
+          }),
+        })
+        
+        if (!response.ok) {
+          throw new Error('Failed to follow')
+        }
+      }
+    } catch (error) {
+      // Revert optimistic update on error
       setUser(prev => prev ? {
         ...prev,
-        isFollowing: !prev.isFollowing,
-        followersCount: prev.isFollowing ? prev.followersCount - 1 : prev.followersCount + 1
+        isFollowing: wasFollowing,
+        followersCount: originalCount
       } : null)
-    } catch (error) {
       console.error('Follow error:', error)
     }
   }
@@ -489,10 +523,33 @@ function ProjectCard({ project }: { project: Project }) {
   const [liked, setLiked] = useState(false)
   const [likeCount, setLikeCount] = useState(project.likes)
 
-  const handleLike = () => {
+  const handleLike = async () => {
+    // Optimistic update
+    const wasLiked = liked
+    const originalCount = likeCount
     setLiked(!liked)
     setLikeCount(liked ? likeCount - 1 : likeCount + 1)
-    // TODO: Call API to like/unlike
+    
+    try {
+      const response = await fetch(`/api/projects/${project.id}/like`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      
+      if (!response.ok) {
+        throw new Error('Failed to toggle like')
+      }
+      
+      const result = await response.json()
+      setLiked(result.liked)
+    } catch (error) {
+      // Revert optimistic update on error
+      setLiked(wasLiked)
+      setLikeCount(originalCount)
+      console.error('Error toggling like:', error)
+    }
   }
 
   return (

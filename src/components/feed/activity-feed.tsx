@@ -31,7 +31,9 @@ interface Project {
 export function ActivityFeed() {
   const [projects, setProjects] = useState<Project[]>([])
   const [loading, setLoading] = useState(true)
+  const [loadingMore, setLoadingMore] = useState(false)
   const [hasMore, setHasMore] = useState(true)
+  const [currentPage, setCurrentPage] = useState(1)
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -54,6 +56,28 @@ export function ActivityFeed() {
 
     fetchProjects()
   }, [])
+
+  const loadMore = async () => {
+    if (loadingMore || !hasMore) return
+
+    setLoadingMore(true)
+    try {
+      const nextPage = currentPage + 1
+      const response = await fetch(`/api/feed?page=${nextPage}&limit=12`)
+      if (!response.ok) {
+        throw new Error('Failed to load more projects')
+      }
+      const data = await response.json()
+      
+      setProjects(prev => [...prev, ...data.projects])
+      setHasMore(data.hasMore)
+      setCurrentPage(nextPage)
+    } catch (error) {
+      console.error('Error loading more projects:', error)
+    } finally {
+      setLoadingMore(false)
+    }
+  }
 
   if (loading) {
     return <ActivityFeedSkeleton />
@@ -86,8 +110,13 @@ export function ActivityFeed() {
       
       {hasMore && (
         <div className="text-center py-8">
-          <Button variant="outline" className="btn-secondary" onClick={() => {/* TODO: Load more */}}>
-            Load More
+          <Button 
+            variant="outline" 
+            className="btn-secondary" 
+            onClick={loadMore}
+            disabled={loadingMore}
+          >
+            {loadingMore ? 'Loading...' : 'Load More'}
           </Button>
         </div>
       )}
@@ -105,21 +134,32 @@ function ProjectCard({ project }: { project: Project }) {
     e.stopPropagation()
     
     if (isLiking) return
+
+    // Optimistic update
+    const wasLiked = liked
+    const originalCount = likeCount
+    setLiked(!liked)
+    setLikeCount(liked ? likeCount - 1 : likeCount + 1)
     
     setIsLiking(true)
     try {
       const response = await fetch(`/api/projects/${project.id}/like`, {
-        method: liked ? 'DELETE' : 'POST',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
       })
 
-      if (response.ok) {
-        setLiked(!liked)
-        setLikeCount(liked ? likeCount - 1 : likeCount + 1)
+      if (!response.ok) {
+        throw new Error('Failed to toggle like')
       }
+
+      const result = await response.json()
+      setLiked(result.liked)
     } catch (error) {
+      // Revert optimistic update on error
+      setLiked(wasLiked)
+      setLikeCount(originalCount)
       console.error('Error toggling like:', error)
     } finally {
       setIsLiking(false)

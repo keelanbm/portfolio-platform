@@ -20,6 +20,7 @@ interface Project {
   likes: number
   comments: number
   createdAt: string
+  isLiked?: boolean
   user: {
     id: string
     username: string
@@ -180,20 +181,77 @@ export function DiscoverFeed() {
 }
 
 function ProjectCard({ project }: { project: Project }) {
-  const [liked, setLiked] = useState(false)
+  const [liked, setLiked] = useState(project.isLiked || false)
   const [likeCount, setLikeCount] = useState(project.likes)
   const [isFollowing, setIsFollowing] = useState(project.user.isFollowing)
   const [imageError, setImageError] = useState(false)
 
-  const handleLike = () => {
+  const handleLike = async () => {
+    // Optimistic update
+    const wasLiked = liked
+    const originalCount = likeCount
     setLiked(!liked)
     setLikeCount(liked ? likeCount - 1 : likeCount + 1)
-    // TODO: Call API to like/unlike
+    
+    try {
+      const response = await fetch(`/api/projects/${project.id}/like`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      
+      if (!response.ok) {
+        throw new Error('Failed to toggle like')
+      }
+      
+      const result = await response.json()
+      setLiked(result.liked)
+      // The like count will be updated by the API, but we'll keep our optimistic update
+    } catch (error) {
+      // Revert optimistic update on error
+      setLiked(wasLiked)
+      setLikeCount(originalCount)
+      console.error('Error toggling like:', error)
+    }
   }
 
-  const handleFollow = () => {
+  const handleFollow = async () => {
+    // Optimistic update
+    const wasFollowing = isFollowing
     setIsFollowing(!isFollowing)
-    // TODO: Call API to follow/unfollow
+    
+    try {
+      if (isFollowing) {
+        // Unfollow
+        const response = await fetch(`/api/follows?followingId=${project.user.id}`, {
+          method: 'DELETE',
+        })
+        
+        if (!response.ok) {
+          throw new Error('Failed to unfollow')
+        }
+      } else {
+        // Follow
+        const response = await fetch('/api/follows', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            followingId: project.user.id,
+          }),
+        })
+        
+        if (!response.ok) {
+          throw new Error('Failed to follow')
+        }
+      }
+    } catch (error) {
+      // Revert optimistic update on error
+      setIsFollowing(wasFollowing)
+      console.error('Error toggling follow:', error)
+    }
   }
 
   const handleImageError = () => {

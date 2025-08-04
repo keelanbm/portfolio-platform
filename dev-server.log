@@ -155,3 +155,102 @@ Import trace for requested module:
  GET /feed 200 in 45ms
  ✓ Compiled in 196ms (554 modules)
  GET /feed 200 in 46ms
+ ⨯ Error: Cannot find module './73.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/app/feed/page.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/page.js:2:18610)
+    at Object.<anonymous> (.next/server/app/page.js:2:18682) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/'
+}
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 1330ms (1771 modules)
+ GET / 500 in 1844ms
+ GET / 200 in 164ms
+ GET / 200 in 53ms
+ GET / 200 in 295ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 569ms (1776 modules)
+ GET /_next/static/css/app/layout.css?v=1754303896273 404 in 846ms
+ GET /_next/static/chunks/main-app.js?v=1754303896273 404 in 234ms
+ GET /_next/static/chunks/app/page.js 404 in 233ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 233ms
+ GET /_next/static/chunks/app/layout.js 404 in 235ms
+ ✓ Compiled /favicon.ico in 227ms (1089 modules)
+ ⨯ Error: Cannot find module './73.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/app/favicon.ico/route.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41892)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41941) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 269ms
+ GET /_next/static/css/app/layout.css?v=1754303903945 404 in 59ms
+ GET / 200 in 538ms
+ ⨯ Error: Cannot find module './73.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/app/favicon.ico/route.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41892)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41941) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 174ms
+ GET /_next/static/chunks/app/layout.js 404 in 181ms
+ GET /_next/static/chunks/app/page.js 404 in 208ms
+ GET /_next/static/chunks/main-app.js?v=1754303903945 404 in 204ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 204ms
+   Reload env: .env.local
+ ✓ Compiled in 1633ms (1901 modules)
+prisma:error Error in PostgreSQL connection: Error { kind: Closed, cause: None }
+prisma:error Error in PostgreSQL connection: Error { kind: Closed, cause: None }
+prisma:error Error in PostgreSQL connection: Error { kind: Closed, cause: None }
+prisma:error Error in PostgreSQL connection: Error { kind: Closed, cause: None }
+prisma:error Error in PostgreSQL connection: Error { kind: Closed, cause: None }
+ ✓ Compiled in 1396ms (1684 modules)
+ ✓ Compiled in 3.9s (1698 modules)
+ ✓ Compiled in 498ms (1698 modules)
+ ✓ Compiled in 762ms (1698 modules)
+ ✓ Compiled in 482ms (1698 modules)
+ ✓ Compiled in 298ms (701 modules)
+ ✓ Compiled in 365ms (701 modules)
+ ✓ Compiled in 609ms (1698 modules)
+ ✓ Compiled in 492ms (1698 modules)
+ ✓ Compiled in 671ms (1698 modules)
+ ✓ Compiled in 629ms (1698 modules)
+ ✓ Compiled in 485ms (1698 modules)
+ ✓ Compiled in 451ms (1698 modules)
