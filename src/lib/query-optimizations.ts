@@ -89,7 +89,7 @@ export async function getProjectsWithMetadata({
       avatar: project.user.avatarUrl,
       isFollowing: followedUserIds.has(project.user.id),
     },
-    isLiked: userId ? (project as { likes?: unknown[] }).likes?.length > 0 : false,
+    isLiked: userId && project ? ((project as unknown as { likes?: unknown[] }).likes?.length ?? 0) > 0 : false,
   }))
 }
 
