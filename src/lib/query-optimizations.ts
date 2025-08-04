@@ -175,10 +175,10 @@ export async function getCommentsWithMetadata({
 
   return comments.map(comment => ({
     ...comment,
-    isLiked: userId ? (comment as unknown as { likes?: unknown[] }).likes?.length > 0 : false,
+    isLiked: userId && comment ? ((comment as unknown as { likes?: unknown[] }).likes?.length ?? 0) > 0 : false,
     replies: comment.replies.map(reply => ({
       ...reply,
-      isLiked: userId ? (reply as unknown as { likes?: unknown[] }).likes?.length > 0 : false,
+      isLiked: userId && reply ? ((reply as unknown as { likes?: unknown[] }).likes?.length ?? 0) > 0 : false,
     })),
   }))
 }
