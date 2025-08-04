@@ -21,12 +21,12 @@ A Web2-first design portfolio platform with optional Web3 features, allowing des
 
 ## Tech Stack
 
-- **Frontend**: Next.js 14, TypeScript, Tailwind CSS
+- **Frontend**: Next.js 15, TypeScript, Tailwind CSS
 - **Backend**: Next.js API routes, Supabase (PostgreSQL)
-- **Authentication**: Supabase Auth
+- **Authentication**: Clerk (with Web3 support)
 - **Storage**: Supabase Storage
 - **Database**: PostgreSQL with Prisma ORM
-- **Deployment**: Vercel
+- **Deployment**: Vercel → https://hifi.design
 
 ## Getting Started
 
@@ -99,6 +99,36 @@ src/
 4. **Phase 4**: Basic Web3 (2-3 weeks)
 5. **Phase 5**: Performance & SEO (1-2 weeks)
 6. **Phase 6**: Deployment (1 week)
+
+## Production Deployment
+
+The site is deployed at **https://hifi.design**
+
+### Deployment Steps
+
+1. **Set up Vercel Project**:
+   - Connect your GitHub repository to Vercel
+   - Configure custom domain: `hifi.design`
+
+2. **Environment Variables**:
+   - Copy from `.env.production.example`
+   - Update all keys with production values
+   - Ensure `NEXT_PUBLIC_APP_URL=https://hifi.design`
+
+3. **Database Setup**:
+   - Use Supabase production database
+   - Run migrations: `npx prisma db push`
+   - Seed production data if needed
+
+4. **Authentication**:
+   - Update Clerk with production domain
+   - Configure webhooks: `https://hifi.design/api/webhooks/clerk`
+   - Update redirect URLs to use `hifi.design`
+
+### Health Monitoring
+
+- Health check: https://hifi.design/api/health
+- Database status and performance metrics included
 
 ## Contributing
 

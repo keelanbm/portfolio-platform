@@ -90,3 +90,13 @@ Uses **Clerk** for authentication with middleware at `src/middleware.ts`. The mi
 - Components follow shadcn/ui patterns for consistency
 - API routes use proper HTTP methods and error handling
 - Database queries use Prisma Client with proper error handling
+
+### Production Deployment
+
+- **Production Domain**: https://hifi.design
+- **Platform**: Vercel (recommended for Next.js)
+- **Database**: Supabase PostgreSQL with connection pooling
+- **Authentication**: Clerk with webhook integration
+- **File Storage**: Supabase Storage for project images
+- **Environment**: Update `NEXT_PUBLIC_APP_URL` to production domain
+- **Monitoring**: Built-in health checks at `/api/health`

@@ -128,3 +128,16 @@ Import trace for requested module:
  ✓ Compiled /api/feed in 231ms (1480 modules)
  GET /api/feed?page=1&limit=12 200 in 608ms
  GET /api/feed?page=1&limit=12 200 in 325ms
+   Reload env: .env.local
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ✓ Compiled in 4.6s (1674 modules)
+ GET /feed 200 in 2524ms
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (160kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ✓ Compiled /favicon.ico in 388ms (908 modules)
+ GET /favicon.ico 200 in 537ms
+ GET /favicon.ico 200 in 20ms
+ ✓ Compiled /api/notifications in 320ms (928 modules)
+ ✓ Compiled (930 modules)
+ GET /api/feed?page=1&limit=12 200 in 997ms
+ GET /api/notifications? 200 in 1323ms
+ GET /api/notifications? 200 in 663ms
