@@ -332,7 +332,7 @@ export async function performHealthCheck(): Promise<{
     checks.database = true
   } catch (error) {
     checks.database = false
-    logDatabaseError(error as Error, { check: 'health_check' })
+    logDatabaseError(error as Error, { additional: { check: 'health_check' } })
   }
 
   // Check environment variables
