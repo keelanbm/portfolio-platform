@@ -1,95 +1,104 @@
-import { Suspense } from 'react'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { DiscoverFeed } from '@/components/discover/discover-feed'
-import { DiscoverFeedSkeleton } from '@/components/discover/discover-feed-skeleton'
-import { ArrowRight, Sparkles, TrendingUp, Users, Award } from 'lucide-react'
+'use client'
+
+import { useState } from 'react'
+import { ProjectCard } from '@/components/ui/project-card'
+import { HeroSection } from '@/components/homepage/hero-section'
+import { CategoryFilterBar } from '@/components/homepage/category-filter-bar'
+import { HOMEPAGE_PROJECTS } from '@/data/homepage-projects'
+import { TrendingUp, Users, Award } from 'lucide-react'
 
 export default function HomePage() {
+  const [selectedTags, setSelectedTags] = useState<string[]>([])
+
+  // Filter projects based on selected tags
+  const filteredProjects = selectedTags.length === 0 
+    ? HOMEPAGE_PROJECTS 
+    : HOMEPAGE_PROJECTS.filter(project => 
+        selectedTags.some(tag => 
+          project.tags.some(projectTag => 
+            projectTag.toLowerCase().includes(tag.toLowerCase()) ||
+            tag.toLowerCase().includes(projectTag.toLowerCase())
+          )
+        )
+      )
+
+  // Mock like handler (would connect to API in real implementation)
+  const handleLike = async (projectId: string) => {
+    console.log('Liked project:', projectId)
+    return Promise.resolve()
+  }
+
+  // Mock modal handler (would open project modal in real implementation)
+  const handleOpenModal = (projectId: string) => {
+    console.log('Open project modal:', projectId)
+  }
+
   return (
     <div className="w-full">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-background-secondary via-background-primary to-background-tertiary">
-        <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
-        <div className="relative px-8 py-20 lg:py-32">
-          <div className="max-w-4xl mx-auto text-center space-y-10">
-            {/* Badge */}
-            <div className="flex justify-center">
-              <Badge variant="secondary" className="px-4 py-2 text-sm font-medium">
-                <Sparkles className="w-4 h-4 mr-2" />
-                Join thousands of creators
-              </Badge>
-            </div>
+      {/* Compact Hero Section */}
+      <HeroSection />
 
-            {/* Main Heading */}
-            <div className="space-y-6">
-              <h1 className="text-4xl lg:text-6xl font-bold text-text-primary leading-tight">
-                Showcase Your
-                <span className="bg-gradient-to-r from-accent-primary to-accent-secondary bg-clip-text text-transparent"> Creative Vision</span>
-              </h1>
-              <p className="text-xl lg:text-2xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
-                The ultimate platform for designers and creators to share their work, 
-                connect with the community, and discover amazing projects.
+      {/* Sticky Category Filter Bar */}
+      <CategoryFilterBar 
+        selectedTags={selectedTags}
+        onTagsChange={setSelectedTags}
+      />
+
+      {/* Main Project Showcase - The Hero Content */}
+      <section className="px-8 py-12 bg-background-primary min-h-screen">
+        <div className="max-w-7xl mx-auto">
+          {/* Projects Grid - 4 Column Layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 lg:gap-8">
+            {filteredProjects.map((project, index) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                onLike={handleLike}
+                onOpenModal={handleOpenModal}
+                aspectRatio={4/3} // Force 4:3 aspect ratio for homepage
+                priority={index < 8} // Priority loading for first 8 projects (above fold)
+              />
+            ))}
+          </div>
+
+          {/* No Results State */}
+          {filteredProjects.length === 0 && (
+            <div className="text-center py-16">
+              <h3 className="text-xl font-semibold mb-3 text-text-primary">No projects found</h3>
+              <p className="text-text-secondary mb-6">
+                Try selecting a different category to see more amazing work.
               </p>
             </div>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="btn-primary text-lg px-8 py-6">
-                <Link href="/discover">
-                  Explore Projects
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="text-lg px-8 py-6 border-2">
-                <Link href="/create">
-                  Start Creating
-                </Link>
-              </Button>
-            </div>
-
-            {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-12 border-t border-border-primary">
-              <div className="text-center">
-                <div className="flex items-center justify-center mb-3">
-                  <TrendingUp className="w-6 h-6 text-accent-primary mr-2" />
-                  <span className="text-3xl font-bold text-text-primary">10K+</span>
-                </div>
-                <p className="text-text-secondary">Projects Shared</p>
-              </div>
-              <div className="text-center">
-                <div className="flex items-center justify-center mb-3">
-                  <Users className="w-6 h-6 text-accent-secondary mr-2" />
-                  <span className="text-3xl font-bold text-text-primary">5K+</span>
-                </div>
-                <p className="text-text-secondary">Active Creators</p>
-              </div>
-              <div className="text-center">
-                <div className="flex items-center justify-center mb-3">
-                  <Award className="w-6 h-6 text-accent-primary mr-2" />
-                  <span className="text-3xl font-bold text-text-primary">50K+</span>
-                </div>
-                <p className="text-text-secondary">Likes Given</p>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       </section>
 
-      {/* Featured Section */}
-      <section className="px-8 py-16 bg-background-secondary/30">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4 text-text-primary">Featured Projects</h2>
-            <p className="text-text-secondary text-lg">
-              Discover the latest and greatest work from our community
-            </p>
+      {/* Simplified Social Proof Section */}
+      <section className="px-8 py-16 bg-background-secondary/30 border-t border-border-primary">
+        <div className="max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div className="space-y-3">
+              <div className="flex items-center justify-center">
+                <TrendingUp className="w-8 h-8 text-accent-primary mr-3" />
+                <span className="text-4xl font-bold text-text-primary">10K+</span>
+              </div>
+              <p className="text-text-secondary text-lg">Projects Shared</p>
+            </div>
+            <div className="space-y-3">
+              <div className="flex items-center justify-center">
+                <Users className="w-8 h-8 text-accent-secondary mr-3" />
+                <span className="text-4xl font-bold text-text-primary">5K+</span>
+              </div>
+              <p className="text-text-secondary text-lg">Creative Professionals</p>
+            </div>
+            <div className="space-y-3">
+              <div className="flex items-center justify-center">
+                <Award className="w-8 h-8 text-accent-primary mr-3" />
+                <span className="text-4xl font-bold text-text-primary">50K+</span>
+              </div>
+              <p className="text-text-secondary text-lg">Community Interactions</p>
+            </div>
           </div>
-          
-          <Suspense fallback={<DiscoverFeedSkeleton />}>
-            <DiscoverFeed />
-          </Suspense>
         </div>
       </section>
     </div>

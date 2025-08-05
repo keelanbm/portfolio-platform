@@ -35,6 +35,7 @@ interface ProjectCardProps {
   onOpenModal?: (projectId: string) => void
   aspectRatio?: number
   showCollectionActions?: boolean // Only show for user's own projects
+  priority?: boolean // For image loading priority
 }
 
 export function ProjectCard({ 
@@ -42,7 +43,8 @@ export function ProjectCard({
   onLike, 
   onOpenModal,
   aspectRatio,
-  showCollectionActions = false
+  showCollectionActions = false,
+  priority = false
 }: ProjectCardProps) {
   const [liked, setLiked] = useState(project.isLiked || false)
   const [likeCount, setLikeCount] = useState(project.likes)
@@ -50,10 +52,10 @@ export function ProjectCard({
   const [isLiking, setIsLiking] = useState(false)
   const [showAddToCollection, setShowAddToCollection] = useState(false)
 
-  // Calculate image height based on aspect ratio or use natural aspect ratio
-  const imageHeight = aspectRatio ? `${300 / aspectRatio}px` : 'auto'
+  // Calculate image height for 4:3 aspect ratio (optimized for homepage showcase)
+  const imageHeight = aspectRatio ? `${300 / aspectRatio}px` : '225px' // 300px width * 0.75 = 225px for 4:3
   const minHeight = '200px'
-  const maxHeight = '500px'
+  const maxHeight = '400px' // Reduced max height for better grid consistency
 
   const handleLike = async (e: React.MouseEvent) => {
     e.preventDefault()
@@ -136,27 +138,28 @@ export function ProjectCard({
               src={project.coverImage}
               alt={project.title}
               fill
+              priority={priority}
               className="object-cover transition-transform duration-300 group-hover:scale-105"
               onError={handleImageError}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, (max-width: 1536px) 25vw, 20vw"
             />
             
-            {/* Hover Overlay with Stats */}
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300">
+            {/* Enhanced Hover Overlay with Stats */}
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all duration-300">
               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="flex items-center space-x-6 text-white">
+                <div className="flex items-center space-x-8 text-white">
                   <div className="flex items-center space-x-2">
-                    <Heart className={`h-5 w-5 ${liked ? 'fill-current text-accent-pink' : ''}`} />
-                    <span className="font-medium">{likeCount}</span>
+                    <Heart className={`h-6 w-6 ${liked ? 'fill-current text-accent-pink' : ''}`} />
+                    <span className="font-semibold text-lg">{likeCount}</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <MessageCircle className="h-5 w-5" />
-                    <span className="font-medium">{project.comments}</span>
+                    <MessageCircle className="h-6 w-6" />
+                    <span className="font-semibold text-lg">{project.comments}</span>
                   </div>
                   {project.views && (
                     <div className="flex items-center space-x-2">
-                      <Eye className="h-5 w-5" />
-                      <span className="font-medium">{project.views}</span>
+                      <Eye className="h-6 w-6" />
+                      <span className="font-semibold text-lg">{project.views}</span>
                     </div>
                   )}
                 </div>
