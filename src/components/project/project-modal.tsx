@@ -169,6 +169,14 @@ export function ProjectModal({ isOpen, onClose, projectId, onLike }: ProjectModa
 
   if (!isOpen) return null
 
+  // Handle clicking on the dark background to close modal
+  const handleBackgroundClick = (event: React.MouseEvent) => {
+    // Only close if clicking directly on the background (not on modal content)
+    if (event.target === event.currentTarget) {
+      onClose()
+    }
+  }
+
   return (
     <Modal 
       isOpen={isOpen} 
@@ -229,7 +237,10 @@ export function ProjectModal({ isOpen, onClose, projectId, onLike }: ProjectModa
           {/* Main Content */}
           <div className="flex flex-1 overflow-hidden">
             {/* Image Area */}
-            <div className="flex-1 relative bg-black flex items-center justify-center">
+            <div 
+              className="flex-1 relative bg-black flex items-center justify-center cursor-pointer" 
+              onClick={handleBackgroundClick}
+            >
               <div className="relative w-full h-full flex items-center justify-center">
                 <Image
                   src={project.images[currentImageIndex] || project.coverImage}
@@ -238,6 +249,7 @@ export function ProjectModal({ isOpen, onClose, projectId, onLike }: ProjectModa
                   className="object-contain"
                   sizes="80vw"
                   priority
+                  onClick={(e) => e.stopPropagation()} 
                 />
               </div>
               
@@ -247,7 +259,10 @@ export function ProjectModal({ isOpen, onClose, projectId, onLike }: ProjectModa
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => navigateImage('prev')}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      navigateImage('prev')
+                    }}
                     className="absolute left-4 top-1/2 transform -translate-y-1/2 h-10 w-10 p-0 bg-white/10 hover:bg-white/20 text-white rounded-full backdrop-blur-sm"
                   >
                     <ChevronLeft className="h-5 w-5" />
@@ -255,7 +270,10 @@ export function ProjectModal({ isOpen, onClose, projectId, onLike }: ProjectModa
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => navigateImage('next')}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      navigateImage('next')
+                    }}
                     className="absolute right-4 top-1/2 transform -translate-y-1/2 h-10 w-10 p-0 bg-white/10 hover:bg-white/20 text-white rounded-full backdrop-blur-sm"
                   >
                     <ChevronRight className="h-5 w-5" />
