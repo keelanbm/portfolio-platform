@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -28,7 +29,7 @@ export function ImageUpload({
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([])
   const [errors, setErrors] = useState<string[]>([])
 
-  const validateFile = (file: File): string | null => {
+  const validateFile = useCallback((file: File): string | null => {
     if (!acceptedTypes.includes(file.type)) {
       return `File type ${file.type} is not supported`
     }
@@ -38,7 +39,7 @@ export function ImageUpload({
     }
 
     return null
-  }
+  }, [acceptedTypes, maxFileSize])
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: any[]) => {
@@ -81,7 +82,7 @@ export function ImageUpload({
       setUploadedFiles(newFiles)
       onUpload(newFiles)
     }
-  }, [uploadedFiles, maxFiles, maxFileSize, acceptedTypes, onUpload, validateFile])
+  }, [uploadedFiles, maxFiles, onUpload, validateFile])
 
   const removeFile = (index: number) => {
     const newFiles = uploadedFiles.filter((_, i) => i !== index)
@@ -164,10 +165,12 @@ export function ImageUpload({
               <Card key={index} className="relative group">
                 <CardContent className="p-2">
                   <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-gray-100">
-                    <img
+                    <Image
                       src={URL.createObjectURL(file)}
                       alt={`Upload ${index + 1}`}
-                      className="w-full h-full object-cover"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
                     />
                     
                     {/* Cover Image Checkbox */}

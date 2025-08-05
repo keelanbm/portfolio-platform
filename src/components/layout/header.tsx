@@ -162,6 +162,13 @@ export function Header() {
               Feed
             </Link>
           )}
+
+          {/* Collections - Authenticated only */}
+          {isSignedIn && (
+            <Link href="/collections" className="text-text-secondary hover:text-text-primary transition-colors duration-200 font-medium">
+              Collections
+            </Link>
+          )}
         </div>
 
         {/* Auth Section */}

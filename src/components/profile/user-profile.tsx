@@ -11,9 +11,13 @@ import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
-import { Heart, MessageCircle, Share, UserPlus, User, Mail, Shield, Palette } from 'lucide-react'
+import { MessageCircle, UserPlus, User, Mail, Shield, Palette } from 'lucide-react'
 import Link from 'next/link'
+import { MasonryGrid, MasonryGridItem } from '@/components/ui/masonry-grid'
+import { ProjectCard } from '@/components/ui/project-card'
 import { UserProfileSkeleton } from './user-profile-skeleton'
+import { CollectionsGrid } from '@/components/collections/collections-grid'
+import { showToast, toastMessages } from '@/lib/toast'
 
 interface User {
   id: string
@@ -57,11 +61,20 @@ export function UserProfile({ username }: UserProfileProps) {
     const fetchUserProfile = async () => {
       setLoading(true)
       try {
-        // TODO: Replace with actual API call
-        // const response = await fetch(`/api/users/${username}`)
-        // const data = await response.json()
+        // Try to fetch real user data, fallback to mock if needed
+        try {
+          const response = await fetch(`/api/users/${username}`)
+          if (response.ok) {
+            const data = await response.json()
+            setUser(data.user)
+            setProjects(data.projects || [])
+            return
+          }
+        } catch (error) {
+          console.error('Failed to fetch user data, using mock data:', error)
+        }
         
-        // Mock data for now
+        // Fallback mock data for development
         const mockUser: User = {
           id: '1',
           username: username,
@@ -105,6 +118,7 @@ export function UserProfile({ username }: UserProfileProps) {
         setUser(mockUser)
         setProjects(mockProjects)
       } catch (error) {
+        showToast.error('Failed to load profile', 'Please refresh the page')
         console.error('Profile error:', error)
       } finally {
         setLoading(false)
@@ -152,6 +166,11 @@ export function UserProfile({ username }: UserProfileProps) {
           throw new Error('Failed to follow')
         }
       }
+      
+      // Show success message
+      showToast.success(
+        wasFollowing ? toastMessages.social.unfollowed : toastMessages.social.followed
+      )
     } catch (error) {
       // Revert optimistic update on error
       setUser(prev => prev ? {
@@ -159,8 +178,41 @@ export function UserProfile({ username }: UserProfileProps) {
         isFollowing: wasFollowing,
         followersCount: originalCount
       } : null)
+      showToast.error(toastMessages.social.followError, 'Please try again')
       console.error('Follow error:', error)
     }
+  }
+
+  const handleLike = async (projectId: string) => {
+    try {
+      const response = await fetch(`/api/projects/${projectId}/like`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      
+      if (!response.ok) {
+        throw new Error('Failed to toggle like')
+      }
+      
+      const result = await response.json()
+      
+      // Update the projects state with the new like status
+      setProjects(prev => prev.map(project => 
+        project.id === projectId 
+          ? { ...project, isLiked: result.liked, likes: result.likes }
+          : project
+      ))
+    } catch (error) {
+      showToast.error(toastMessages.generic.error, 'Please try again')
+      throw error
+    }
+  }
+
+  const handleOpenModal = (projectId: string) => {
+    // Navigate to project page instead of modal for better mobile UX
+    window.location.href = `/project/${projectId}`
   }
 
   if (loading) {
@@ -311,11 +363,26 @@ export function UserProfile({ username }: UserProfileProps) {
 
         <TabsContent value="projects" className="space-y-8 mt-8">
           {projects.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <MasonryGrid className="w-full">
               {projects.map((project) => (
-                <ProjectCard key={project.id} project={project} />
+                <MasonryGridItem key={project.id}>
+                  <ProjectCard 
+                    project={{
+                      ...project,
+                      user: {
+                        id: user.id,
+                        username: user.username,
+                        name: user.name,
+                        avatar: user.avatar,
+                      }
+                    }}
+                    onLike={handleLike}
+                    onOpenModal={handleOpenModal}
+                    showCollectionActions={user.isOwnProfile}
+                  />
+                </MasonryGridItem>
               ))}
-            </div>
+            </MasonryGrid>
           ) : (
             <div className="text-center py-16">
               <h3 className="text-lg font-semibold mb-3 text-text-primary">No projects yet</h3>
@@ -344,14 +411,8 @@ export function UserProfile({ username }: UserProfileProps) {
           </p>
         </TabsContent>
 
-        <TabsContent value="collections" className="text-center py-16">
-          <h3 className="text-lg font-semibold mb-3 text-text-primary">Collections</h3>
-          <p className="text-text-secondary">
-            {user.isOwnProfile 
-              ? "Create collections to organize your favorite projects."
-              : "This user hasn't created any collections yet."
-            }
-          </p>
+        <TabsContent value="collections" className="mt-8">
+          <CollectionsGrid userId={user.id} isOwner={user.isOwnProfile} />
         </TabsContent>
 
         {showSettingsTab && (
@@ -519,103 +580,23 @@ export function UserProfile({ username }: UserProfileProps) {
   )
 }
 
-function ProjectCard({ project }: { project: Project }) {
-  const [liked, setLiked] = useState(false)
-  const [likeCount, setLikeCount] = useState(project.likes)
-
-  const handleLike = async () => {
-    // Optimistic update
-    const wasLiked = liked
-    const originalCount = likeCount
-    setLiked(!liked)
-    setLikeCount(liked ? likeCount - 1 : likeCount + 1)
-    
-    try {
-      const response = await fetch(`/api/projects/${project.id}/like`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      
-      if (!response.ok) {
-        throw new Error('Failed to toggle like')
-      }
-      
-      const result = await response.json()
-      setLiked(result.liked)
-    } catch (error) {
-      // Revert optimistic update on error
-      setLiked(wasLiked)
-      setLikeCount(originalCount)
-      console.error('Error toggling like:', error)
-    }
-  }
-
-  return (
-    <Card className="overflow-hidden hover:shadow-lg transition-all duration-200 group">
-      <CardContent className="p-0">
-        <div className="relative aspect-[4/3] bg-muted overflow-hidden">
-          <img
-            src={project.coverImage}
-            alt={project.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
-          />
-          {project.images.length > 1 && (
-            <Badge className="absolute top-3 right-3 text-xs">
-              {project.images.length} images
-            </Badge>
-          )}
-        </div>
-        
-        <div className="p-4">
-          <Link 
-            href={`/project/${project.id}`}
-            className="text-base font-semibold hover:underline block mb-2 line-clamp-1"
-          >
-            {project.title}
-          </Link>
-          
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handleLike}
-                className={`h-8 px-2 ${liked ? 'text-red-500' : ''}`}
-              >
-                <Heart className={`h-4 w-4 mr-1 ${liked ? 'fill-current' : ''}`} />
-                <span className="text-sm">{likeCount}</span>
-              </Button>
-              <Button variant="ghost" size="sm" className="h-8 px-2">
-                <MessageCircle className="h-4 w-4 mr-1" />
-                <span className="text-sm">{project.comments}</span>
-              </Button>
-            </div>
-            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-              <Share className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  )
-}
 
 function FollowersList() {
-  // TODO: Implement followers list
   return (
     <div className="space-y-4">
-      <p className="text-muted-foreground">Followers list will be implemented here</p>
+      <p className="text-muted-foreground text-center py-8">
+        Followers list coming soon
+      </p>
     </div>
   )
 }
 
 function FollowingList() {
-  // TODO: Implement following list
   return (
     <div className="space-y-4">
-      <p className="text-muted-foreground">Following list will be implemented here</p>
+      <p className="text-muted-foreground text-center py-8">
+        Following list coming soon
+      </p>
     </div>
   )
 } 

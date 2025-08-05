@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useUser } from '@clerk/nextjs'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
@@ -11,6 +12,7 @@ import Link from 'next/link'
 import { formatRelativeTime } from '@/utils/format'
 import CommentSection from './comment-section'
 import CreatorQuestions from './creator-questions'
+import { showToast, toastMessages } from '@/lib/toast'
 
 interface ProjectDisplayProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -49,10 +51,16 @@ export function ProjectDisplay({ project }: ProjectDisplayProps) {
 
       const result = await response.json()
       setIsLiked(result.liked)
+      
+      // Show success message
+      showToast.success(
+        result.liked ? toastMessages.project.liked : toastMessages.project.unliked
+      )
     } catch (error) {
       // Revert optimistic update on error
       setIsLiked(wasLiked)
       setLikeCount(originalCount)
+      showToast.error(toastMessages.generic.error, 'Please try again')
       console.error('Error toggling like:', error)
     }
   }
@@ -66,7 +74,7 @@ export function ProjectDisplay({ project }: ProjectDisplayProps) {
       })
     } else {
       navigator.clipboard.writeText(window.location.href)
-      // TODO: Show toast notification
+      showToast.success(toastMessages.social.shareSuccess)
     }
   }
 
@@ -117,10 +125,13 @@ export function ProjectDisplay({ project }: ProjectDisplayProps) {
       <div className="space-y-4">
         {/* Main Image */}
         <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-gray-100">
-          <img
+          <Image
             src={images[currentImageIndex]}
             alt={`${project.title} - Image ${currentImageIndex + 1}`}
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+            priority
           />
           
           {/* Navigation Arrows */}
@@ -155,10 +166,12 @@ export function ProjectDisplay({ project }: ProjectDisplayProps) {
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <img
+                <Image
                   src={image}
                   alt={`Thumbnail ${index + 1}`}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
+                  sizes="80px"
                 />
               </button>
             ))}

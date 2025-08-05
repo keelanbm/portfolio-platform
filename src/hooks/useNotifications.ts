@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useUser } from '@clerk/nextjs'
 
 export interface Notification {
@@ -29,7 +29,7 @@ export function useNotifications() {
   const [error, setError] = useState<string | null>(null)
 
   // Fetch notifications
-  const fetchNotifications = async (unreadOnly = false) => {
+  const fetchNotifications = useCallback(async (unreadOnly = false) => {
     if (!isSignedIn) return
 
     setLoading(true)
@@ -61,7 +61,7 @@ export function useNotifications() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [isSignedIn])
 
   // Mark notifications as read
   const markAsRead = async (notificationIds?: string[], markAllAsRead = false) => {
@@ -103,7 +103,7 @@ export function useNotifications() {
     if (isSignedIn) {
       fetchNotifications()
     }
-  }, [isSignedIn])
+  }, [isSignedIn, fetchNotifications])
 
   return {
     notifications,

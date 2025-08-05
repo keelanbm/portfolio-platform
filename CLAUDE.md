@@ -79,17 +79,24 @@ Uses **Clerk** for authentication with middleware at `src/middleware.ts`. The mi
 - **Radix UI** for accessible UI primitives
 - **Lucide React** for icons
 - **date-fns** for date formatting
-- **Sonner** for toast notifications
+- **Sonner** for toast notifications (centralized user feedback system)
 - **React Dropzone** for file uploads
+- **Next.js Image** for optimized image loading and performance
 
-### Development Notes
+### Development Notes (Updated August 2025)
 
 - The project uses Next.js 15 with React 19 (latest versions)
-- TypeScript is configured throughout
+- TypeScript is configured throughout with strict mode enabled
 - Tailwind with custom CSS variables for theming
 - Components follow shadcn/ui patterns for consistency
-- API routes use proper HTTP methods and error handling
+- API routes use proper HTTP methods and comprehensive error handling
 - Database queries use Prisma Client with proper error handling
+- **Toast Notifications**: Comprehensive user feedback system using `src/lib/toast.ts`
+- **Error Boundaries**: Full error handling with recovery options in `src/components/error-boundary.tsx`
+- **Image Optimization**: All images use Next.js `<Image />` component with lazy loading
+- **Infinite Scroll**: Implemented in feed and discover pages for better performance
+- **Advanced Search**: Multi-dimensional filtering with tags, date ranges, and sorting options
+- **Comment System**: Full threading with likes, replies, and real-time updates
 
 ### Production Deployment
 

@@ -9,6 +9,9 @@ export async function GET(request: NextRequest) {
     
     const query = searchParams.get('q')
     const type = searchParams.get('type') || 'all' // 'all', 'projects', 'users'
+    const sort = searchParams.get('sort') || 'recent' // 'recent', 'popular', 'relevance'
+    const tags = searchParams.get('tags') // comma-separated tags
+    const dateFilter = searchParams.get('dateFilter') || 'all' // '1d', '1w', '1m', '3m', '1y', 'all'
     const page = parseInt(searchParams.get('page') || '1')
     const limit = parseInt(searchParams.get('limit') || '10')
     const offset = (page - 1) * limit
@@ -31,21 +34,62 @@ export async function GET(request: NextRequest) {
     let totalProjects = 0
     let totalUsers = 0
 
+    // Build date filter
+    const getDateFilter = (dateFilter: string) => {
+      const now = new Date()
+      switch (dateFilter) {
+        case '1d':
+          return new Date(now.getTime() - 24 * 60 * 60 * 1000)
+        case '1w':
+          return new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
+        case '1m':
+          return new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
+        case '3m':
+          return new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000)
+        case '1y':
+          return new Date(now.getTime() - 365 * 24 * 60 * 60 * 1000)
+        default:
+          return null
+      }
+    }
+
     // Search projects
     if (type === 'all' || type === 'projects') {
+      // Build project where clause
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const projectWhere: any = {
+        AND: [
+          { isPublic: true },
+          {
+            OR: [
+              { title: { contains: searchQuery, mode: 'insensitive' } },
+              { description: { contains: searchQuery, mode: 'insensitive' } },
+              { tags: { has: searchQuery } },
+            ],
+          },
+        ],
+      }
+
+      // Add tag filtering
+      if (tags) {
+        const tagArray = tags.split(',').map(tag => tag.trim()).filter(Boolean)
+        if (tagArray.length > 0) {
+          projectWhere.AND.push({
+            tags: { hasSome: tagArray }
+          })
+        }
+      }
+
+      // Add date filtering
+      const dateFilterValue = getDateFilter(dateFilter)
+      if (dateFilterValue) {
+        projectWhere.AND.push({
+          createdAt: { gte: dateFilterValue }
+        })
+      }
+
       const projectsResult = await prisma.project.findMany({
-        where: {
-          AND: [
-            { isPublic: true },
-            {
-              OR: [
-                { title: { contains: searchQuery, mode: 'insensitive' } },
-                { description: { contains: searchQuery, mode: 'insensitive' } },
-                { tags: { has: searchQuery } },
-              ],
-            },
-          ],
-        },
+        where: projectWhere,
         include: {
           user: {
             select: {
@@ -65,26 +109,13 @@ export async function GET(request: NextRequest) {
             },
           },
         },
-        orderBy: {
-          likeCount: 'desc',
-        },
+        orderBy: sort === 'popular' ? { likeCount: 'desc' } : { createdAt: 'desc' },
         take: limit,
         skip: offset,
       })
 
       totalProjects = await prisma.project.count({
-        where: {
-          AND: [
-            { isPublic: true },
-            {
-              OR: [
-                { title: { contains: searchQuery, mode: 'insensitive' } },
-                { description: { contains: searchQuery, mode: 'insensitive' } },
-                { tags: { has: searchQuery } },
-              ],
-            },
-          ],
-        },
+        where: projectWhere,
       })
 
       projects = projectsResult
@@ -109,9 +140,7 @@ export async function GET(request: NextRequest) {
             },
           },
         },
-        orderBy: {
-          createdAt: 'desc',
-        },
+        orderBy: { createdAt: 'desc' },
         take: limit,
         skip: offset,
       })
@@ -164,7 +193,7 @@ export async function GET(request: NextRequest) {
       userAvatar: project.user.avatarUrl,
       createdAt: project.createdAt.toISOString(),
       likes: project._count.likes,
-      comments: 0, // TODO: Add comments system
+      comments: 0, // Will be populated when comments system is implemented
     }))
 
     // Format users

@@ -2,17 +2,18 @@
 
 A Web2-first design portfolio platform with optional Web3 features, allowing designers to showcase their work with social media-like feeds, profiles, and interactions.
 
-**Latest Update**: Build errors fixed and ready for deployment! 🚀
+**Latest Update**: Advanced search & discovery features implemented with comprehensive filtering! 🔍
 
 ## Features
 
 ### Core Features (MVP)
-- User authentication with Supabase Auth
+- User authentication with Clerk
 - Project upload and management (1-10 images per project)
-- Social features (likes, saves, follows)
+- Social features (likes, saves, follows, comments)
 - User profiles and project galleries
-- Basic search and discovery
-- Subscription tiers (Free: 3 slides, Pro: 10 slides)
+- Advanced search and discovery with filtering
+- Comment system with threading support
+- Toast notifications and error handling
 
 ### Web3 Features (Phase 4)
 - Optional NFT minting for projects
@@ -33,8 +34,8 @@ A Web2-first design portfolio platform with optional Web3 features, allowing des
 ### Prerequisites
 - Node.js 18+
 - npm or yarn
-- Supabase account
-- Google OAuth credentials (for social login)
+- Supabase account (for database)
+- Clerk account (for authentication)
 
 ### Installation
 
@@ -56,8 +57,8 @@ cp env.example .env.local
 
 4. Configure your environment variables in `.env.local`:
    - Set up a Supabase project and add your credentials
-   - Add Google OAuth credentials
-   - Configure other services as needed
+   - Set up a Clerk application and add your keys
+   - Configure Clerk webhooks for user management
 
 5. Set up the database:
 ```bash

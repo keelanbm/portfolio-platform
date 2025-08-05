@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useUser } from '@clerk/nextjs'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Heart, MessageCircle } from 'lucide-react'
 import { formatDistanceToNow } from 'date-fns'
+import { showToast } from '@/lib/toast'
 
 interface Comment {
   id: string
@@ -44,12 +45,7 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
 
-  // Fetch comments
-  useEffect(() => {
-    fetchComments()
-  }, [projectId])
-
-  const fetchComments = async () => {
+  const fetchComments = useCallback(async () => {
     try {
       const response = await fetch(`/api/comments?projectId=${projectId}`)
       if (response.ok) {
@@ -58,10 +54,16 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
       }
     } catch (error) {
       console.error('Error fetching comments:', error)
+      showToast.error('Failed to load comments', 'Please refresh the page to try again.')
     } finally {
       setLoading(false)
     }
-  }
+  }, [projectId])
+
+  // Fetch comments
+  useEffect(() => {
+    fetchComments()
+  }, [fetchComments])
 
   const handleSubmitComment = async () => {
     if (!newComment.trim() || !isSignedIn) return
@@ -84,9 +86,14 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
         setNewComment('')
         setNewCommentTags([])
         fetchComments() // Refresh comments
+        showToast.success('Comment posted', 'Your comment has been shared successfully.')
+      } else {
+        const errorData = await response.json()
+        showToast.error('Failed to post comment', errorData.error || 'Please try again.')
       }
     } catch (error) {
       console.error('Error creating comment:', error)
+      showToast.error('Failed to post comment', 'Please check your connection and try again.')
     } finally {
       setSubmitting(false)
     }
@@ -114,9 +121,14 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
         setReplyContent('')
         setReplyingTo(null)
         fetchComments() // Refresh comments
+        showToast.success('Reply posted', 'Your reply has been added successfully.')
+      } else {
+        const errorData = await response.json()
+        showToast.error('Failed to post reply', errorData.error || 'Please try again.')
       }
     } catch (error) {
       console.error('Error creating reply:', error)
+      showToast.error('Failed to post reply', 'Please check your connection and try again.')
     } finally {
       setSubmitting(false)
     }
@@ -152,9 +164,14 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
         setEditingComment(null)
         setEditContent('')
         fetchComments() // Refresh comments
+        showToast.success('Comment updated', 'Your comment has been saved successfully.')
+      } else {
+        const errorData = await response.json()
+        showToast.error('Failed to update comment', errorData.error || 'Please try again.')
       }
     } catch (error) {
       console.error('Error updating comment:', error)
+      showToast.error('Failed to update comment', 'Please check your connection and try again.')
     } finally {
       setSubmitting(false)
     }
@@ -171,9 +188,14 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
 
       if (response.ok) {
         fetchComments() // Refresh comments
+        showToast.success('Comment deleted', 'Your comment has been removed successfully.')
+      } else {
+        const errorData = await response.json()
+        showToast.error('Failed to delete comment', errorData.error || 'Please try again.')  
       }
     } catch (error) {
       console.error('Error deleting comment:', error)
+      showToast.error('Failed to delete comment', 'Please check your connection and try again.')
     } finally {
       setSubmitting(false)
     }
@@ -187,6 +209,18 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
 
   const handleCommentLike = async (commentId: string) => {
     if (!isSignedIn) return
+
+    // Optimistic update
+    const wasLiked = likedComments.has(commentId)
+    setLikedComments(prev => {
+      const newSet = new Set(prev)
+      if (wasLiked) {
+        newSet.delete(commentId)
+      } else {
+        newSet.add(commentId)
+      }
+      return newSet
+    })
 
     try {
       const response = await fetch(`/api/comments/${commentId}/like`, {
@@ -207,14 +241,43 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
         
         // Refresh comments to get updated like counts
         fetchComments()
+        
+        // Show success message
+        showToast.success(
+          data.liked ? 'Comment liked' : 'Comment unliked', 
+          data.liked ? 'You liked this comment.' : 'You removed your like.'
+        )
+      } else {
+        // Revert optimistic update on error
+        setLikedComments(prev => {
+          const newSet = new Set(prev)
+          if (wasLiked) {
+            newSet.add(commentId)
+          } else {
+            newSet.delete(commentId)
+          }
+          return newSet
+        })
+        showToast.error('Failed to like comment', 'Please try again.')
       }
     } catch (error) {
+      // Revert optimistic update on error
+      setLikedComments(prev => {
+        const newSet = new Set(prev)
+        if (wasLiked) {
+          newSet.add(commentId)
+        } else {
+          newSet.delete(commentId)
+        }
+        return newSet
+      })
       console.error('Error toggling comment like:', error)
+      showToast.error('Failed to like comment', 'Please check your connection and try again.')
     }
   }
 
   // Fetch like status for comments when they load
-  const fetchCommentLikeStatus = async (commentIds: string[]) => {
+  const fetchCommentLikeStatus = useCallback(async (commentIds: string[]) => {
     if (!isSignedIn || commentIds.length === 0) return
 
     try {
@@ -236,8 +299,9 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
       setLikedComments(likedSet)
     } catch (error) {
       console.error('Error fetching comment like statuses:', error)
+      // Don't show toast for like status fetch errors as they're not critical
     }
-  }
+  }, [isSignedIn])
 
   // Remove unused function
   // const fetchCommentsWithLikes = async () => {
@@ -252,7 +316,7 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
       ])
       fetchCommentLikeStatus(allCommentIds)
     }
-  }, [comments, isSignedIn])
+  }, [comments, isSignedIn, fetchCommentLikeStatus])
 
   const CommentItem = ({ comment, depth = 0 }: { comment: Comment; depth?: number }) => (
     <div className={`${depth > 0 ? 'ml-4 sm:ml-8 border-l-2 border-gray-200 pl-2 sm:pl-4' : ''}`}>

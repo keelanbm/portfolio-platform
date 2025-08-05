@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/footer";
 import { FloatingCreateButton } from "@/components/layout/floating-create-button";
 import { Toaster } from "@/components/ui/sonner";
 import { ClerkProvider } from '@clerk/nextjs';
+import { ErrorBoundary } from "@/components/error-boundary";
 
 
 
@@ -25,13 +26,21 @@ export default function RootLayout({
       >
         <ClerkProvider>
           <div className="flex min-h-screen flex-col">
-            <Header />
+            <ErrorBoundary>
+              <Header />
+            </ErrorBoundary>
             <main className="flex-1">
-              {children}
+              <ErrorBoundary>
+                {children}
+              </ErrorBoundary>
             </main>
-            <Footer />
+            <ErrorBoundary>
+              <Footer />
+            </ErrorBoundary>
           </div>
-          <FloatingCreateButton />
+          <ErrorBoundary>
+            <FloatingCreateButton />
+          </ErrorBoundary>
           <Toaster />
         </ClerkProvider>
       </body>

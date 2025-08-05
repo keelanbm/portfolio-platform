@@ -1,14 +1,14 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { Button } from '@/components/ui/button'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Heart, MessageCircle, Share2, UserPlus } from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
+import { MasonryGrid, MasonryGridItem } from '@/components/ui/masonry-grid'
+import { ProjectCard } from '@/components/ui/project-card'
+import { ProjectModal } from '@/components/project/project-modal'
 import { DiscoverFeedSkeleton } from './discover-feed-skeleton'
 import { DEFAULT_TAGS } from '@/lib/constants'
+import { showToast, toastMessages } from '@/lib/toast'
 
 interface Project {
   id: string
@@ -33,8 +33,14 @@ interface Project {
 export function DiscoverFeed() {
   const [projects, setProjects] = useState<Project[]>([])
   const [loading, setLoading] = useState(true)
+  const [loadingMore, setLoadingMore] = useState(false)
+  const [hasMore, setHasMore] = useState(true)
+  const [currentPage, setCurrentPage] = useState(1)
   const [sortBy, setSortBy] = useState('recent')
   const [selectedTags, setSelectedTags] = useState<string[]>([])
+  const [modalOpen, setModalOpen] = useState(false)
+  const [selectedProjectId, setSelectedProjectId] = useState<string>('')
+  const observerRef = useRef<HTMLDivElement | null>(null)
 
   // Get all unique tags from projects for filtering (commented out as not currently used)
   // const allTags = Array.from(new Set(projects.flatMap(project => project.tags)))
@@ -42,10 +48,14 @@ export function DiscoverFeed() {
   useEffect(() => {
     const fetchProjects = async () => {
       setLoading(true)
+      setCurrentPage(1)
+      setHasMore(true)
       try {
         // Build query parameters
         const params = new URLSearchParams()
         params.append('sort', sortBy)
+        params.append('page', '1')
+        params.append('limit', '20')
         if (selectedTags.length > 0) {
           params.append('tags', selectedTags.join(','))
         }
@@ -56,11 +66,14 @@ export function DiscoverFeed() {
         }
         
         const data = await response.json()
-        setProjects(data.projects)
+        setProjects(data.projects || [])
+        setHasMore(data.hasMore || false)
       } catch (error) {
+        showToast.error('Failed to load projects', 'Please refresh the page')
         console.error('Error fetching projects:', error)
         // Fallback to empty array on error
         setProjects([])
+        setHasMore(false)
       } finally {
         setLoading(false)
       }
@@ -68,6 +81,65 @@ export function DiscoverFeed() {
 
     fetchProjects()
   }, [sortBy, selectedTags])
+
+  const loadMore = useCallback(async () => {
+    if (loadingMore || !hasMore) return
+
+    setLoadingMore(true)
+    try {
+      const nextPage = currentPage + 1
+      const params = new URLSearchParams()
+      params.append('sort', sortBy)
+      params.append('page', nextPage.toString())
+      params.append('limit', '20')
+      if (selectedTags.length > 0) {
+        params.append('tags', selectedTags.join(','))
+      }
+      
+      const response = await fetch(`/api/discover?${params.toString()}`)
+      if (!response.ok) {
+        throw new Error('Failed to load more projects')
+      }
+      
+      const data = await response.json()
+      setProjects(prev => [...prev, ...(data.projects || [])])
+      setHasMore(data.hasMore || false)
+      setCurrentPage(nextPage)
+    } catch (error) {
+      showToast.error('Failed to load more projects', 'Please try again')
+      console.error('Error loading more projects:', error)
+    } finally {
+      setLoadingMore(false)
+    }
+  }, [loadingMore, hasMore, currentPage, sortBy, selectedTags])
+
+  // Intersection Observer for infinite scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const target = entries[0]
+        if (target.isIntersecting && hasMore && !loadingMore) {
+          loadMore()
+        }
+      },
+      {
+        root: null,
+        rootMargin: '100px',
+        threshold: 0.1,
+      }
+    )
+
+    const currentObserverRef = observerRef.current
+    if (currentObserverRef) {
+      observer.observe(currentObserverRef)
+    }
+
+    return () => {
+      if (currentObserverRef) {
+        observer.unobserve(currentObserverRef)
+      }
+    }
+  }, [hasMore, loadingMore, loadMore])
 
   const handleTagToggle = (tag: string) => {
     setSelectedTags(prev => 
@@ -80,6 +152,49 @@ export function DiscoverFeed() {
   const clearAllFilters = () => {
     setSelectedTags([])
     setSortBy('recent')
+  }
+
+  const handleLike = async (projectId: string) => {
+    try {
+      const response = await fetch(`/api/projects/${projectId}/like`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      
+      if (!response.ok) {
+        throw new Error('Failed to toggle like')
+      }
+      
+      const result = await response.json()
+      
+      // Update the projects state with the new like status
+      setProjects(prev => prev.map(project => 
+        project.id === projectId 
+          ? { ...project, isLiked: result.liked, likes: result.likes }
+          : project
+      ))
+      
+      // Show success message
+      showToast.success(
+        result.liked ? toastMessages.project.liked : toastMessages.project.unliked
+      )
+    } catch (error) {
+      showToast.error(toastMessages.generic.error, 'Please try again')
+      throw error
+    }
+  }
+
+
+  const handleOpenModal = (projectId: string) => {
+    setSelectedProjectId(projectId)
+    setModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setModalOpen(false)
+    setSelectedProjectId('')
   }
 
   const sortOptions = [
@@ -161,14 +276,40 @@ export function DiscoverFeed() {
         )}
       </div>
 
-      {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {/* Projects Masonry Grid */}
+      <MasonryGrid className="w-full">
         {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
+          <MasonryGridItem key={project.id}>
+            <ProjectCard 
+              project={project}
+              onLike={handleLike}
+              onOpenModal={handleOpenModal}
+            />
+          </MasonryGridItem>
         ))}
-      </div>
+      </MasonryGrid>
 
-      {projects.length === 0 && (
+      {/* Infinite scroll trigger */}
+      {hasMore && (
+        <div ref={observerRef} className="text-center py-8">
+          {loadingMore ? (
+            <div className="flex items-center justify-center space-x-2">
+              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-accent-primary"></div>
+              <span className="text-text-secondary">Loading more projects...</span>
+            </div>
+          ) : (
+            <Button 
+              variant="outline" 
+              className="btn-secondary" 
+              onClick={loadMore}
+            >
+              Load More
+            </Button>
+          )}
+        </div>
+      )}
+
+      {projects.length === 0 && !loading && (
         <div className="text-center py-16">
           <h3 className="text-lg font-semibold mb-3 text-text-primary">No projects found</h3>
           <p className="text-text-secondary">
@@ -176,193 +317,16 @@ export function DiscoverFeed() {
           </p>
         </div>
       )}
+
+      {/* Project Modal */}
+      <ProjectModal
+        isOpen={modalOpen}
+        onClose={handleCloseModal}
+        projectId={selectedProjectId}
+        onLike={handleLike}
+      />
     </div>
   )
 }
 
-function ProjectCard({ project }: { project: Project }) {
-  const [liked, setLiked] = useState(project.isLiked || false)
-  const [likeCount, setLikeCount] = useState(project.likes)
-  const [isFollowing, setIsFollowing] = useState(project.user.isFollowing)
-  const [imageError, setImageError] = useState(false)
-
-  const handleLike = async () => {
-    // Optimistic update
-    const wasLiked = liked
-    const originalCount = likeCount
-    setLiked(!liked)
-    setLikeCount(liked ? likeCount - 1 : likeCount + 1)
-    
-    try {
-      const response = await fetch(`/api/projects/${project.id}/like`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      
-      if (!response.ok) {
-        throw new Error('Failed to toggle like')
-      }
-      
-      const result = await response.json()
-      setLiked(result.liked)
-      // The like count will be updated by the API, but we'll keep our optimistic update
-    } catch (error) {
-      // Revert optimistic update on error
-      setLiked(wasLiked)
-      setLikeCount(originalCount)
-      console.error('Error toggling like:', error)
-    }
-  }
-
-  const handleFollow = async () => {
-    // Optimistic update
-    const wasFollowing = isFollowing
-    setIsFollowing(!isFollowing)
-    
-    try {
-      if (isFollowing) {
-        // Unfollow
-        const response = await fetch(`/api/follows?followingId=${project.user.id}`, {
-          method: 'DELETE',
-        })
-        
-        if (!response.ok) {
-          throw new Error('Failed to unfollow')
-        }
-      } else {
-        // Follow
-        const response = await fetch('/api/follows', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            followingId: project.user.id,
-          }),
-        })
-        
-        if (!response.ok) {
-          throw new Error('Failed to follow')
-        }
-      }
-    } catch (error) {
-      // Revert optimistic update on error
-      setIsFollowing(wasFollowing)
-      console.error('Error toggling follow:', error)
-    }
-  }
-
-  const handleImageError = () => {
-    setImageError(true)
-  }
-
-  return (
-    <Card className="overflow-hidden hover:shadow-lg transition-all duration-200 group bg-background-secondary border-border-primary">
-      <CardContent className="p-0">
-        {/* Project Image */}
-        <div className="relative aspect-[4/3] bg-background-tertiary overflow-hidden">
-          {imageError ? (
-            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-accent-primary/20 to-accent-secondary/20">
-              <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-2 rounded-full bg-accent-primary/30 flex items-center justify-center">
-                  <span className="text-2xl">🎨</span>
-                </div>
-                <p className="text-sm text-text-secondary">Image unavailable</p>
-              </div>
-            </div>
-          ) : (
-            <img
-              src={project.coverImage}
-              alt={project.title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
-              onError={handleImageError}
-              loading="lazy"
-            />
-          )}
-          {project.images.length > 1 && (
-            <Badge className="absolute top-3 right-3 text-xs bg-background-overlay/80 text-text-primary">
-              {project.images.length} images
-            </Badge>
-          )}
-        </div>
-
-        {/* Project Content */}
-        <div className="px-4 pb-3">
-          {/* User Info with Follow Icon */}
-          <div className="flex items-center space-x-2 mb-2 mt-2">
-            <Avatar className="h-6 w-6">
-              <AvatarImage src={project.user.avatar} />
-              <AvatarFallback className="text-xs bg-accent-primary/20 text-accent-primary">
-                {project.user.name.charAt(0).toUpperCase()}
-              </AvatarFallback>
-            </Avatar>
-            <div className="flex-1 min-w-0 flex items-center space-x-1">
-              <Link 
-                href={`/profile/${project.user.username}`}
-                className="text-sm font-medium hover:underline truncate block text-text-primary"
-              >
-                {project.user.name}
-              </Link>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handleFollow}
-                className={`h-4 w-4 p-0 ${isFollowing ? 'text-accent-primary' : 'text-text-secondary'}`}
-              >
-                <UserPlus className={`h-3 w-3 ${isFollowing ? 'fill-current' : ''}`} />
-              </Button>
-            </div>
-            <div className="flex items-center space-x-1">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handleLike}
-                className={`h-6 w-6 p-0 ${liked ? 'text-accent-pink' : 'text-text-secondary'}`}
-              >
-                <Heart className={`h-3 w-3 ${liked ? 'fill-current' : ''}`} />
-              </Button>
-              <Button variant="ghost" size="sm" className="h-6 w-6 p-0 text-text-secondary">
-                <MessageCircle className="h-3 w-3" />
-              </Button>
-              <Button variant="ghost" size="sm" className="h-6 w-6 p-0 text-text-secondary">
-                <Share2 className="h-3 w-3" />
-              </Button>
-            </div>
-          </div>
-
-          {/* Project Title */}
-          <Link 
-            href={`/project/${project.id}`}
-            className="text-base font-semibold hover:underline block mb-1 line-clamp-1 text-text-primary"
-          >
-            {project.title}
-          </Link>
-
-          {/* Tags */}
-          {project.tags.length > 0 && (
-            <div className="flex flex-wrap gap-1 mb-1">
-              {project.tags.slice(0, 2).map((tag) => (
-                <Badge key={tag} variant="secondary" className="text-xs bg-background-tertiary text-text-secondary">
-                  {tag}
-                </Badge>
-              ))}
-              {project.tags.length > 2 && (
-                <Badge variant="secondary" className="text-xs bg-background-tertiary text-text-secondary">
-                  +{project.tags.length - 2}
-                </Badge>
-              )}
-            </div>
-          )}
-
-          {/* Stats */}
-          <div className="flex items-center space-x-3 text-xs text-text-secondary">
-            <span>{likeCount} likes</span>
-            <span>{project.comments} comments</span>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  )
-} 
+ 

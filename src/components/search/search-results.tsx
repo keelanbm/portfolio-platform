@@ -1,13 +1,17 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Search, Image as ImageIcon, Filter, Calendar, User, Heart } from 'lucide-react'
+import { Search, Image as ImageIcon, Filter, Calendar, User, Heart, ChevronDown, X } from 'lucide-react'
 import Link from 'next/link'
+import { showToast } from '@/lib/toast'
+import { DEFAULT_TAGS } from '@/lib/constants'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 interface SearchResult {
   id: string
@@ -27,69 +31,56 @@ interface SearchResultsProps {
   query: string
 }
 
+interface SearchResponse {
+  projects: SearchResult[]
+  users: SearchResult[]
+  results: SearchResult[]
+  total: number
+  hasMore: boolean
+  page: number
+  limit: number
+}
+
 export function SearchResults({ query }: SearchResultsProps) {
   const [results, setResults] = useState<SearchResult[]>([])
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState('all')
   const [sortBy, setSortBy] = useState('recent')
+  const [total, setTotal] = useState(0)
+  const [selectedTags, setSelectedTags] = useState<string[]>([])
+  const [dateFilter, setDateFilter] = useState('all')
+  const [showFilters, setShowFilters] = useState(false)
 
   useEffect(() => {
     const fetchResults = async () => {
       setLoading(true)
       try {
-        // TODO: Replace with actual API call
-        // const response = await fetch(`/api/search?q=${encodeURIComponent(query)}&sort=${sortBy}`)
-        // const data = await response.json()
-        
-        // Mock data for now
-        const mockResults: SearchResult[] = [
-          {
-            id: '1',
-            type: 'project',
-            title: 'Modern Web Design',
-            description: 'A clean and modern web design project showcasing minimalist principles and user-centered design.',
-            image: 'https://picsum.photos/800/600?random=1',
-            tags: ['web design', 'minimalist', 'modern'],
-            username: 'johndoe',
-            userAvatar: 'https://picsum.photos/100/100?random=10',
-            createdAt: '2024-01-15',
-            likes: 42
-          },
-          {
-            id: '2',
-            type: 'user',
-            title: 'John Doe',
-            username: 'johndoe',
-            userAvatar: 'https://picsum.photos/100/100?random=10',
-            description: 'UI/UX Designer passionate about creating beautiful digital experiences',
-            followers: 1247
-          },
-          {
-            id: '3',
-            type: 'project',
-            title: 'Mobile App UI Kit',
-            description: 'Complete UI kit for mobile applications with 50+ components and dark/light themes.',
-            image: 'https://picsum.photos/800/600?random=2',
-            tags: ['mobile', 'ui kit', 'components'],
-            username: 'janedoe',
-            userAvatar: 'https://picsum.photos/100/100?random=11',
-            createdAt: '2024-01-14',
-            likes: 128
-          },
-          {
-            id: '4',
-            type: 'user',
-            title: 'Jane Doe',
-            username: 'janedoe',
-            userAvatar: 'https://picsum.photos/100/100?random=11',
-            description: 'Product Designer focused on creating intuitive user experiences',
-            followers: 892
-          }
-        ]
-        
-        setResults(mockResults)
-      } catch (error) {
-        console.error('Search error:', error)
+        // Build query parameters
+        const params = new URLSearchParams()
+        params.append('q', query)
+        params.append('type', activeTab)
+        params.append('sort', sortBy)
+        if (selectedTags.length > 0) {
+          params.append('tags', selectedTags.join(','))
+        }
+        if (dateFilter !== 'all') {
+          params.append('dateFilter', dateFilter)
+        }
+
+        const response = await fetch(`/api/search?${params.toString()}`)
+        if (response.ok) {
+          const data: SearchResponse = await response.json()
+          setResults(data.results || [])
+          setTotal(data.total || 0)
+        } else {
+          showToast.error('Search failed', 'Unable to search at this time. Please try again.')
+          setResults([])
+          setTotal(0)
+        }
+      } catch {
+        showToast.error('Search error', 'An error occurred while searching. Please try again.')
+        setResults([])
+        setTotal(0)
       } finally {
         setLoading(false)
       }
@@ -97,8 +88,12 @@ export function SearchResults({ query }: SearchResultsProps) {
 
     if (query.trim()) {
       fetchResults()
+    } else {
+      setResults([])
+      setTotal(0)
+      setLoading(false)
     }
-  }, [query, sortBy])
+  }, [query, sortBy, activeTab, selectedTags, dateFilter])
 
   const projectResults = results.filter(result => result.type === 'project')
   const userResults = results.filter(result => result.type === 'user')
@@ -108,6 +103,33 @@ export function SearchResults({ query }: SearchResultsProps) {
     { value: 'popular', label: 'Most Popular', icon: Heart },
     { value: 'relevance', label: 'Most Relevant', icon: Search }
   ]
+
+  const dateFilterOptions = [
+    { value: 'all', label: 'All time' },
+    { value: '1d', label: 'Last 24 hours' },
+    { value: '1w', label: 'Last week' },
+    { value: '1m', label: 'Last month' },
+    { value: '3m', label: 'Last 3 months' },
+    { value: '1y', label: 'Last year' }
+  ]
+
+  const addTag = (tag: string) => {
+    if (!selectedTags.includes(tag)) {
+      setSelectedTags([...selectedTags, tag])
+    }
+  }
+
+  const removeTag = (tagToRemove: string) => {
+    setSelectedTags(selectedTags.filter(tag => tag !== tagToRemove))
+  }
+
+  const clearAllFilters = () => {
+    setSelectedTags([])
+    setDateFilter('all')
+    setSortBy('recent')
+  }
+
+  const hasActiveFilters = selectedTags.length > 0 || dateFilter !== 'all' || sortBy !== 'recent'
 
   if (loading) {
     return (
@@ -162,36 +184,137 @@ export function SearchResults({ query }: SearchResultsProps) {
 
   return (
     <div className="space-y-8">
-      {/* Search Filters */}
-      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-        <div className="flex items-center space-x-2">
-          <Filter className="h-4 w-4 text-text-muted" />
-          <span className="text-sm font-medium text-text-secondary">Sort by:</span>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {sortOptions.map((option) => {
-            const Icon = option.icon
-            return (
+      {/* Advanced Search Filters */}
+      <div className="space-y-6">
+        {/* Filter Toggle and Clear */}
+        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowFilters(!showFilters)}
+              className="flex items-center gap-2"
+            >
+              <Filter className="h-4 w-4" />
+              Filters
+              <ChevronDown className={`h-4 w-4 transition-transform ${showFilters ? 'rotate-180' : ''}`} />
+            </Button>
+            {hasActiveFilters && (
               <Button
-                key={option.value}
-                variant={sortBy === option.value ? "default" : "outline"}
+                variant="ghost"
                 size="sm"
-                onClick={() => setSortBy(option.value)}
-                className="text-sm"
+                onClick={clearAllFilters}
+                className="text-text-muted hover:text-text-primary"
               >
-                <Icon className="h-3 w-3 mr-1" />
-                {option.label}
+                <X className="h-4 w-4 mr-1" />
+                Clear all
               </Button>
-            )
-          })}
+            )}
+          </div>
+          
+          {/* Sort Options */}
+          <div className="flex flex-wrap gap-2">
+            {sortOptions.map((option) => {
+              const Icon = option.icon
+              return (
+                <Button
+                  key={option.value}
+                  variant={sortBy === option.value ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setSortBy(option.value)}
+                  className="text-sm"
+                >
+                  <Icon className="h-3 w-3 mr-1" />
+                  {option.label}
+                </Button>
+              )
+            })}
+          </div>
         </div>
+
+        {/* Expandable Filter Panel */}
+        {showFilters && (
+          <Card className="p-6 space-y-6 bg-background-secondary border-border-primary">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Date Filter */}
+              <div className="space-y-3">
+                <label className="text-sm font-medium text-text-primary">Date Range</label>
+                <Select value={dateFilter} onValueChange={setDateFilter}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select time period" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {dateFilterOptions.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Tag Filter */}
+              <div className="space-y-3 md:col-span-2">
+                <label className="text-sm font-medium text-text-primary">Tags</label>
+                <div className="space-y-3">
+                  {/* Selected Tags */}
+                  {selectedTags.length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                      {selectedTags.map((tag) => (
+                        <Badge key={tag} variant="default" className="flex items-center gap-1">
+                          {tag}
+                          <button
+                            onClick={() => removeTag(tag)}
+                            className="ml-1 hover:bg-white/20 rounded-full p-0.5"
+                          >
+                            <X className="h-3 w-3" />
+                          </button>
+                        </Badge>
+                      ))}
+                    </div>
+                  )}
+                  
+                  {/* Available Tags */}
+                  <div className="flex flex-wrap gap-2">
+                    {DEFAULT_TAGS.filter(tag => !selectedTags.includes(tag)).slice(0, 12).map((tag) => (
+                      <Button
+                        key={tag}
+                        variant="outline"
+                        size="sm"
+                        onClick={() => addTag(tag)}
+                        className="text-xs h-8"
+                      >
+                        + {tag}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Filter Summary */}
+            {hasActiveFilters && (
+              <div className="pt-4 border-t border-border-primary">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-text-secondary">
+                    {selectedTags.length} tags selected, 
+                    {dateFilter !== 'all' ? ` ${dateFilterOptions.find(d => d.value === dateFilter)?.label?.toLowerCase()}` : ' all time'}
+                  </span>
+                  <span className="text-text-primary font-medium">
+                    {total} results found
+                  </span>
+                </div>
+              </div>
+            )}
+          </Card>
+        )}
       </div>
 
       {/* Results Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-3 bg-background-secondary border-border-primary">
           <TabsTrigger value="all" className="text-text-secondary data-[state=active]:text-text-primary data-[state=active]:bg-background-tertiary">
-            All ({results.length})
+            All ({total > 0 ? total : results.length})
           </TabsTrigger>
           <TabsTrigger value="projects" className="text-text-secondary data-[state=active]:text-text-primary data-[state=active]:bg-background-tertiary">
             Projects ({projectResults.length})
@@ -229,12 +352,14 @@ function SearchResultCard({ result }: { result: SearchResult }) {
       <Card className="hover:shadow-lg transition-all duration-200 group bg-background-secondary border-border-primary">
         <CardContent className="p-6">
           <div className="flex items-start space-x-6">
-            <div className="w-24 h-24 bg-background-tertiary rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+            <div className="relative w-24 h-24 bg-background-tertiary rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
               {result.image ? (
-                <img 
+                <Image 
                   src={result.image} 
                   alt={result.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-200"
+                  sizes="96px"
                 />
               ) : (
                 <ImageIcon className="h-8 w-8 text-text-muted" />

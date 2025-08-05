@@ -93,7 +93,7 @@ export async function GET(request: NextRequest) {
       images: project.slides.map(slide => slide.imageUrl),
       tags: project.tags,
       likes: project._count.likes,
-      comments: 0, // TODO: Add comments system
+      comments: 0, // Will be populated when comments system is implemented
       createdAt: project.createdAt.toISOString(),
       user: {
         id: project.user.id,

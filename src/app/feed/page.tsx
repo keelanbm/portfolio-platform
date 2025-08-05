@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import { ActivityFeed } from '@/components/feed/activity-feed'
 import { ActivityFeedSkeleton } from '@/components/feed/activity-feed-skeleton'
+import { AsyncErrorBoundary } from '@/components/error-boundary'
 
 export default function FeedPage() {
   return (
@@ -13,7 +14,9 @@ export default function FeedPage() {
       </div>
 
       <Suspense fallback={<ActivityFeedSkeleton />}>
-        <ActivityFeed />
+        <AsyncErrorBoundary>
+          <ActivityFeed />
+        </AsyncErrorBoundary>
       </Suspense>
     </div>
   )

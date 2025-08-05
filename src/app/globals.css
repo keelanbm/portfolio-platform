@@ -13,25 +13,42 @@
 }
 
 @layer components {
-  /* Portfolio Design System Components */
+  /* Layers.to Inspired Dark Theme Design System */
   .portfolio-card {
-    @apply bg-background-secondary border border-border-primary rounded-card p-6 transition-all duration-300 hover:bg-background-tertiary hover:border-border-secondary hover:transform hover:-translate-y-1;
+    @apply bg-background-secondary border border-border-primary rounded-card shadow-card transition-all duration-300 hover:shadow-card-hover hover:transform hover:-translate-y-1;
   }
 
   .portfolio-grid {
-    @apply grid grid-cols-portfolio-sm md:grid-cols-portfolio-md lg:grid-cols-portfolio-lg gap-8 p-6;
+    @apply grid grid-cols-masonry-sm md:grid-cols-masonry-md lg:grid-cols-masonry-lg xl:grid-cols-masonry-xl 2xl:grid-cols-masonry-2xl gap-6 p-6;
+  }
+
+  /* Masonry Grid Styles - More Open Layout */
+  .masonry-grid {
+    display: flex;
+    margin-left: -20px; /* gutter size offset - reduced for more open feel */
+    width: auto;
+  }
+  
+  .masonry-grid-column {
+    padding-left: 20px; /* gutter size - reduced for more open feel */
+    background-clip: padding-box;
+  }
+  
+  .masonry-grid-item {
+    margin-bottom: 20px; /* gutter size - reduced for more open feel */
+    break-inside: avoid;
   }
 
   .btn-primary {
-    @apply bg-accent-primary text-white border-0 rounded-button px-6 py-3 font-medium transition-all duration-200 hover:bg-indigo-600 hover:transform hover:-translate-y-0.5;
+    @apply bg-accent-primary text-white border-0 rounded-button px-6 py-3 font-medium transition-all duration-200 hover:bg-indigo-600 hover:transform hover:-translate-y-0.5 shadow-sm hover:shadow-md;
   }
 
   .btn-secondary {
-    @apply bg-transparent text-text-primary border-2 border-border-secondary rounded-button px-6 py-3 font-medium transition-all duration-200 hover:bg-background-tertiary hover:border-border-accent;
+    @apply bg-background-secondary text-text-primary border border-border-primary rounded-button px-6 py-3 font-medium transition-all duration-200 hover:bg-background-tertiary hover:border-border-secondary shadow-sm;
   }
 
   .image-container {
-    @apply rounded-image overflow-hidden bg-background-tertiary aspect-[4/3] relative;
+    @apply rounded-image overflow-hidden bg-background-secondary relative;
   }
 
   /* Grid Background Pattern */

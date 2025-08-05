@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -51,10 +52,12 @@ export function ProjectPreview({ projectData, user }: ProjectPreviewProps) {
             {/* Project Image */}
             <div className="relative aspect-[4/3] bg-muted overflow-hidden">
               {projectData.images.length > 0 ? (
-                <img
+                <Image
                   src={URL.createObjectURL(projectData.images[projectData.coverImageIndex])}
                   alt={projectData.title || 'Project preview'}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
               ) : (
                 <div className="w-full h-full bg-gray-100 flex items-center justify-center">
@@ -154,12 +157,14 @@ export function ProjectPreview({ projectData, user }: ProjectPreviewProps) {
             </div>
 
             {/* Main Image */}
-            <div className="aspect-[4/3] rounded-lg overflow-hidden bg-gray-100 mb-4">
+            <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-gray-100 mb-4">
               {projectData.images.length > 0 ? (
-                <img
+                <Image
                   src={URL.createObjectURL(projectData.images[projectData.coverImageIndex])}
                   alt={projectData.title || 'Project preview'}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">

@@ -27,6 +27,7 @@ model User {
 
   // Relations
   projects      Project[]
+  collections   Collection[]
   likes         Like[]
   saves         Save[]
   followers     Follow[]       @relation("UserFollowers")
@@ -57,12 +58,13 @@ model Project {
   updatedAt       DateTime @updatedAt
 
   // Relations
-  user     User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  slides   ProjectSlide[]
-  likes    Like[]
-  saves    Save[]
-  nftMints NftMint[]
-  comments Comment[]
+  user              User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  slides            ProjectSlide[]
+  likes             Like[]
+  saves             Save[]
+  nftMints          NftMint[]
+  comments          Comment[]
+  collectionProjects CollectionProject[]
 
   @@map("projects")
 }
@@ -195,6 +197,39 @@ enum CommentType {
   COMMENT
   QUESTION
   ANSWER
+}
+
+model Collection {
+  id          String   @id @default(cuid())
+  userId      String
+  name        String
+  description String?
+  isPublic    Boolean  @default(true)
+  coverImageUrl String?
+  projectCount Int     @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  user               User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  collectionProjects CollectionProject[]
+
+  @@unique([userId, name]) // User can't have duplicate collection names
+  @@map("collections")
+}
+
+model CollectionProject {
+  id           String     @id @default(cuid())
+  collectionId String
+  projectId    String
+  addedAt      DateTime   @default(now())
+
+  // Relations
+  collection Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  project    Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([collectionId, projectId]) // Project can't be in same collection twice
+  @@map("collection_projects")
 }
 
 model Notification {

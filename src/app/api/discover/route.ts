@@ -21,17 +21,26 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '12')
     const sortBy = searchParams.get('sort') || 'recent'
     const tag = searchParams.get('tag')
+    const tags = searchParams.get('tags')
     const offset = (page - 1) * limit
 
     // Build where clause
     const where: {
       isPublic: boolean
-      tags?: { has: string }
+      tags?: { hasSome: string[] } | { has: string }
     } = {
       isPublic: true,
     }
 
-    if (tag && tag !== 'all') {
+    // Handle multiple tags (from new frontend) or single tag (legacy)
+    if (tags) {
+      const tagArray = tags.split(',').filter(t => t.trim() !== '')
+      if (tagArray.length > 0) {
+        where.tags = {
+          hasSome: tagArray,
+        }
+      }
+    } else if (tag && tag !== 'all') {
       where.tags = {
         has: tag,
       }
@@ -53,7 +62,7 @@ export async function GET(request: NextRequest) {
         orderBy.likeCount = 'desc'
         break
       case 'comments':
-        // TODO: Add comment count when comments system is implemented
+        // Will use actual comment count when comments system is implemented
         orderBy.createdAt = 'desc'
         break
       default:

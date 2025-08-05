@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import { DiscoverFeed } from '@/components/discover/discover-feed'
 import { DiscoverFeedSkeleton } from '@/components/discover/discover-feed-skeleton'
+import { AsyncErrorBoundary } from '@/components/error-boundary'
 
 export default function DiscoverPage() {
   return (
@@ -13,7 +14,9 @@ export default function DiscoverPage() {
       </div>
 
       <Suspense fallback={<DiscoverFeedSkeleton />}>
-        <DiscoverFeed />
+        <AsyncErrorBoundary>
+          <DiscoverFeed />
+        </AsyncErrorBoundary>
       </Suspense>
     </div>
   )

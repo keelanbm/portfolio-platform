@@ -14,6 +14,7 @@ import { CONSTRAINTS, DIMENSIONS } from '@/lib/constants'
 import { useUser } from '@clerk/nextjs'
 import { Badge } from '@/components/ui/badge'
 import { X, Plus } from 'lucide-react'
+import { showToast, toastMessages } from '@/lib/toast'
 
 interface QuestionInputProps {
   onAdd: (question: string) => void
@@ -143,10 +144,13 @@ export function CreateProjectForm() {
       }
 
       const result = await response.json()
+      showToast.success(toastMessages.project.created)
       router.push(`/project/${result.project.id}`)
     } catch (error) {
-      console.error('Error creating project:', error)
-      // TODO: Show error toast
+      showToast.error(
+        toastMessages.project.uploadError,
+        error instanceof Error ? error.message : 'Please try again'
+      )
     } finally {
       setIsSubmitting(false)
     }
