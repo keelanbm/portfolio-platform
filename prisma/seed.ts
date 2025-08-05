@@ -1,12 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 
-const prisma = new PrismaClient({
-  datasources: {
-    db: {
-      url: process.env.DIRECT_URL
-    }
-  }
-})
+const prisma = new PrismaClient()
 
 async function main() {
   console.log('🌱 Starting database seeding...')
