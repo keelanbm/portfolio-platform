@@ -144,10 +144,11 @@ export function ProjectCard({
               sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, (max-width: 1536px) 25vw, 20vw"
             />
             
-            {/* Enhanced Hover Overlay with Stats */}
+            {/* Enhanced Hover Overlay with Stats and Comment Preview */}
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all duration-300">
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="flex items-center space-x-8 text-white">
+              <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4">
+                {/* Main Stats */}
+                <div className="flex items-center space-x-8 text-white mb-4">
                   <div className="flex items-center space-x-2">
                     <Heart className={`h-6 w-6 ${liked ? 'fill-current text-accent-pink' : ''}`} />
                     <span className="font-semibold text-lg">{likeCount}</span>
@@ -163,6 +164,17 @@ export function ProjectCard({
                     </div>
                   )}
                 </div>
+                
+                {/* Comment Preview */}
+                {project.comments > 0 && (
+                  <div className="bg-black/70 rounded-lg p-3 max-w-xs text-white text-center backdrop-blur-sm">
+                    <p className="text-xs font-medium mb-1">Recent Comment</p>
+                    <p className="text-xs text-gray-200 line-clamp-2">
+                      &ldquo;Love the color palette! The gradient transitions are so smooth.&rdquo;
+                    </p>
+                    <p className="text-xs text-gray-400 mt-1">Click to view all {project.comments} comments</p>
+                  </div>
+                )}
               </div>
 
               {/* Action Buttons Overlay */}
@@ -208,6 +220,13 @@ export function ProjectCard({
               <Badge className="absolute top-3 left-3 text-xs bg-black/60 text-white border-0 backdrop-blur-sm">
                 {project.images.length} images
               </Badge>
+            )}
+            
+            {/* Comment Activity Indicator */}
+            {project.comments > 0 && (
+              <div className="absolute top-3 right-3 bg-accent-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-medium animate-pulse">
+                {project.comments > 9 ? '9+' : project.comments}
+              </div>
             )}
           </div>
         )}

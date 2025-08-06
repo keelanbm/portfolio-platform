@@ -98,4 +98,26 @@
   .scrollbar-hide::-webkit-scrollbar { 
     display: none;  /* Safari and Chrome */
   }
+
+  /* Enhanced loading animations */
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s ease-in-out infinite;
+  }
+
+  .bg-size-200 {
+    background-size: 200% 100%;
+  }
+
+  .bg-pos-neg {
+    background-position: -200% 0;
+  }
 }

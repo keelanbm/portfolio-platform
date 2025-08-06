@@ -1,10 +1,12 @@
 'use client'
+import React, { memo } from 'react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 
 interface CategoryFilterBarProps {
   selectedTags: string[]
   onTagsChange: (tags: string[]) => void
+  loading?: boolean
   className?: string
 }
 
@@ -23,11 +25,12 @@ const HOMEPAGE_CATEGORIES = [
   'Landing Page'
 ] as const
 
-export function CategoryFilterBar({ 
+const CategoryFilterBarComponent = ({ 
   selectedTags, 
   onTagsChange, 
+  loading = false,
   className = '' 
-}: CategoryFilterBarProps) {
+}: CategoryFilterBarProps) => {
   const handleCategoryClick = (category: string) => {
     if (category === 'Most Popular') {
       // Clear all filters for "Most Popular"
@@ -65,15 +68,24 @@ export function CategoryFilterBar({
                     variant={isSelected ? "default" : "ghost"}
                     size="sm"
                     onClick={() => handleCategoryClick(category)}
+                    disabled={loading}
                     className={`
                       whitespace-nowrap text-sm font-medium px-4 py-2 rounded-full transition-all duration-200
                       ${isSelected 
                         ? 'bg-accent-primary text-white shadow-sm' 
                         : 'text-text-secondary hover:text-text-primary hover:bg-background-tertiary'
                       }
+                      ${loading ? 'opacity-50 cursor-not-allowed' : ''}
                     `}
                   >
-                    {category}
+                    {loading && isSelected ? (
+                      <div className="flex items-center space-x-2">
+                        <div className="animate-spin rounded-full h-3 w-3 border-b border-white"></div>
+                        <span>{category}</span>
+                      </div>
+                    ) : (
+                      category
+                    )}
                   </Button>
                 )
               })}
@@ -109,3 +121,6 @@ export function CategoryFilterBar({
     </div>
   )
 }
+
+// Memoize the component for performance
+export const CategoryFilterBar = memo(CategoryFilterBarComponent)

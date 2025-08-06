@@ -13,4 +13,6 @@ const nextConfig: NextConfig = {
   },
 };
 
+// PWA configuration will be re-added after fixing compatibility issues
+// For now, keeping the base configuration to ensure builds work
 export default nextConfig;

@@ -3,6 +3,21 @@ import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import { getProjectsWithMetadata } from '@/lib/query-optimizations'
 
+// Map homepage categories to database tags
+const CATEGORY_TAG_MAPPING: Record<string, string[]> = {
+  'Web Design': ['web app', 'website', 'landing page', 'dashboard'],
+  'UI/UX': ['ui design', 'ux design', 'interface', 'user experience'],
+  'Mobile': ['mobile app', 'mobile', 'ios', 'android'],
+  'Branding': ['branding', 'logo design', 'brand identity', 'visual identity'],
+  'Typography': ['typography', 'font design', 'lettering', 'hand lettering'],
+  'Animation': ['animation', 'motion', 'micro interactions'],
+  'Illustration': ['illustration', 'artwork', 'digital art'],
+  '3D': ['3d', '3d design', '3d modeling'],
+  'Photography': ['photography', 'photo', 'visual'],
+  'Dashboard': ['dashboard', 'analytics', 'data visualization'],
+  'Landing Page': ['landing page', 'website', 'marketing']
+}
+
 export async function GET(request: NextRequest) {
   try {
     // Make auth optional for discover page
@@ -36,13 +51,25 @@ export async function GET(request: NextRequest) {
     if (tags) {
       const tagArray = tags.split(',').filter(t => t.trim() !== '')
       if (tagArray.length > 0) {
+        // Expand homepage categories to database tags
+        const expandedTags: string[] = []
+        for (const tag of tagArray) {
+          if (CATEGORY_TAG_MAPPING[tag]) {
+            expandedTags.push(...CATEGORY_TAG_MAPPING[tag])
+          } else {
+            expandedTags.push(tag)
+          }
+        }
+        
         where.tags = {
-          hasSome: tagArray,
+          hasSome: expandedTags,
         }
       }
     } else if (tag && tag !== 'all') {
+      // Expand single tag if it's a homepage category
+      const expandedTags = CATEGORY_TAG_MAPPING[tag] || [tag]
       where.tags = {
-        has: tag,
+        hasSome: expandedTags,
       }
     }
 
@@ -56,17 +83,16 @@ export async function GET(request: NextRequest) {
         orderBy.createdAt = 'desc'
         break
       case 'popular':
-        orderBy.likeCount = 'desc'
-        break
       case 'likes':
         orderBy.likeCount = 'desc'
         break
       case 'comments':
-        // Will use actual comment count when comments system is implemented
-        orderBy.createdAt = 'desc'
+        // Use like count as proxy for popularity until comment count is available
+        orderBy.likeCount = 'desc'
         break
       default:
-        orderBy.createdAt = 'desc'
+        // Default to popular for homepage (like count desc, then recent)
+        orderBy.likeCount = 'desc'
     }
 
     // Get projects with optimized query
