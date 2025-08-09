@@ -167,7 +167,7 @@ npm run seed
 - [ ] Image uploads working
 - [ ] Authentication flow functional
 
-## Implementation Timeline
+## Implementation Timeline (Updated)
 
 ### Week 1: Critical Fixes
 - **Day 1**: Fix Clerk authentication issues
@@ -186,24 +186,17 @@ npm run seed
 - ✅ Optimized image loading performance
 - ✅ Stable local development environment
 
-## Next Development Phase
+## Growth Track (Q1–Q2 2025)
 
-Once these issues are resolved, the platform will be ready for:
+See `scratchpad.md` for the detailed Growth & Scaling plan. Execution order:
 
-1. **New Feature Development**
-   - Comment system implementation
-   - Advanced search and filtering
-   - Notification improvements
-
-2. **Performance Enhancements**
-   - Database query optimization
-   - Caching implementation
-   - Bundle size optimization
-
-3. **Production Scaling**
-   - Load testing preparation
-   - Monitoring implementation
-   - Error tracking setup
+- P0: Analytics Events + Feature Flags + SEO Polish
+  - Events: publish, like, save, comment, reply, follow, tag-follow, share
+  - Flags: enable AB testing for badges, themes, ranking
+  - SEO: OG tags, sitemaps, metadata
+- P1: Reputation & Badges v1 (points, badges, creator tiers)
+- P2: Weekly Themes & Competitions v1
+- P3: Discovery Ranking & Personalization v1
 
 ## Commands Reference
 

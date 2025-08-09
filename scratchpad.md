@@ -2287,3 +2287,143 @@ The platform now offers a **feature-complete design portfolio experience** that 
 - ✅ Smooth, professional user experience across all interactions
 
 ---
+
+## Growth & Scaling Plan (Planner Mode) — Q1–Q2 2025
+
+### Background and Motivation
+We’ve reached feature completeness for a solid designer-focused portfolio and discussion product. The next phase emphasizes sustainable growth, community vitality, and operational resilience without overextending scope. We will adopt a “Stack Overflow meets Portfolio” approach: high-signal content, reputation-driven trust, and lightweight social features that compound engagement.
+
+### Key Growth Principles
+- Focus on compounding loops: creation → discovery → feedback → reputation → more creation
+- Favor low-complexity, high-leverage features that can be A/B tested quickly
+- Maintain a professional tone; avoid gimmicky gamification that harms quality
+
+### North-Star Metrics (NSM) and Signals
+- **NSM**: Weekly Active Creators (WAC) who publish or meaningfully comment (≥2 comments/week)
+- **Secondary**:
+  - Content quality: saves per project, like-to-view ratio
+  - Engagement depth: comments/user/week, replies per thread
+  - Community growth: new creators/week, returning creators/week
+  - Retention: D7 and W4 return rates for creators and viewers
+
+### Initiative Areas and Experiments
+
+1) Reputation & Gamified Merit (lightweight, professional)
+- Reputation points for: accepted answers on “Creator Questions”, high-quality comments (likes from non-friends), and project saves.
+- Badges: First Project, 5 Projects, First Accepted Answer, 10 Helpful Comments, 100 Saves on a project.
+- Creator Tiers (Bronze/Silver/Gold): unlock small perks (profile flair, higher discover weighting, early access to features).
+- Success criteria: +20% comments/user/week; +15% submitters returning next week.
+
+2) Competitions & Weekly Themes (community events)
+- Weekly Theme Prompt (e.g., “Fintech Dashboard Week”) with a curated showcase page and lightweight judge panel (internal curation for now).
+- Micro-competitions: community voting window (likes + saves + juror bonus) with anti-brigading safeguards (rate-limited votes, age of account).
+- Success criteria: +15% WAC, +10% new creators, +25% saves/project on themed entries.
+
+3) Discovery & Feed Ranking Improvements
+- Trending model v1: recency-weighted score using likes, saves, comments, author reputation.
+- Topic follow: follow tags (e.g., “mobile”, “branding”) to personalize Discover.
+- Smart related content: on project page, show similar by tags/visual categories.
+- Success criteria: +15% CTR from feed to project; +10% saves/session.
+
+4) Creation UX and Onboarding
+- “Guided First Upload”: micro-wizard to help pick a strong cover, tags, and description.
+- Drafts and reminders: save unfinished project, email/notification nudge in 48h.
+- First-7-days creator checklist with progress bar; reward with “New Creator” badge.
+- Success criteria: +20% conversion from signup → first project within 72h.
+
+5) Collaboration Signals (designer-to-designer)
+- “Looking for feedback” toggle on a project; prioritizes surfacing to helpful commenters.
+- “Collaboration interest” tag on profile; simple inbound request inbox.
+- Success criteria: +10% comment depth on flagged projects; ≥5% creators toggle collab.
+
+6) Distribution & SEO
+- Public profile and project SEO polish (metadata, Open Graph, XML sitemaps).
+- Email digests: weekly highlights by followed tags and creators.
+- Social share cards: clean, branded OG images for projects and winners.
+- Success criteria: +20% organic traffic; +8% click-through from email digests.
+
+7) Moderation, Safety, and Trust
+- Reputation-gated powers: low-rep accounts rate-limited; higher-rep can flag.
+- Simple abuse heuristics: rapid-like/comment detection, duplicate image checks.
+- Success criteria: <1% content removals required; <0.2% abuse reports per session.
+
+8) Analytics & Experimentation
+- Event schema: publish, like, save, comment, reply, follow, tag-follow, share.
+- A/B testing harness (feature flags) for: theme prompts, badge thresholds, feed weighting.
+- Success criteria: ability to run 2–3 concurrent experiments with clean readouts.
+
+9) Performance & Reliability (scaling basics)
+- Image pipeline verification (sizes, formats, caching); add fallback for 404s (partial done).
+- Supabase indexes for hot queries (projects by tag/date/engagement; comments by project).
+- Background jobs for counters (denormalized likes/saves/comments to speed reads).
+- Success criteria: P50 page ≤ 1.5s, P95 API ≤ 600ms; <1% image load errors.
+
+### High-level Task Breakdown (Prioritized, small verifiable steps)
+
+P0 – Foundation for Growth Experiments (2 weeks)
+1. Event tracking schema (client + API): publish, like, save, comment, reply, follow, tag-follow, share
+   - Success: events land in analytics store (e.g., Supabase table) with <0.5% loss
+2. Feature flag system (server-driven flags backed by config table)
+   - Success: can enable/disable features per user cohort
+3. SEO pass: OG tags for projects/profiles; XML sitemaps; metadata templates
+   - Success: Lighthouse SEO ≥ 90 on project and profile pages
+
+P1 – Reputation & Badges v1 (2–3 weeks)
+4. Reputation points service (writes on comment like, accepted answer, project saves)
+   - Success: deterministic unit tests; points visible on profile
+5. Badge engine (rule-based awarder; jobs to backfill existing users)
+   - Success: 5 launch badges; badge appears on profile and next to name in comments
+6. Creator Tiers (Bronze/Silver/Gold) with tiny perks (profile flair, discover boost)
+   - Success: tier calculation runs nightly; boosts reflected in feed ranking
+
+P2 – Weekly Themes & Competition v1 (2 weeks)
+7. Theme CMS entry (title, dates, description, example tags, banner image)
+   - Success: theme landing page autogenerates; submission filter by tag/date
+8. Voting model and safeguards (unique user weighting, rate limits)
+   - Success: leaderboard page updates in near-real time; anti-brigading metrics logged
+
+P3 – Discovery & Personalization v1 (2–3 weeks)
+9. Trending score (recency + likes + saves + comments + author tier)
+   - Success: AB test shows +10–15% CTR vs chronological
+10. Follow tags; personalized Discover
+   - Success: following at least 3 tags increases saves/session by ≥10%
+11. Related projects module on project page
+   - Success: ≥8% click-through to related items
+
+P4 – Onboarding & Creation UX (2 weeks)
+12. Guided First Upload wizard + draft autosave
+   - Success: +20% signup→first-upload within 72h
+13. New Creator checklist (progress UI)
+   - Success: ≥40% of new creators complete ≥3 checklist items
+
+P5 – Reliability & Perf (parallel, ongoing)
+14. DB indexes and denormalized counters
+   - Success: P95 project fetch < 400ms
+15. Image 404 audit and fallback coverage
+   - Success: 0 broken-image regressions across homepage/discover/project modal
+
+### Project Status Board — Growth Track
+- [ ] P0: Analytics events schema implemented and verified
+- [ ] P0: Feature flag service and admin toggle UI
+- [ ] P0: SEO polish (OG, sitemaps, metadata) to ≥90 Lighthouse
+- [ ] P1: Reputation points service + profile surfacing
+- [ ] P1: Badge engine with 5 launch badges + backfill job
+- [ ] P1: Creator tiers (Bronze/Silver/Gold) + feed weighting hook
+- [ ] P2: Weekly Theme CMS + landing page + submission filter
+- [ ] P2: Competition voting model + safeguards + leaderboard
+- [ ] P3: Trending score + AB test harness
+- [ ] P3: Follow tags + personalized Discover
+- [ ] P3: Related projects module on project page
+- [ ] P4: Guided First Upload + drafts + checklist
+- [ ] P5: DB indexes, counters, and image fallback hardening
+
+### Risks and Mitigations
+- Low-quality gaming of points: reputation weighting, rate limits, aged accounts, human-reviewed badges at upper tiers.
+- Cold-start for competitions: seed with editorial picks and small prizes (credits/badges), leverage email digest and in-product banners.
+- Complexity creep: each feature ships behind a flag with precise success criteria; deprecate if no lift.
+
+### Data We Will Watch
+- WAC; saves/project; comments/user/week; CTR feed→project; new creators/week; D7/W4 retention; abuse flag rate.
+
+### Next Step (Executor Handoff)
+- Start with P0: implement event schema + feature flags + SEO polish. Once instrumentation is live, we can safely AB test P1/P2.

@@ -282,3 +282,25 @@ model Notification {
   @@index([userId, isRead, createdAt(sort: Desc)]) // For unread notifications
   @@map("notifications")
 }
+
+// Analytics Events for Growth (P0.1)
+model Event {
+  id         String   @id @default(cuid())
+  userId     String?  // nullable for anonymous events
+  type       String   // PUBLISH, LIKE, SAVE, COMMENT, REPLY, FOLLOW, TAG_FOLLOW, SHARE
+  projectId  String?
+  commentId  String?
+  tag        String?
+  metadata   Json?
+  createdAt  DateTime @default(now())
+
+  // Relations (optional to avoid overly strict constraints)
+  user    User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  project Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  comment Comment? @relation(fields: [commentId], references: [id], onDelete: SetNull)
+
+  @@index([type, createdAt(sort: Desc)])
+  @@index([userId, createdAt(sort: Desc)])
+  @@index([projectId, createdAt(sort: Desc)])
+  @@map("events")
+}

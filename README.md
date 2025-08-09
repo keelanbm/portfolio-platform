@@ -2,7 +2,7 @@
 
 A Web2-first design portfolio platform with optional Web3 features, allowing designers to showcase their work with social media-like feeds, profiles, and interactions.
 
-**Latest Update**: Advanced search & discovery features implemented with comprehensive filtering! 🔍
+**Latest Update**: Growth & Scaling plan initiated — added analytics event logging foundation (P0.1) and prepared for feature flags and SEO polish. 🔍
 
 ## Features
 
@@ -94,12 +94,17 @@ src/
 
 ## Development Phases
 
-1. **Phase 1**: Foundation & Core Features (3-4 weeks)
-2. **Phase 2**: Social Features (2-3 weeks)
-3. **Phase 3**: Monetization (2-3 weeks)
-4. **Phase 4**: Basic Web3 (2-3 weeks)
-5. **Phase 5**: Performance & SEO (1-2 weeks)
-6. **Phase 6**: Deployment (1 week)
+1. **Phase 1**: Foundation & Core Features (complete)
+2. **Phase 2**: Social Features (complete)
+3. **Phase 3**: Monetization (planned)
+4. **Phase 4**: Basic Web3 (planned)
+5. **Phase 5**: Performance & SEO (ongoing)
+6. **Growth Track (Q1–Q2 2025)**:
+   - P0: Analytics events, feature flags, SEO polish
+   - P1: Reputation & badges v1
+   - P2: Weekly themes/competitions v1
+   - P3: Discovery ranking + personalization v1
+   - See `scratchpad.md` for detailed plan and success metrics
 
 ## Production Deployment
 
