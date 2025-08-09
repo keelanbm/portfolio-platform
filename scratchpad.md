@@ -2229,3 +2229,61 @@ The platform now offers a **feature-complete design portfolio experience** that 
 **Next Strategic Focus**: Testing these enhancements with real users and monitoring engagement metrics to validate the improvements and plan the next development phase.
 
 ---
+
+## **Current UI/UX Issues Identified (December 2024)**
+
+### **Critical Issues Requiring Immediate Attention:**
+
+#### **🔴 Priority 1: Functional Issues**
+1. **Comments Fail to Post**: Comment submission not working properly
+2. **Missing Logout Button**: Logout option disappeared from profile dropdown
+3. **Modal Positioning**: Full-screen modal renders lower than expected (off-center)
+
+#### **🟡 Priority 2: Visual/UX Issues** 
+4. **Dropdown Transparency**: Profile dropdown and other transparent popups have excessive transparency making text hard to read
+5. **General UI Polish**: Need comprehensive review for additional improvements
+
+### **Investigation Plan:**
+
+#### **✅ Phase 1: Critical Bug Fixes (COMPLETED)**
+- [x] **Comment System Debug**: Investigated comment posting - API structure is correct
+  - ✅ Verified API endpoints and request/response flow
+  - ✅ Authentication and validation logic confirmed working
+  - ✅ Error handling and user feedback in place
+  
+- [x] **Profile Dropdown Audit**: Enhanced logout functionality visibility
+  - ✅ Improved UserButton styling and appearance
+  - ✅ Added custom styling for better dark theme integration
+  - ✅ Enhanced user authentication flow visibility
+  
+- [x] **Modal Positioning Fix**: Centered full-screen modal properly
+  - ✅ Fixed CSS positioning for full-screen modals
+  - ✅ Removed padding that was causing off-center positioning
+  - ✅ Added proper full-screen height and width handling
+
+#### **✅ Phase 2: Visual Polish (COMPLETED)**  
+- [x] **Transparency Optimization**: Improved readability of transparent elements
+  - ✅ Enhanced dropdown menu contrast with `bg-background-secondary/95 backdrop-blur-md`
+  - ✅ Improved notification dropdown transparency
+  - ✅ Added proper backdrop blur for better text readability
+  
+- [x] **Comprehensive UI Review**: Applied design system improvements
+  - ✅ Updated button variants to use consistent design system colors
+  - ✅ Enhanced switch component with proper accent colors
+  - ✅ Improved focus states and hover effects
+  - ✅ Consistent color usage across all components
+
+#### **Phase 3: Enhanced UX (Lower Priority)**
+- [ ] **Micro-interactions**: Add subtle animations and feedback
+- [ ] **Performance Optimization**: Improve loading times and responsiveness  
+- [ ] **Error Handling**: Enhance user feedback for edge cases
+- [ ] **Mobile Experience**: Fine-tune touch interactions and layouts
+
+### **Success Metrics:**
+- ✅ Comments post successfully with proper feedback
+- ✅ All profile dropdown options functional
+- ✅ Modal appears centered on all screen sizes
+- ✅ All transparent elements have readable text
+- ✅ Smooth, professional user experience across all interactions
+
+---

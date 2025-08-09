@@ -60,7 +60,7 @@ export function NotificationsDropdown() {
 
       {/* Dropdown */}
       {isOpen && (
-        <Card className="absolute top-full right-0 mt-2 w-80 z-50 bg-background-secondary border-border-primary shadow-lg max-h-96 overflow-hidden">
+        <Card className="absolute top-full right-0 mt-2 w-80 z-50 bg-background-secondary/95 backdrop-blur-md border-border-primary shadow-lg max-h-96 overflow-hidden">
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <h3 className="font-semibold text-text-primary">Notifications</h3>

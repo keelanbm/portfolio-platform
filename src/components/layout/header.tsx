@@ -227,8 +227,19 @@ export function Header() {
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <div className="p-2">
-                    <UserButton afterSignOutUrl="/" />
+                  <div className="p-3">
+                    <UserButton 
+                      afterSignOutUrl="/" 
+                      appearance={{
+                        elements: {
+                          userButtonAvatarBox: "w-8 h-8",
+                          userButtonPopoverCard: "bg-background-secondary border-border-primary",
+                          userButtonPopoverActionButton: "text-text-primary hover:bg-background-tertiary",
+                          userButtonPopoverActionButtonText: "text-text-primary",
+                          userButtonPopoverFooter: "hidden",
+                        }
+                      }}
+                    />
                   </div>
                 </DropdownMenuContent>
               </DropdownMenu>

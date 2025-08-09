@@ -86,7 +86,7 @@ export function Modal({
     md: 'max-w-lg',
     lg: 'max-w-2xl',
     xl: 'max-w-4xl',
-    full: 'max-w-full mx-4',
+    full: 'max-w-full',
   }
 
   if (!isOpen) return null
@@ -98,7 +98,7 @@ export function Modal({
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.2 }}
-        className="fixed inset-0 z-50 flex items-center justify-center p-4"
+        className="fixed inset-0 z-50 flex items-center justify-center"
         onClick={handleOverlayClick}
       >
         {/* Backdrop */}
@@ -117,8 +117,8 @@ export function Modal({
           exit={{ scale: 0.95, opacity: 0 }}
           transition={{ duration: 0.2 }}
           className={`
-            relative w-full ${sizeClasses[size]} max-h-[90vh] 
-            bg-background-primary rounded-modal shadow-modal
+            relative w-full ${sizeClasses[size]} ${size === 'full' ? 'h-full max-h-full' : 'max-h-[90vh]'} 
+            bg-background-primary ${size === 'full' ? 'rounded-none' : 'rounded-modal'} shadow-modal
             overflow-hidden animate-scale-in
             focus:outline-none
           `}
