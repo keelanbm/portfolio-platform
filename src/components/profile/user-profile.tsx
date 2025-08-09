@@ -18,6 +18,7 @@ import { ProjectCard } from '@/components/ui/project-card'
 import { UserProfileSkeleton } from './user-profile-skeleton'
 import { CollectionsGrid } from '@/components/collections/collections-grid'
 import { showToast, toastMessages } from '@/lib/toast'
+import { logEvent } from '@/lib/events'
 
 interface User {
   id: string
@@ -165,6 +166,7 @@ export function UserProfile({ username }: UserProfileProps) {
         if (!response.ok) {
           throw new Error('Failed to follow')
         }
+        logEvent({ type: 'FOLLOW', metadata: { surface: 'profile', targetUserId: user.id } })
       }
       
       // Show success message
@@ -197,6 +199,7 @@ export function UserProfile({ username }: UserProfileProps) {
       }
       
       const result = await response.json()
+      logEvent({ type: 'LIKE', projectId, metadata: { surface: 'profile' } })
       
       // Update the projects state with the new like status
       setProjects(prev => prev.map(project => 

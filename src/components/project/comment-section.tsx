@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge'
 import { Heart, MessageCircle } from 'lucide-react'
 import { formatDistanceToNow } from 'date-fns'
 import { showToast } from '@/lib/toast'
+import { logEvent } from '@/lib/events'
 
 interface Comment {
   id: string
@@ -87,6 +88,7 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
         setNewCommentTags([])
         fetchComments() // Refresh comments
         showToast.success('Comment posted', 'Your comment has been shared successfully.')
+        logEvent({ type: 'COMMENT', projectId, metadata: { hasTags: newCommentTags.length > 0 } })
       } else {
         const errorData = await response.json()
         showToast.error('Failed to post comment', errorData.error || 'Please try again.')
@@ -122,6 +124,7 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
         setReplyingTo(null)
         fetchComments() // Refresh comments
         showToast.success('Reply posted', 'Your reply has been added successfully.')
+        logEvent({ type: 'REPLY', projectId, metadata: { parentId } })
       } else {
         const errorData = await response.json()
         showToast.error('Failed to post reply', errorData.error || 'Please try again.')

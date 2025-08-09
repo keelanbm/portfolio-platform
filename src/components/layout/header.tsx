@@ -78,7 +78,7 @@ export function Header() {
         <div className="flex-shrink-0">
           <Link href="/" className="flex items-center space-x-2">
             <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-accent-primary to-accent-secondary" />
-            <span className="text-xl font-bold text-text-primary">PortfolioHub</span>
+            <span className="text-xl font-bold text-text-primary">HiFi.Design</span>
           </Link>
         </div>
 

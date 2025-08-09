@@ -10,7 +10,7 @@ export function Footer() {
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
               <div className="h-6 w-6 rounded-lg bg-gradient-to-br from-purple-600 to-blue-600" />
-              <span className="text-lg font-bold text-text-primary">PortfolioHub</span>
+              <span className="text-lg font-bold text-text-primary">HiFi.Design</span>
             </Link>
             <p className="text-sm text-text-secondary">
               Showcase your design work with optional Web3 ownership features.
@@ -88,7 +88,7 @@ export function Footer() {
 
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <p className="text-sm text-text-secondary">
-            © 2024 PortfolioHub. All rights reserved.
+            © 2024 HiFi.Design. All rights reserved.
           </p>
           <div className="flex items-center space-x-4 text-sm text-text-secondary">
             <Link href="/status" className="hover:text-text-primary transition-colors">

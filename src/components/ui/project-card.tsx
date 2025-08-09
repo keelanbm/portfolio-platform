@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge'
 import { Heart, MessageCircle, Eye, MoreHorizontal, FolderPlus, Bookmark } from 'lucide-react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { AddToCollectionDialog } from '@/components/collections/add-to-collection-dialog'
+import { logEvent } from '@/lib/events'
 
 interface ProjectCardProps {
   project: {
@@ -95,6 +96,7 @@ export function ProjectCard({
     setIsLiking(true)
     try {
       await onLike(project.id)
+      logEvent({ type: 'LIKE', projectId: project.id, metadata: { surface: 'project-card' } })
     } catch (error) {
       // Revert on error
       setLiked(wasLiked)
@@ -118,6 +120,7 @@ export function ProjectCard({
     setIsSaving(true)
     try {
       await onSave(project.id)
+      logEvent({ type: 'SAVE', projectId: project.id, metadata: { surface: 'project-card' } })
     } catch (error) {
       // Revert on error
       setSaved(wasSaved)
