@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button'
 import { MentionInput } from '@/components/ui/mention-input'
 import { Textarea } from '@/components/ui/textarea'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Heart, MessageCircle } from 'lucide-react'
 import { formatDistanceToNow } from 'date-fns'
@@ -320,44 +319,42 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
   }, [comments, isSignedIn, fetchCommentLikeStatus])
 
   const CommentItem = ({ comment, depth = 0 }: { comment: Comment; depth?: number }) => (
-    <div className={`${depth > 0 ? 'ml-4 sm:ml-8 border-l-2 border-gray-200 pl-2 sm:pl-4' : ''}`}>
-      <Card className="mb-3 sm:mb-4">
-        <CardHeader className="pb-2 px-3 sm:px-6 pt-3 sm:pt-6">
-          <div className="flex items-start gap-3">
-            <Avatar className="h-8 w-8 sm:h-10 sm:w-10 flex-shrink-0">
-              <AvatarImage src={comment.user.avatarUrl} />
-              <AvatarFallback>
-                {comment.user.displayName?.charAt(0) || comment.user.username?.charAt(0)}
-              </AvatarFallback>
-            </Avatar>
-            <div className="flex-1 min-w-0">
-              <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
-                <span className="font-medium text-sm sm:text-base truncate">
-                  {comment.user.displayName || comment.user.username}
-                </span>
-                <span className="text-xs text-gray-500 flex-shrink-0">
-                  {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}
-                </span>
-              </div>
+    <div className={`${depth > 0 ? 'ml-3 border-l-2 border-gray-200 pl-3' : ''}`}>
+      <div className="bg-background-secondary/30 rounded-lg p-3 mb-2">
+        <div className="flex items-start gap-2 mb-2">
+          <Avatar className="h-6 w-6 flex-shrink-0">
+            <AvatarImage src={comment.user.avatarUrl} />
+            <AvatarFallback className="text-xs">
+              {comment.user.displayName?.charAt(0) || comment.user.username?.charAt(0)}
+            </AvatarFallback>
+          </Avatar>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2">
+              <span className="font-medium text-xs truncate">
+                {comment.user.displayName || comment.user.username}
+              </span>
+              <span className="text-xs text-gray-500 flex-shrink-0">
+                {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}
+              </span>
             </div>
           </div>
-        </CardHeader>
-        <CardContent className="pt-0 px-3 sm:px-6 pb-3 sm:pb-6">
+        </div>
+        <div className="pl-8">
           {editingComment === comment.id ? (
             // Edit mode
-            <div className="space-y-3">
+            <div className="space-y-2">
               <Textarea
                 value={editContent}
                 onChange={(e) => setEditContent(e.target.value)}
-                className="min-h-[80px] sm:min-h-[100px] text-sm sm:text-base"
+                className="min-h-[60px] text-xs"
                 placeholder="Edit your comment..."
               />
-              <div className="flex flex-col sm:flex-row gap-2">
+              <div className="flex gap-2">
                 <Button
                   size="sm"
                   onClick={() => handleEditComment(comment.id)}
                   disabled={submitting || !editContent.trim()}
-                  className="w-full sm:w-auto"
+                  className="text-xs h-6 px-2"
                 >
                   {submitting ? 'Saving...' : 'Save'}
                 </Button>
@@ -368,7 +365,7 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
                     setEditingComment(null)
                     setEditContent('')
                   }}
-                  className="w-full sm:w-auto"
+                  className="text-xs h-6 px-2"
                 >
                   Cancel
                 </Button>
@@ -377,38 +374,38 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
           ) : (
             // View mode
             <>
-              <p className="text-sm sm:text-base mb-3 leading-relaxed">{comment.content}</p>
+              <p className="text-xs mb-2 leading-relaxed">{comment.content}</p>
               
               {comment.tags && comment.tags.length > 0 && (
-                <div className="flex flex-wrap gap-1 mb-3">
+                <div className="flex flex-wrap gap-1 mb-2">
                   {comment.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary" className="text-xs">
+                    <Badge key={tag} variant="secondary" className="text-xs py-0.5 px-1">
                       {tag}
                     </Badge>
                   ))}
                 </div>
               )}
 
-              <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-500">
+              <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500">
                 {/* Like button */}
                 {isSignedIn && (
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => handleCommentLike(comment.id)}
-                    className={`h-8 sm:h-6 px-3 sm:px-2 flex items-center gap-1.5 sm:gap-1 min-w-0 ${
+                    className={`h-5 px-1 flex items-center gap-1 min-w-0 ${
                       likedComments.has(comment.id) 
                         ? 'text-red-500 hover:text-red-600' 
                         : 'hover:text-red-500'
                     }`}
                   >
                     <Heart 
-                      className={`h-4 w-4 sm:h-3 sm:w-3 flex-shrink-0 ${
+                      className={`h-3 w-3 flex-shrink-0 ${
                         likedComments.has(comment.id) ? 'fill-current' : ''
                       }`}
                     />
                     {(comment._count?.likes ?? 0) > 0 && (
-                      <span className="tabular-nums">{comment._count?.likes}</span>
+                      <span className="tabular-nums text-xs">{comment._count?.likes}</span>
                     )}
                   </Button>
                 )}
@@ -419,10 +416,10 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
                     variant="ghost"
                     size="sm"
                     onClick={() => setReplyingTo(replyingTo === comment.id ? null : comment.id)}
-                    className="h-8 sm:h-6 px-3 sm:px-2 flex items-center gap-1.5 sm:gap-1"
+                    className="h-5 px-1 flex items-center gap-1 text-xs"
                   >
-                    <MessageCircle className="h-4 w-4 sm:h-3 sm:w-3 flex-shrink-0" />
-                    <span className="hidden sm:inline">Reply</span>
+                    <MessageCircle className="h-3 w-3 flex-shrink-0" />
+                    <span>Reply</span>
                   </Button>
                 )}
                 
@@ -433,19 +430,17 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
                       variant="ghost"
                       size="sm"
                       onClick={() => startEditingComment(comment)}
-                      className="h-8 sm:h-6 px-3 sm:px-2 text-xs sm:text-sm"
+                      className="h-5 px-1 text-xs"
                     >
-                      <span className="sm:hidden">✏️</span>
-                      <span className="hidden sm:inline">Edit</span>
+                      Edit
                     </Button>
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => handleDeleteComment(comment.id)}
-                      className="h-8 sm:h-6 px-3 sm:px-2 text-red-500 hover:text-red-700 text-xs sm:text-sm"
+                      className="h-5 px-1 text-red-500 hover:text-red-700 text-xs"
                     >
-                      <span className="sm:hidden">🗑️</span>
-                      <span className="hidden sm:inline">Delete</span>
+                      Delete
                     </Button>
                   </>
                 )}
@@ -454,22 +449,22 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
           )}
 
           {replyingTo === comment.id && (
-            <div className="mt-3 px-3 sm:px-6 pb-3 sm:pb-6">
-              <div className="space-y-3">
+            <div className="mt-2 p-2 bg-background-secondary/20 rounded">
+              <div className="space-y-2">
                 <Textarea
                   placeholder="Write a reply..."
                   value={replyContent}
                   onChange={(e) => setReplyContent(e.target.value)}
-                  className="min-h-[80px] sm:min-h-[100px] text-sm sm:text-base resize-none"
+                  className="min-h-[50px] text-xs resize-none"
                 />
-                <div className="flex flex-col sm:flex-row gap-2">
+                <div className="flex gap-2">
                   <Button
                     size="sm"
                     onClick={() => handleSubmitReply(comment.id)}
                     disabled={submitting || !replyContent.trim()}
-                    className="w-full sm:w-auto order-1 sm:order-none"
+                    className="text-xs h-6 px-2"
                   >
-                    {submitting ? 'Posting...' : 'Post Reply'}
+                    {submitting ? 'Posting...' : 'Reply'}
                   </Button>
                   <Button
                     variant="outline"
@@ -478,7 +473,7 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
                       setReplyingTo(null)
                       setReplyContent('')
                     }}
-                    className="w-full sm:w-auto order-2 sm:order-none"
+                    className="text-xs h-6 px-2"
                   >
                     Cancel
                   </Button>
@@ -486,8 +481,8 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
               </div>
             </div>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Render replies */}
       {comment.replies && comment.replies.length > 0 && (
@@ -511,33 +506,35 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
   }
 
   return (
-    <div className="space-y-4 sm:space-y-6">
-      <h3 className="text-lg sm:text-xl font-semibold px-1">Comments ({comments.length})</h3>
+    <div className="h-full flex flex-col">
+      <div className="px-4 py-3 border-b border-border-primary bg-background-secondary/50 flex-shrink-0">
+        <h3 className="text-sm font-semibold">Comments ({comments.length})</h3>
+      </div>
 
       {/* New comment form */}
       {isSignedIn && (
-        <Card>
-          <CardContent className="pt-4 sm:pt-6 px-3 sm:px-6 pb-4 sm:pb-6">
-            <div className="space-y-3 sm:space-y-4">
+        <div className="border-b border-border-primary flex-shrink-0">
+          <div className="p-3">
+            <div className="space-y-3">
               <MentionInput
-                placeholder="Share your thoughts on this project... Use @username to mention someone!"
+                placeholder="Add a comment..."
                 value={newComment}
                 onChange={setNewComment}
-                className="min-h-[100px] sm:min-h-[120px] text-sm sm:text-base resize-none"
-                rows={5}
+                className="min-h-[60px] text-sm resize-none"
+                rows={3}
                 maxLength={1000}
               />
               
-              {/* Tags input */}
-              <div className="space-y-2 sm:space-y-3">
+              {/* Compact tags input */}
+              <div className="space-y-2">
                 {newCommentTags.length > 0 && (
-                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                  <div className="flex flex-wrap gap-1">
                     {newCommentTags.map((tag) => (
-                      <Badge key={tag} variant="secondary" className="text-xs sm:text-sm py-1">
+                      <Badge key={tag} variant="secondary" className="text-xs py-1">
                         {tag}
                         <button
                           onClick={() => removeTag(tag)}
-                          className="ml-1.5 hover:text-red-500 text-base leading-none"
+                          className="ml-1 hover:text-red-500 text-sm leading-none"
                         >
                           ×
                         </button>
@@ -545,13 +542,13 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
                     ))}
                   </div>
                 )}
-                <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                <div className="flex flex-wrap gap-1">
                   <Button
                     size="sm"
                     variant="outline"
                     onClick={() => addTag('design')}
                     disabled={newCommentTags.includes('design')}
-                    className="h-8 px-3 text-xs sm:text-sm"
+                    className="h-6 px-2 text-xs"
                   >
                     + design
                   </Button>
@@ -560,7 +557,7 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
                     variant="outline"
                     onClick={() => addTag('feedback')}
                     disabled={newCommentTags.includes('feedback')}
-                    className="h-8 px-3 text-xs sm:text-sm"
+                    className="h-6 px-2 text-xs"
                   >
                     + feedback
                   </Button>
@@ -569,7 +566,7 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
                     variant="outline"
                     onClick={() => addTag('question')}
                     disabled={newCommentTags.includes('question')}
-                    className="h-8 px-3 text-xs sm:text-sm"
+                    className="h-6 px-2 text-xs"
                   >
                     + question
                   </Button>
@@ -578,28 +575,31 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
 
               <div className="flex justify-end">
                 <Button
+                  size="sm"
                   onClick={handleSubmitComment}
                   disabled={submitting || !newComment.trim()}
-                  className="w-full sm:w-auto"
+                  className="text-xs"
                 >
-                  {submitting ? 'Posting...' : 'Post Comment'}
+                  {submitting ? 'Posting...' : 'Post'}
                 </Button>
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       )}
 
-      {/* Comments list */}
-      <div className="space-y-3 sm:space-y-4">
+      {/* Comments list - Scrollable */}
+      <div className="flex-1 overflow-y-auto min-h-0">
         {comments.length === 0 ? (
-          <div className="text-center py-8 sm:py-12 text-gray-500 px-4">
-            <p className="text-sm sm:text-base">No comments yet. Be the first to share your thoughts!</p>
+          <div className="text-center py-8 text-gray-500 px-4">
+            <p className="text-sm">No comments yet. Be the first to share your thoughts!</p>
           </div>
         ) : (
-          comments.map((comment) => (
-            <CommentItem key={comment.id} comment={comment} />
-          ))
+          <div className="space-y-2 p-3">
+            {comments.map((comment) => (
+              <CommentItem key={comment.id} comment={comment} />
+            ))}
+          </div>
         )}
       </div>
     </div>

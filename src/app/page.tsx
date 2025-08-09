@@ -1,12 +1,9 @@
 'use client'
 
 import { useState, useEffect, useCallback, useRef } from 'react'
-import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Heart, MessageCircle, Eye, X } from 'lucide-react'
 import { ProjectCard } from '@/components/ui/project-card'
+import { ProjectModal } from '@/components/project/project-modal'
 import { HeroSection } from '@/components/homepage/hero-section'
 import { CategoryFilterBar } from '@/components/homepage/category-filter-bar'
 import { HOMEPAGE_PROJECTS } from '@/data/homepage-projects'
@@ -260,13 +257,13 @@ export default function HomePage() {
 
   // Modal state for homepage projects
   const [modalOpen, setModalOpen] = useState(false)
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [selectedProjectId, setSelectedProjectId] = useState<string>('')
 
   // Modal handler that works with current data (mock or real)
   const handleOpenModal = (projectId: string) => {
     const project = projects.find(p => p.id === projectId)
     if (project) {
-      setSelectedProject(project)
+      setSelectedProjectId(projectId)
       setModalOpen(true)
       showToast.info('Project Details', `Viewing "${project.title}" by ${project.user.name}`)
     }
@@ -274,7 +271,7 @@ export default function HomePage() {
 
   const handleCloseModal = () => {
     setModalOpen(false)
-    setSelectedProject(null)
+    setSelectedProjectId('')
   }
 
   return (
@@ -381,8 +378,8 @@ export default function HomePage() {
             </div>
           ) : (
             <>
-              {/* Projects Grid - 4 Column Layout */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 lg:gap-8">
+              {/* Projects Grid - Larger cards with fewer columns */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-6 lg:gap-8">
                 {filteredProjects.map((project, index) => {
                   // Add ref to the last few projects to trigger loading more
                   const isLastProject = index === filteredProjects.length - 1
@@ -514,127 +511,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Simple Project Modal for Homepage */}
-      {modalOpen && selectedProject && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          {/* Backdrop */}
-          <div 
-            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
-            onClick={handleCloseModal}
-          />
-          
-          {/* Modal Content */}
-          <div className="relative bg-background-secondary rounded-lg max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl">
-            {/* Close Button */}
-            <button
-              onClick={handleCloseModal}
-              className="absolute top-4 right-4 z-10 p-2 rounded-full bg-black/60 text-white hover:bg-black/80 transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            {/* Project Content */}
-            <div className="flex flex-col">
-              {/* Project Image */}
-              <div className="relative w-full h-96">
-                <Image
-                  src={selectedProject.coverImage}
-                  alt={selectedProject.title}
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
-
-              {/* Project Info */}
-              <div className="p-6 space-y-4">
-                {/* Title and User */}
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center space-x-3">
-                    <Avatar className="w-12 h-12">
-                      <AvatarImage src={selectedProject.user.avatar} />
-                      <AvatarFallback>{selectedProject.user.name.charAt(0)}</AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <h2 className="text-xl font-bold text-text-primary">{selectedProject.title}</h2>
-                      <p className="text-text-secondary">{selectedProject.user.name}</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Description */}
-                <p className="text-text-secondary leading-relaxed">{selectedProject.description}</p>
-
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2">
-                  {selectedProject.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary" className="text-xs">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-
-                {/* Interactive Stats */}
-                <div className="flex items-center space-x-6 pt-4 border-t border-border-primary">
-                  <button 
-                    onClick={() => handleLike(selectedProject.id)}
-                    className="flex items-center space-x-2 text-text-secondary hover:text-accent-pink transition-colors"
-                  >
-                    <Heart className="w-5 h-5" />
-                    <span>{selectedProject.likes}</span>
-                  </button>
-                  <div className="flex items-center space-x-2 text-text-secondary">
-                    <MessageCircle className="w-5 h-5" />
-                    <span>{selectedProject.comments}</span>
-                  </div>
-                  <div className="flex items-center space-x-2 text-text-secondary">
-                    <Eye className="w-5 h-5" />
-                    <span>{selectedProject.views}</span>
-                  </div>
-                </div>
-
-                {/* Quick Comment Preview */}
-                {selectedProject.comments > 0 && (
-                  <div className="pt-4 border-t border-border-primary mt-4">
-                    <div className="flex items-center justify-between mb-3">
-                      <h4 className="text-sm font-medium text-text-primary">Recent Comments</h4>
-                      <span className="text-xs text-text-muted">{selectedProject.comments} total</span>
-                    </div>
-                    <div className="space-y-3 max-h-40 overflow-y-auto">
-                      {/* Mock recent comments - in real implementation, fetch from API */}
-                      <div className="flex space-x-3">
-                        <Avatar className="w-6 h-6">
-                          <AvatarFallback className="text-xs">U</AvatarFallback>
-                        </Avatar>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-xs text-text-primary">
-                            <span className="font-medium">Designer</span>: Love the color palette! The gradient transitions are so smooth.
-                          </p>
-                          <p className="text-xs text-text-muted mt-1">2 hours ago</p>
-                        </div>
-                      </div>
-                      <div className="flex space-x-3">
-                        <Avatar className="w-6 h-6">
-                          <AvatarFallback className="text-xs">A</AvatarFallback>
-                        </Avatar>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-xs text-text-primary">
-                            <span className="font-medium">Alex</span>: This would be perfect for our mobile app design.
-                          </p>
-                          <p className="text-xs text-text-muted mt-1">5 hours ago</p>
-                        </div>
-                      </div>
-                    </div>
-                    <button className="text-xs text-accent-primary hover:text-accent-secondary mt-3 font-medium">
-                      View all comments →
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Updated Project Modal */}
+      <ProjectModal
+        isOpen={modalOpen}
+        onClose={handleCloseModal}
+        projectId={selectedProjectId}
+        onLike={handleLike}
+      />
     </div>
   )
 }

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { useUser } from '@clerk/nextjs'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { MasonryGrid, MasonryGridItem } from '@/components/ui/masonry-grid'
@@ -32,6 +33,7 @@ interface Project {
 }
 
 export function DiscoverFeed() {
+  const { isSignedIn } = useUser()
   const [projects, setProjects] = useState<Project[]>([])
   const [loading, setLoading] = useState(true)
   const [loadingMore, setLoadingMore] = useState(false)
@@ -156,6 +158,12 @@ export function DiscoverFeed() {
   }
 
   const handleLike = async (projectId: string) => {
+    // Check authentication state first
+    if (!isSignedIn) {
+      showToast.error('Please sign in', 'You need to be signed in to like projects')
+      return
+    }
+
     try {
       const response = await fetch(`/api/projects/${projectId}/like`, {
         method: 'POST',
@@ -163,6 +171,11 @@ export function DiscoverFeed() {
           'Content-Type': 'application/json',
         },
       })
+      
+      if (response.status === 401) {
+        showToast.error('Please sign in', 'Your session may have expired. Please sign in again.')
+        return
+      }
       
       if (!response.ok) {
         throw new Error('Failed to toggle like')
@@ -188,6 +201,12 @@ export function DiscoverFeed() {
   }
 
   const handleSave = async (projectId: string) => {
+    // Check authentication state first
+    if (!isSignedIn) {
+      showToast.error('Please sign in', 'You need to be signed in to save projects')
+      return
+    }
+
     try {
       const response = await fetch(`/api/projects/${projectId}/save`, {
         method: 'POST',
@@ -195,6 +214,11 @@ export function DiscoverFeed() {
           'Content-Type': 'application/json',
         },
       })
+      
+      if (response.status === 401) {
+        showToast.error('Please sign in', 'Your session may have expired. Please sign in again.')
+        return
+      }
       
       if (!response.ok) {
         throw new Error('Failed to toggle save')

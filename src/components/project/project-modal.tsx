@@ -6,7 +6,7 @@ import { Modal } from '@/components/ui/modal'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Heart, MessageCircle, Share2, ChevronLeft, ChevronRight, X, Eye } from 'lucide-react'
+import { Heart, MessageCircle, Share2, ChevronLeft, ChevronRight, X } from 'lucide-react'
 import Link from 'next/link'
 import { formatRelativeTime } from '@/utils/format'
 import { showToast, toastMessages } from '@/lib/toast'
@@ -31,6 +31,7 @@ interface ProjectDetail {
   views?: number
   createdAt: string
   isLiked?: boolean
+  backgroundColor?: string
   user: {
     id: string
     username: string
@@ -49,6 +50,7 @@ export function ProjectModal({ isOpen, onClose, projectId, onLike }: ProjectModa
   const [activeTab, setActiveTab] = useState<'project' | 'comments'>('comments')
   const [showHeartAnimation, setShowHeartAnimation] = useState(false)
   const [doubleClickTimeout, setDoubleClickTimeout] = useState<NodeJS.Timeout | null>(null)
+  const [imageError, setImageError] = useState(false)
 
   const fetchProjectDetails = useCallback(async () => {
     setLoading(true)
@@ -80,8 +82,13 @@ export function ProjectModal({ isOpen, onClose, projectId, onLike }: ProjectModa
       setLiked(project.isLiked || false)
       setLikeCount(project.likes)
       setCurrentImageIndex(0)
+      setImageError(false) // Reset image error state
     }
   }, [project])
+
+  const handleImageError = () => {
+    setImageError(true)
+  }
 
   const navigateImage = useCallback((direction: 'prev' | 'next') => {
     if (!project || project.images.length <= 1) return
@@ -223,9 +230,9 @@ export function ProjectModal({ isOpen, onClose, projectId, onLike }: ProjectModa
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent-primary"></div>
         </div>
       ) : project ? (
-        <div className="flex flex-col h-full max-h-[95vh] md:max-h-[90vh]">
+        <div className="flex flex-col h-screen max-h-screen">
           {/* Streamlined Header - Instagram Style */}
-          <div className="flex items-center justify-between px-6 py-3 border-b border-border-primary bg-background-primary">
+          <div className="flex items-center justify-between px-6 py-3 border-b border-border-primary bg-background-primary flex-shrink-0">
             <div className="flex items-center space-x-3">
               <Avatar className="h-10 w-10">
                 <AvatarImage src={project.user.avatar} />
@@ -257,25 +264,41 @@ export function ProjectModal({ isOpen, onClose, projectId, onLike }: ProjectModa
             </Button>
           </div>
 
-          {/* Main Content - Instagram Style Layout with Mobile Responsiveness */}
-          <div className="flex flex-1 overflow-hidden flex-col md:flex-row">
-            {/* Image Area - Responsive layout */}
+          {/* Main Content - Responsive Layout */}
+          <div className="flex flex-col md:flex-row flex-1 min-h-0">
+            {/* Image Area - 75% width on desktop, full width on mobile */}
             <div 
-              className="flex-1 md:flex-[0_0_65%] relative bg-black flex items-center justify-center cursor-pointer min-h-0 min-h-[40vh] md:min-h-0" 
+              className="flex-1 md:flex-[0_0_75%] relative flex items-center justify-center cursor-pointer"
+              style={{ 
+                backgroundColor: project.backgroundColor || '#0a0a0a'
+              }}
               onClick={handleImageClick}
               onDoubleClick={handleDoubleClick}
             >
-              <div className="relative w-full h-full max-w-full max-h-full flex items-center justify-center p-4">
-                <div className="relative w-full h-full">
-                  <Image
-                    src={project.images[currentImageIndex] || project.coverImage}
-                    alt={`${project.title} - Image ${currentImageIndex + 1}`}
-                    fill
-                    className="object-contain drop-shadow-2xl"
-                    sizes="(max-width: 768px) 100vw, 65vw"
-                    priority
-                    onClick={(e) => e.stopPropagation()} 
-                  />
+              <div className="relative w-full h-full flex items-center justify-center p-4 md:p-12">
+                <div className="relative w-full h-full flex items-center justify-center">
+                  {imageError ? (
+                    <div className="flex flex-col items-center justify-center space-y-4 text-white/70">
+                      <div className="w-24 h-24 bg-white/10 rounded-lg flex items-center justify-center">
+                        <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <p className="text-sm">Image unavailable</p>
+                    </div>
+                  ) : (
+                    <Image
+                      src={project.images[currentImageIndex] || project.coverImage}
+                      alt={`${project.title} - Image ${currentImageIndex + 1}`}
+                      width={1600}
+                      height={1200}
+                      className="max-w-full max-h-full object-contain drop-shadow-2xl rounded-lg"
+                      sizes="(max-width: 768px) 100vw, 75vw"
+                      priority
+                      onClick={(e) => e.stopPropagation()}
+                      onError={handleImageError}
+                    />
+                  )}
                 </div>
               </div>
               
@@ -289,7 +312,7 @@ export function ProjectModal({ isOpen, onClose, projectId, onLike }: ProjectModa
                       e.stopPropagation()
                       navigateImage('prev')
                     }}
-                    className="absolute left-6 top-1/2 transform -translate-y-1/2 h-12 w-12 p-0 bg-black/50 hover:bg-black/70 text-white rounded-full backdrop-blur-sm transition-all duration-200 border border-white/20 hover:border-white/40"
+                    className="absolute left-2 md:left-6 top-1/2 transform -translate-y-1/2 h-10 w-10 md:h-12 md:w-12 p-0 bg-black/20 hover:bg-black/30 text-white rounded-full backdrop-blur-md transition-all duration-200 border border-white/20 hover:border-white/30 shadow-lg"
                   >
                     <ChevronLeft className="h-6 w-6" />
                   </Button>
@@ -300,23 +323,16 @@ export function ProjectModal({ isOpen, onClose, projectId, onLike }: ProjectModa
                       e.stopPropagation()
                       navigateImage('next')
                     }}
-                    className="absolute right-6 top-1/2 transform -translate-y-1/2 h-12 w-12 p-0 bg-black/50 hover:bg-black/70 text-white rounded-full backdrop-blur-sm transition-all duration-200 border border-white/20 hover:border-white/40"
+                    className="absolute right-2 md:right-6 top-1/2 transform -translate-y-1/2 h-10 w-10 md:h-12 md:w-12 p-0 bg-black/20 hover:bg-black/30 text-white rounded-full backdrop-blur-md transition-all duration-200 border border-white/20 hover:border-white/30 shadow-lg"
                   >
                     <ChevronRight className="h-6 w-6" />
                   </Button>
                 </>
               )}
 
-              {/* Enhanced Image Counter - Instagram Style */}
+              {/* Slide indicators */}
               {project.images.length > 1 && (
-                <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm border border-white/20">
-                  {currentImageIndex + 1} / {project.images.length}
-                </div>
-              )}
-              
-              {/* Image dots indicator for multiple images */}
-              {project.images.length > 1 && project.images.length <= 5 && (
-                <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                <div className="absolute bottom-4 md:bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
                   {project.images.map((_, index) => (
                     <button
                       key={index}
@@ -324,13 +340,20 @@ export function ProjectModal({ isOpen, onClose, projectId, onLike }: ProjectModa
                         e.stopPropagation()
                         setCurrentImageIndex(index)
                       }}
-                      className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                      className={`transition-all duration-200 rounded-full ${
                         index === currentImageIndex
-                          ? 'bg-white scale-125'
-                          : 'bg-white/40 hover:bg-white/60'
+                          ? 'w-3 h-3 bg-white shadow-lg scale-110'
+                          : 'w-2.5 h-2.5 bg-white/50 hover:bg-white/75 hover:scale-105'
                       }`}
                     />
                   ))}
+                </div>
+              )}
+              
+              {/* Image counter */}
+              {project.images.length > 1 && (
+                <div className="absolute top-4 right-4 md:top-6 md:right-6 bg-black/30 text-white px-2 py-1 md:px-3 md:py-1.5 rounded-full text-xs font-medium backdrop-blur-md border border-white/20">
+                  {currentImageIndex + 1} of {project.images.length}
                 </div>
               )}
               
@@ -344,47 +367,48 @@ export function ProjectModal({ isOpen, onClose, projectId, onLike }: ProjectModa
               )}
             </div>
 
-            {/* Comments Panel - Responsive layout */}
-            <div className="flex-1 md:flex-[0_0_35%] border-l md:border-l border-t md:border-t-0 border-border-primary bg-background-primary flex flex-col max-h-[50vh] md:max-h-none">
-                {/* Compact Tab Navigation - Instagram Style */}
-                <div className="flex border-b border-border-primary bg-background-primary/50">
-                  <button
-                    onClick={() => setActiveTab('project')}
-                    className={`flex-1 px-3 py-2.5 text-xs font-semibold transition-all duration-200 ${
-                      activeTab === 'project'
-                        ? 'text-accent-primary border-b-2 border-accent-primary bg-accent-primary/5'
-                        : 'text-text-secondary hover:text-text-primary hover:bg-background-secondary/50'
-                    }`}
-                  >
-                    About
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('comments')}
-                    className={`flex-1 px-3 py-2.5 text-xs font-semibold transition-all duration-200 relative ${
-                      activeTab === 'comments'
-                        ? 'text-accent-primary border-b-2 border-accent-primary bg-accent-primary/5'
-                        : 'text-text-secondary hover:text-text-primary hover:bg-background-secondary/50'
-                    }`}
-                  >
-                    Comments
-                    {project.comments > 0 && (
-                      <span className="ml-1 px-1.5 py-0.5 text-xs bg-accent-primary text-white rounded-full font-medium">
-                        {project.comments}
-                      </span>
-                    )}
-                  </button>
-                </div>
+            {/* Comments Sidebar - 25% width on desktop, full width on mobile */}
+            <div className="flex-1 md:flex-[0_0_25%] border-t md:border-t-0 md:border-l border-border-primary bg-background-primary flex flex-col h-full min-h-0 max-h-[50vh] md:max-h-none">
+              {/* Tab Navigation */}
+              <div className="flex border-b border-border-primary bg-background-primary flex-shrink-0">
+                <button
+                  onClick={() => setActiveTab('project')}
+                  className={`flex-1 px-4 py-3 text-sm font-semibold transition-all duration-200 ${
+                    activeTab === 'project'
+                      ? 'text-accent-primary border-b-2 border-accent-primary bg-accent-primary/5'
+                      : 'text-text-secondary hover:text-text-primary hover:bg-background-secondary/50'
+                  }`}
+                >
+                  About
+                </button>
+                <button
+                  onClick={() => setActiveTab('comments')}
+                  className={`flex-1 px-4 py-3 text-sm font-semibold transition-all duration-200 relative ${
+                    activeTab === 'comments'
+                      ? 'text-accent-primary border-b-2 border-accent-primary bg-accent-primary/5'
+                      : 'text-text-secondary hover:text-text-primary hover:bg-background-secondary/50'
+                  }`}
+                >
+                  Comments
+                  {project.comments > 0 && (
+                    <span className="ml-1 px-1.5 py-0.5 text-xs bg-accent-primary text-white rounded-full font-medium">
+                      {project.comments}
+                    </span>
+                  )}
+                </button>
+              </div>
 
-                {/* Tab Content */}
-                <div className="flex-1 overflow-y-auto">
-                  {activeTab === 'project' ? (
-                    <div className="p-3 space-y-3">
+              {/* Tab Content - Properly scrollable */}
+              <div className="flex-1 min-h-0 flex flex-col">
+                {activeTab === 'project' ? (
+                  <div className="flex-1 overflow-y-auto">
+                    <div className="p-4 space-y-4">
                       <div>
-                        <h2 className="text-base font-bold text-text-primary mb-2 leading-tight">
+                        <h2 className="text-lg font-bold text-text-primary mb-2 leading-tight">
                           {project.title}
                         </h2>
                         {project.description && (
-                          <p className="text-xs text-text-secondary leading-relaxed">
+                          <p className="text-sm text-text-secondary leading-relaxed">
                             {project.description}
                           </p>
                         )}
@@ -392,9 +416,9 @@ export function ProjectModal({ isOpen, onClose, projectId, onLike }: ProjectModa
 
                       {project.tags.length > 0 && (
                         <div>
-                          <div className="flex flex-wrap gap-1.5">
+                          <div className="flex flex-wrap gap-2">
                             {project.tags.map((tag) => (
-                              <Badge key={tag} variant="secondary" className="text-xs px-2 py-0.5">
+                              <Badge key={tag} variant="secondary" className="text-xs px-2 py-1">
                                 #{tag}
                               </Badge>
                             ))}
@@ -402,80 +426,58 @@ export function ProjectModal({ isOpen, onClose, projectId, onLike }: ProjectModa
                         </div>
                       )}
 
-                      <div className="flex items-center justify-between py-2 border-t border-border-primary">
-                        <div className="flex items-center space-x-4 text-xs text-text-secondary">
-                          <div className="flex items-center space-x-1">
-                            <Heart className="h-3 w-3" />
-                            <span className="font-medium">{likeCount}</span>
+                      {/* Action Buttons */}
+                      <div className="flex flex-col space-y-3 pt-4 border-t border-border-primary">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-6">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={handleLike}
+                              disabled={isLiking}
+                              className={`p-0 h-8 hover:scale-110 transition-all duration-200 flex items-center space-x-2 ${
+                                liked ? 'text-red-500' : 'text-text-primary hover:text-red-500'
+                              }`}
+                            >
+                              <Heart className={`h-5 w-5 ${liked ? 'fill-current' : ''}`} />
+                              <span className="font-medium">{likeCount}</span>
+                            </Button>
+                            
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => setActiveTab('comments')}
+                              className="p-0 h-8 hover:scale-110 transition-all duration-200 flex items-center space-x-2 text-text-primary hover:text-accent-primary"
+                            >
+                              <MessageCircle className="h-5 w-5" />
+                              <span className="font-medium">{project.comments}</span>
+                            </Button>
+                            
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={handleShare}
+                              className="p-0 h-8 text-text-primary hover:text-accent-primary hover:scale-110 transition-all duration-200"
+                            >
+                              <Share2 className="h-5 w-5" />
+                            </Button>
                           </div>
-                          <div className="flex items-center space-x-1">
-                            <MessageCircle className="h-3 w-3" />
-                            <span className="font-medium">{project.comments}</span>
-                          </div>
+                        </div>
+                        
+                        {/* Stats */}
+                        <div className="flex items-center space-x-4 text-sm text-text-secondary">
+                          <span className="font-semibold text-text-primary">{likeCount} likes</span>
                           {project.views && (
-                            <div className="flex items-center space-x-1">
-                              <Eye className="h-3 w-3" />
-                              <span className="font-medium">{project.views}</span>
-                            </div>
+                            <span>{project.views.toLocaleString()} views</span>
                           )}
                         </div>
                       </div>
                     </div>
-                  ) : (
-                    <div className="h-full flex flex-col">
-                      <CommentSection projectId={projectId} />
-                    </div>
-                  )}
-                </div>
-              </div>
-          </div>
-
-          {/* Instagram-Style Action Bar */}
-          <div className="px-6 py-3 border-t border-border-primary bg-background-primary">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-6">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleLike}
-                  disabled={isLiking}
-                  className={`p-0 h-6 hover:scale-110 transition-all duration-200 ${
-                    liked ? 'text-red-500' : 'text-text-primary hover:text-red-500'
-                  }`}
-                >
-                  <Heart className={`h-6 w-6 ${liked ? 'fill-current' : ''}`} />
-                </Button>
-                
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setActiveTab('comments')}
-                  className={`p-0 h-6 hover:scale-110 transition-all duration-200 ${
-                    activeTab === 'comments' 
-                      ? 'text-accent-primary' 
-                      : 'text-text-primary hover:text-accent-primary'
-                  }`}
-                >
-                  <MessageCircle className="h-6 w-6" />
-                </Button>
-                
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleShare}
-                  className="p-0 h-6 text-text-primary hover:text-accent-primary hover:scale-110 transition-all duration-200"
-                >
-                  <Share2 className="h-6 w-6" />
-                </Button>
-              </div>
-            </div>
-            
-            {/* Engagement Stats */}
-            <div className="mt-2 text-sm">
-              <div className="flex items-center space-x-4 text-text-secondary">
-                <span className="font-semibold text-text-primary">{likeCount} likes</span>
-                {project.views && (
-                  <span>{project.views.toLocaleString()} views</span>
+                  </div>
+                ) : (
+                  <div className="flex-1 min-h-0 flex flex-col">
+                    <CommentSection projectId={projectId} />
+                  </div>
                 )}
               </div>
             </div>

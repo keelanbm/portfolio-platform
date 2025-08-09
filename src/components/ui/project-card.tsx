@@ -192,41 +192,36 @@ export function ProjectCard({
               sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, (max-width: 1536px) 25vw, 20vw"
             />
             
-            {/* Enhanced Hover Overlay with Stats and Comment Preview */}
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all duration-300">
-              <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4">
+            {/* Subtle Bottom Overlay Bar - Less intrusive */}
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 p-4">
+              <div className="flex items-center justify-between text-white">
                 {/* Main Stats */}
-                <div className="flex items-center space-x-8 text-white mb-4">
-                  <div className="flex items-center space-x-2">
-                    <Heart className={`h-6 w-6 ${liked ? 'fill-current text-accent-pink' : ''}`} />
-                    <span className="font-semibold text-lg">{likeCount}</span>
+                <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-1">
+                    <Heart className={`h-4 w-4 ${liked ? 'fill-current text-red-400' : ''}`} />
+                    <span className="font-medium text-sm">{likeCount}</span>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <MessageCircle className="h-6 w-6" />
-                    <span className="font-semibold text-lg">{project.comments}</span>
+                  <div className="flex items-center space-x-1">
+                    <MessageCircle className="h-4 w-4" />
+                    <span className="font-medium text-sm">{project.comments}</span>
                   </div>
                   {project.views && (
-                    <div className="flex items-center space-x-2">
-                      <Eye className="h-6 w-6" />
-                      <span className="font-semibold text-lg">{project.views}</span>
+                    <div className="flex items-center space-x-1">
+                      <Eye className="h-4 w-4" />
+                      <span className="font-medium text-sm">{project.views}</span>
                     </div>
                   )}
                 </div>
                 
-                {/* Comment Preview */}
-                {project.comments > 0 && (
-                  <div className="bg-black/70 rounded-lg p-3 max-w-xs text-white text-center backdrop-blur-sm">
-                    <p className="text-xs font-medium mb-1">Recent Comment</p>
-                    <p className="text-xs text-gray-200 line-clamp-2">
-                      &ldquo;Love the color palette! The gradient transitions are so smooth.&rdquo;
-                    </p>
-                    <p className="text-xs text-gray-400 mt-1">Click to view all {project.comments} comments</p>
-                  </div>
-                )}
+                {/* Quick action buttons */}
+                <div className="text-xs bg-white/20 px-2 py-1 rounded-full backdrop-blur-sm">
+                  Click to view
+                </div>
               </div>
+            </div>
 
-              {/* Action Buttons Overlay */}
-              <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            {/* Action Buttons Overlay */}
+            <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="flex items-center gap-2">
                   {/* Collection Actions - Only for user's own projects */}
                   {showCollectionActions && (
@@ -272,21 +267,20 @@ export function ProjectCard({
                   </Button>
                 </div>
               </div>
-            </div>
 
-            {/* Image count badge */}
-            {project.images.length > 1 && (
-              <Badge className="absolute top-3 left-3 text-xs bg-black/60 text-white border-0 backdrop-blur-sm">
-                {project.images.length} images
-              </Badge>
-            )}
-            
-            {/* Comment Activity Indicator */}
-            {project.comments > 0 && (
-              <div className="absolute top-3 right-3 bg-accent-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-medium animate-pulse">
-                {project.comments > 9 ? '9+' : project.comments}
-              </div>
-            )}
+              {/* Image count badge */}
+              {project.images.length > 1 && (
+                <Badge className="absolute top-3 left-3 text-xs bg-black/60 text-white border-0 backdrop-blur-sm">
+                  {project.images.length} images
+                </Badge>
+              )}
+              
+              {/* Comment Activity Indicator */}
+              {project.comments > 0 && (
+                <div className="absolute top-3 right-3 bg-accent-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-medium animate-pulse">
+                  {project.comments > 9 ? '9+' : project.comments}
+                </div>
+              )}
           </div>
         )}
       </div>

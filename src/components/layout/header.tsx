@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { UserButton, SignInButton, useUser } from '@clerk/nextjs'
-import { Search, Menu, User, LogOut, Clock, TrendingUp } from 'lucide-react'
+import { Search, Menu, User, Clock, TrendingUp } from 'lucide-react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent } from '@/components/ui/card'
@@ -227,10 +227,9 @@ export function Header() {
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem className="flex items-center text-red-600 hover:text-red-700">
-                    <LogOut className="mr-2 h-4 w-4" />
+                  <div className="p-2">
                     <UserButton afterSignOutUrl="/" />
-                  </DropdownMenuItem>
+                  </div>
                 </DropdownMenuContent>
               </DropdownMenu>
             </>

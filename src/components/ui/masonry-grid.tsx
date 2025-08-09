@@ -14,11 +14,11 @@ export function MasonryGrid({
   className = '', 
   columnClassName = '' 
 }: MasonryGridProps) {
-  // Responsive breakpoints for columns
+  // Responsive breakpoints for columns - Larger cards with fewer columns
   const breakpointColumnsObj = {
-    default: 4,      // 4 columns on large screens
-    1536: 5,         // 5 columns on 2xl screens
-    1280: 4,         // 4 columns on xl screens
+    default: 3,      // 3 columns on large screens
+    1536: 4,         // 4 columns on 2xl screens
+    1280: 3,         // 3 columns on xl screens
     1024: 3,         // 3 columns on lg screens
     768: 2,          // 2 columns on md screens
     640: 1,          // 1 column on sm screens
