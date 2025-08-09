@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
-import { notifyNewFollower } from '@/utils/notifications'
+import { notifyNewFollower, notifyFollowerMilestone } from '@/utils/notifications'
 
 export async function POST(request: NextRequest) {
   try {
@@ -61,6 +61,18 @@ export async function POST(request: NextRequest) {
         userId: followingId,
         followerName: follower.displayName || follower.username || 'Someone',
         followerUsername: follower.username || 'unknown',
+      })
+
+      // Check for follower milestones
+      const followerCount = await prisma.follow.count({
+        where: { followingId: followingId }
+      })
+
+      // Send milestone notification if they hit a milestone
+      await notifyFollowerMilestone({
+        userId: followingId,
+        followerCount,
+        username: userToFollow.username,
       })
     }
 

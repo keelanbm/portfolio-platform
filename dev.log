@@ -1,0 +1,2335 @@
+
+> temp-portfolio@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.4.5
+   - Local:        http://localhost:3000
+   - Network:      http://10.144.27.207:3000
+   - Environments: .env.local, .env
+
+ ✓ Starting...
+ ✓ Ready in 1503ms
+ ✓ Compiled /middleware in 266ms (217 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 2.4s (1482 modules)
+ GET / 200 in 2995ms
+ ✓ Compiled in 200ms (582 modules)
+ ✓ Compiled in 602ms (1482 modules)
+ GET / 200 in 552ms
+ GET / 200 in 127ms
+ ✓ Compiled in 343ms (582 modules)
+ ✓ Compiled in 231ms (582 modules)
+ ✓ Compiled in 226ms (582 modules)
+ ✓ Compiled in 179ms (582 modules)
+ ✓ Compiled in 232ms (582 modules)
+ ✓ Compiled in 207ms (582 modules)
+ ✓ Compiled in 278ms (582 modules)
+ ✓ Compiled in 167ms (582 modules)
+ ✓ Compiled in 190ms (582 modules)
+ ✓ Compiled in 308ms (582 modules)
+ ✓ Compiled in 192ms (582 modules)
+ ✓ Compiled in 191ms (582 modules)
+ ✓ Compiled in 262ms (582 modules)
+ ○ Compiling /create ...
+ ⚠ ./src/components/create/background-selector.tsx
+Attempted import error: 'Gradient' is not exported from '__barrel_optimize__?names=Gradient,Palette,Wand2!=!lucide-react' (imported as 'Gradient').
+
+Import trace for requested module:
+./src/components/create/background-selector.tsx
+./src/components/create/create-project-form.tsx
+
+./src/components/create/background-selector.tsx
+Attempted import error: 'Gradient' is not exported from '__barrel_optimize__?names=Gradient,Palette,Wand2!=!lucide-react' (imported as 'Gradient').
+
+Import trace for requested module:
+./src/components/create/background-selector.tsx
+./src/components/create/create-project-form.tsx
+ ⨯ [Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.] {
+  digest: '211983253'
+}
+ GET /create 200 in 2192ms
+ ✓ Compiled /create in 778ms (1532 modules)
+ GET /create 200 in 208ms
+ ✓ Compiled /_not-found in 457ms (1523 modules)
+ GET /icons/icon-144x144.png 404 in 808ms
+ ✓ Compiled in 505ms (1539 modules)
+ GET /create 200 in 78ms
+ GET /icons/icon-144x144.png 404 in 154ms
+ GET /create 200 in 195ms
+ ✓ Compiled in 508ms (616 modules)
+ GET /create 200 in 41ms
+ ✓ Compiled /_not-found in 465ms (1539 modules)
+ GET /icons/icon-144x144.png 404 in 808ms
+ GET /create 200 in 47ms
+ GET /icons/icon-144x144.png 404 in 42ms
+ ✓ Compiled in 187ms (620 modules)
+ GET /create 200 in 29ms
+ GET /icons/icon-144x144.png 404 in 227ms
+ ○ Compiling / ...
+ ✓ Compiled / in 597ms (945 modules)
+ GET / 200 in 925ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 564ms (950 modules)
+ GET /favicon.ico 200 in 759ms
+ GET /favicon.ico 200 in 12ms
+ ○ Compiling /api/discover ...
+ ✓ Compiled /api/discover in 1469ms (1594 modules)
+ GET / 200 in 225ms
+ GET /create 200 in 496ms
+ GET /icons/icon-144x144.png 404 in 359ms
+ GET /icons/icon-144x144.png 404 in 357ms
+prisma:error 
+Invalid `prisma.project.findMany()` invocation:
+
+
+The column `projects.backgroundColor` does not exist in the current database.
+Error fetching discover feed: Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.project.findMany()` invocation:
+
+
+The column `projects.backgroundColor` does not exist in the current database.
+    at async getProjectsWithMetadata (src/lib/query-optimizations.ts:22:19)
+    at async GET (src/app/api/discover/route.ts:99:39)
+  20 | }) {
+  21 |   // Single optimized query that fetches projects with all necessary data
+> 22 |   const projects = await prisma.project.findMany({
+     |                   ^
+  23 |     where,
+  24 |     include: {
+  25 |       user: { {
+  code: 'P2022',
+  meta: [Object],
+  clientVersion: '6.13.0'
+}
+ GET /api/discover?limit=12&page=1&sort=popular 500 in 3738ms
+ ⨯ upstream image response failed for https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800&h=600&fit=crop&crop=center 404
+ ⨯ upstream image response failed for https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=800&h=600&fit=crop&crop=center 404
+ ○ Compiling /feed ...
+ ✓ Compiled /feed in 1317ms (1597 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 773ms (1925 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /feed 500 in 5700ms
+ GET /create 500 in 3990ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 733ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 648ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 459ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /feed 500 in 547ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 194ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/cache/webpack/client-development-fallback/0.pack.gz_' -> '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/cache/webpack/client-development-fallback/0.pack.gz'
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 77ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 503ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 641ms
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 698ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /feed 500 in 500ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 499ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 33ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 511ms
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 49ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 191ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /feed 500 in 480ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 339ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 45ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 457ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 241ms
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 292ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /feed 500 in 453ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 331ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 34ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 482ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 353ms
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 343ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /feed 500 in 690ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 192ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 36ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 447ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 252ms
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 325ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /feed 500 in 462ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 219ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 23ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 455ms
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 28ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 186ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /feed 500 in 456ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 313ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 73ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 529ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 216ms
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 238ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /feed 500 in 455ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 186ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 31ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 457ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 214ms
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 244ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /feed 500 in 436ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 193ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 21ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 455ms
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 29ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 185ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /feed 500 in 423ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 184ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 22ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 467ms
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 30ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 167ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /feed 500 in 444ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 195ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 27ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 461ms
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 21ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 192ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /feed 500 in 450ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 193ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 31ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 530ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 331ms
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 379ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /feed 500 in 449ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 205ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 25ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 469ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 251ms
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 248ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /feed 500 in 438ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 181ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 21ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 450ms
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 27ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 165ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /feed 500 in 445ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 187ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 26ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 456ms
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 21ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 182ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /feed 500 in 451ms
+ ✓ Compiled in 816ms (775 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 354ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 50ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 914ms
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 33ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 188ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /feed 500 in 426ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 186ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 22ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 450ms
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 24ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 174ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /feed 500 in 432ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 167ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 28ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 440ms
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 25ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 211ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /feed 500 in 433ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 223ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 25ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 441ms
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 26ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 259ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ✓ Compiled in 631ms (775 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 164ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /feed 500 in 788ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 486ms
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 33ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 184ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 32ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /feed 500 in 416ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 205ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 23ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 437ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 211ms
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 209ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ✓ Compiled in 245ms (775 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 238ms
+ GET /feed 500 in 679ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 477ms
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 28ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 346ms
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 400ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /feed 500 in 652ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 539ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 264ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 460ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 252ms
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 291ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /feed 500 in 429ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 390ms
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 320ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/create'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /create 500 in 588ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 200ms
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 230ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json',
+  page: '/feed'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /feed 500 in 468ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/routes-manifest.json'
+}
+ GET /_next/static/webpack/be92e2f039b028dc.webpack.hot-update.json 500 in 540ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 37ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/app-paths-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/app-paths-manifest.json',
+  page: '/create'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages-manifest.json'
+}
+ GET /create 500 in 94ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/app-paths-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/app-paths-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/app-paths-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/app-paths-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/app-paths-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/app-paths-manifest.json'
+}
+ GET /_next/static/chunks/fallback/webpack.js 500 in 87ms
+ GET /_next/static/chunks/fallback/main.js 500 in 81ms
+ GET /_next/static/chunks/fallback/react-refresh.js 500 in 80ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/app-paths-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/app-paths-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/app-paths-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/app-paths-manifest.json'
+}
+ GET /_next/static/chunks/fallback/pages/_app.js 500 in 54ms
+ GET /_next/static/chunks/fallback/pages/_error.js 500 in 55ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/app-paths-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/app-paths-manifest.json',
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 23ms
+ ✓ Compiled in 238ms (775 modules)
+ ⨯ [TypeError: __webpack_modules__[moduleId] is not a function] {
+  digest: '199250626'
+}
+[TypeError: __webpack_modules__[moduleId] is not a function]
+ ⨯ [TypeError: __webpack_modules__[moduleId] is not a function]
+ ⨯ [TypeError: __webpack_modules__[moduleId] is not a function] {
+  page: '/create'
+}
+ GET /create 500 in 1101ms
+ ⨯ Error: Cannot find module './2073.js'
+Require stack:
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/webpack-runtime.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/.next/server/pages/_document.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/require.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/load-components.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/utils.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/options.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/swc/index.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/build/next-config-ts/transpile-config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/config.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/next.js
+- /Users/keelanmiskell/Desktop/Coding/Portfolio-Website/node_modules/next/dist/server/lib/start-server.js
+    at <unknown> (.next/server/app/favicon.ico/route.js:1:41894)
+    at Object.<anonymous> (.next/server/app/favicon.ico/route.js:1:41946) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 30ms
+ ⨯ [TypeError: __webpack_modules__[moduleId] is not a function] {
+  digest: '199250626'
+}
+[TypeError: __webpack_modules__[moduleId] is not a function]
+ ⨯ [TypeError: __webpack_modules__[moduleId] is not a function]
+ ⨯ [TypeError: __webpack_modules__[moduleId] is not a function] {
+  page: '/create'
+}
+ GET /create 500 in 971ms
+prisma:error Error in PostgreSQL connection: Error { kind: Closed, cause: None }
+prisma:error Error in PostgreSQL connection: Error { kind: Closed, cause: None }
+[?25h

@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ImageUpload } from './image-upload'
 import { TagSelector } from './tag-selector'
 import { ProjectPreview } from './project-preview'
+import { BackgroundSelector } from './background-selector'
 import { CONSTRAINTS, DIMENSIONS } from '@/lib/constants'
 import { useUser } from '@clerk/nextjs'
 import { Badge } from '@/components/ui/badge'
@@ -58,6 +59,9 @@ interface ProjectData {
   questions: string[]
   images: File[]
   coverImageIndex: number
+  backgroundColor?: string
+  gradientColors?: string[]
+  backgroundStyle: 'AUTO' | 'SOLID' | 'GRADIENT'
 }
 
 export function CreateProjectForm() {
@@ -71,6 +75,7 @@ export function CreateProjectForm() {
     questions: [],
     images: [],
     coverImageIndex: 0,
+    backgroundStyle: 'AUTO',
   })
 
   const userTier = user?.publicMetadata?.subscriptionTier || 'free'
@@ -114,6 +119,17 @@ export function CreateProjectForm() {
     }))
   }
 
+  const handleBackgroundChange = (backgroundData: {
+    backgroundColor?: string
+    gradientColors?: string[]
+    backgroundStyle: 'AUTO' | 'SOLID' | 'GRADIENT'
+  }) => {
+    setProjectData(prev => ({
+      ...prev,
+      ...backgroundData,
+    }))
+  }
+
   const handleSubmit = async () => {
     if (!user) return
 
@@ -129,6 +145,13 @@ export function CreateProjectForm() {
       formData.append('tags', JSON.stringify(projectData.tags))
       formData.append('questions', JSON.stringify(projectData.questions))
       formData.append('coverImageIndex', projectData.coverImageIndex.toString())
+      formData.append('backgroundStyle', projectData.backgroundStyle)
+      if (projectData.backgroundColor) {
+        formData.append('backgroundColor', projectData.backgroundColor)
+      }
+      if (projectData.gradientColors) {
+        formData.append('gradientColors', JSON.stringify(projectData.gradientColors))
+      }
       
       projectData.images.forEach((image) => {
         formData.append(`images`, image)
@@ -304,6 +327,25 @@ export function CreateProjectForm() {
             <TagSelector
               selectedTags={projectData.tags}
               onChange={handleTagChange}
+            />
+          </CardContent>
+        </Card>
+
+        {/* Background Style */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-text-primary">Background Style</CardTitle>
+            <p className="text-sm text-text-secondary">
+              Choose how your project appears in feeds and galleries
+            </p>
+          </CardHeader>
+          <CardContent>
+            <BackgroundSelector
+              backgroundColor={projectData.backgroundColor}
+              gradientColors={projectData.gradientColors}
+              backgroundStyle={projectData.backgroundStyle}
+              onBackgroundChange={handleBackgroundChange}
+              coverImage={projectData.images.length > 0 ? URL.createObjectURL(projectData.images[projectData.coverImageIndex]) : undefined}
             />
           </CardContent>
         </Card>

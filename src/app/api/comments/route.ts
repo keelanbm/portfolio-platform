@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { auth } from '@clerk/nextjs/server'
-import { notifyCommentReply, createNotification } from '@/utils/notifications'
+import { notifyCommentReply, createNotification, notifyMention } from '@/utils/notifications'
+import { processMentions } from '@/lib/mentions'
 import { getCommentsWithMetadata } from '@/lib/query-optimizations'
 
 // GET /api/comments - Get comments for a project or user
@@ -183,6 +184,9 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Process mentions in the comment content
+    const { validMentions } = await processMentions(content.trim())
+
     const comment = await prisma.comment.create({
       data: {
         content: content.trim(),
@@ -238,6 +242,20 @@ export async function POST(request: NextRequest) {
           commenterName,
           projectTitle: comment.project.title,
           projectId: comment.project.id,
+        })
+      }
+    }
+
+    // Send mention notifications
+    for (const mention of validMentions) {
+      // Don't notify if the mentioned user is the commenter themselves
+      if (mention.userId !== userId) {
+        await notifyMention({
+          mentionedUserId: mention.userId,
+          mentionerName: commenterName,
+          projectTitle: comment.project.title,
+          projectId: comment.project.id,
+          context: 'comment',
         })
       }
     }

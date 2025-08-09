@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useUser } from '@clerk/nextjs'
 import { Button } from '@/components/ui/button'
+import { MentionInput } from '@/components/ui/mention-input'
 import { Textarea } from '@/components/ui/textarea'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
@@ -518,11 +519,13 @@ export default function CommentSection({ projectId }: CommentSectionProps) {
         <Card>
           <CardContent className="pt-4 sm:pt-6 px-3 sm:px-6 pb-4 sm:pb-6">
             <div className="space-y-3 sm:space-y-4">
-              <Textarea
-                placeholder="Share your thoughts on this project..."
+              <MentionInput
+                placeholder="Share your thoughts on this project... Use @username to mention someone!"
                 value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
+                onChange={setNewComment}
                 className="min-h-[100px] sm:min-h-[120px] text-sm sm:text-base resize-none"
+                rows={5}
+                maxLength={1000}
               />
               
               {/* Tags input */}

@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { Plus, Image as ImageIcon, Heart, Bookmark, Users } from 'lucide-react'
 import Link from 'next/link'
+import { OnboardingProgress } from '@/components/onboarding/onboarding-progress'
 
 export default function DashboardPage() {
   const { user } = useUser()
@@ -19,6 +20,9 @@ export default function DashboardPage() {
           Welcome back, {user?.fullName || user?.emailAddresses[0]?.emailAddress}!
         </p>
       </div>
+
+      {/* Onboarding Progress */}
+      <OnboardingProgress className="mb-8" />
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
@@ -85,8 +89,8 @@ export default function DashboardPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <Button asChild className="w-full">
-              <Link href="/upload">
+            <Button asChild className="w-full" data-tour="create-project">
+              <Link href="/create">
                 <Plus className="mr-2 h-4 w-4" />
                 Upload New Project
               </Link>

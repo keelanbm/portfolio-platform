@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
-import { notifyProjectLike } from '@/utils/notifications'
+import { notifyProjectLike, notifyFirstLike, notifyProjectPopular } from '@/utils/notifications'
 
 export async function POST(
   request: NextRequest,
@@ -25,6 +25,7 @@ export async function POST(
         id: true, 
         title: true, 
         userId: true,
+        likeCount: true,
         user: {
           select: {
             username: true,
@@ -82,13 +83,16 @@ export async function POST(
         },
       })
 
-      // Increase like count
-      await prisma.project.update({
+      // Increase like count and get the updated count
+      const updatedProject = await prisma.project.update({
         where: { id: projectId },
         data: {
           likeCount: {
             increment: 1,
           },
+        },
+        select: {
+          likeCount: true,
         },
       })
 
@@ -100,12 +104,33 @@ export async function POST(
 
       // Send notification to project owner (only if they're not liking their own project)
       if (project.userId !== userId && liker) {
+        const likerName = liker.displayName || liker.username || 'Someone'
+        
+        // Regular like notification
         await notifyProjectLike({
           projectOwnerId: project.userId,
-          likerName: liker.displayName || liker.username || 'Someone',
+          likerName,
           projectTitle: project.title,
           projectId: project.id,
         })
+
+        // Milestone notifications
+        if (updatedProject.likeCount === 1) {
+          // First like milestone
+          await notifyFirstLike({
+            projectOwnerId: project.userId,
+            projectTitle: project.title,
+            projectId: project.id,
+          })
+        } else {
+          // Popular project milestones (10, 25, 50, 100, etc.)
+          await notifyProjectPopular({
+            projectOwnerId: project.userId,
+            projectTitle: project.title,
+            projectId: project.id,
+            likeCount: updatedProject.likeCount,
+          })
+        }
       }
 
       return NextResponse.json({ liked: true })

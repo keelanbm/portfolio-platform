@@ -1,12 +1,11 @@
 import { auth } from '@clerk/nextjs/server'
-import { redirect } from 'next/navigation'
 import { CollectionsGrid } from '@/components/collections/collections-grid'
 
 export default async function CollectionsPage() {
-  const { userId } = await auth()
+  const { userId, redirectToSignIn } = await auth()
   
   if (!userId) {
-    redirect('/login')
+    return redirectToSignIn()
   }
 
   return (

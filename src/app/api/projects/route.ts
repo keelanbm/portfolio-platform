@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
+import { invalidateRelatedCaches, CACHE_TAGS } from '@/lib/cache'
 import { createClient } from '@supabase/supabase-js'
 import { CONSTRAINTS } from '@/lib/constants'
+import { BackgroundStyle } from '@prisma/client'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -26,6 +28,12 @@ export async function POST(request: NextRequest) {
     const questions = JSON.parse(formData.get('questions') as string || '[]') as string[]
     const coverImageIndex = parseInt(formData.get('coverImageIndex') as string)
     const images = formData.getAll('images') as File[]
+    
+    // Background styling data
+    const backgroundStyle = formData.get('backgroundStyle') as string || 'AUTO'
+    const backgroundColor = formData.get('backgroundColor') as string | null
+    const gradientColorsStr = formData.get('gradientColors') as string | null
+    const gradientColors = gradientColorsStr ? JSON.parse(gradientColorsStr) as string[] : null
 
     // Validation
     if (!title || !images || images.length === 0) {
@@ -102,6 +110,9 @@ export async function POST(request: NextRequest) {
         tags: tags,
         questions: questions,
         slideCount: images.length,
+        backgroundColor: backgroundColor,
+        gradientColors: gradientColors || [],
+        backgroundStyle: backgroundStyle as BackgroundStyle,
       },
       include: {
         user: {
@@ -127,6 +138,14 @@ export async function POST(request: NextRequest) {
         })
       )
     )
+
+    // Invalidate related caches since new project was created
+    await invalidateRelatedCaches([
+      CACHE_TAGS.PROJECTS,
+      CACHE_TAGS.DISCOVER,
+      CACHE_TAGS.FEED,
+      CACHE_TAGS.SEARCH,
+    ])
 
     return NextResponse.json({
       success: true,

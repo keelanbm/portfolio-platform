@@ -1,8 +1,7 @@
 'use client'
 
-import { redirect } from 'next/navigation'
 import { useState, useEffect } from 'react'
-import { useUser } from '@clerk/nextjs'
+import { useUser, RedirectToSignIn } from '@clerk/nextjs'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -73,7 +72,7 @@ export default function SettingsPage() {
   }
   
   if (!isSignedIn || !user) {
-    redirect('/login')
+    return <RedirectToSignIn />
   }
 
   return (

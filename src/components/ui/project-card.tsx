@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Heart, MessageCircle, Eye, MoreHorizontal, FolderPlus } from 'lucide-react'
+import { Heart, MessageCircle, Eye, MoreHorizontal, FolderPlus, Bookmark } from 'lucide-react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { AddToCollectionDialog } from '@/components/collections/add-to-collection-dialog'
 
@@ -23,6 +23,10 @@ interface ProjectCardProps {
     views?: number
     createdAt: string
     isLiked?: boolean
+    isSaved?: boolean
+    backgroundColor?: string
+    gradientColors?: string[]
+    backgroundStyle?: 'AUTO' | 'SOLID' | 'GRADIENT'
     user: {
       id: string
       username: string
@@ -32,6 +36,7 @@ interface ProjectCardProps {
     }
   }
   onLike?: (projectId: string) => Promise<void>
+  onSave?: (projectId: string) => Promise<void>
   onOpenModal?: (projectId: string) => void
   aspectRatio?: number
   showCollectionActions?: boolean // Only show for user's own projects
@@ -41,6 +46,7 @@ interface ProjectCardProps {
 export function ProjectCard({ 
   project, 
   onLike, 
+  onSave,
   onOpenModal,
   aspectRatio,
   showCollectionActions = false,
@@ -48,8 +54,25 @@ export function ProjectCard({
 }: ProjectCardProps) {
   const [liked, setLiked] = useState(project.isLiked || false)
   const [likeCount, setLikeCount] = useState(project.likes)
+  const [saved, setSaved] = useState(project.isSaved || false)
+  
+  // Generate background style based on project settings
+  const getBackgroundStyle = () => {
+    const { backgroundStyle, backgroundColor, gradientColors } = project
+    
+    if (backgroundStyle === 'SOLID' && backgroundColor) {
+      return { backgroundColor }
+    } else if (backgroundStyle === 'GRADIENT' && gradientColors && gradientColors.length >= 2) {
+      return {
+        background: `linear-gradient(135deg, ${gradientColors[0]} 0%, ${gradientColors[1]} 100%)`,
+      }
+    }
+    // AUTO or fallback - use default background
+    return {}
+  }
   const [imageError, setImageError] = useState(false)
   const [isLiking, setIsLiking] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
   const [showAddToCollection, setShowAddToCollection] = useState(false)
 
   // Calculate image height for 4:3 aspect ratio (optimized for homepage showcase)
@@ -82,6 +105,28 @@ export function ProjectCard({
     }
   }
 
+  const handleSave = async (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    
+    if (isSaving || !onSave) return
+
+    // Optimistic update
+    const wasSaved = saved
+    setSaved(!saved)
+    
+    setIsSaving(true)
+    try {
+      await onSave(project.id)
+    } catch (error) {
+      // Revert on error
+      setSaved(wasSaved)
+      console.error('Error toggling save:', error)
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
   const handleCardClick = () => {
     if (onOpenModal) {
       onOpenModal(project.id)
@@ -108,7 +153,10 @@ export function ProjectCard({
       }}
     >
       {/* Project Image - Main Focus */}
-      <div className="relative overflow-hidden rounded-lg bg-background-secondary mb-3">
+      <div 
+        className="relative overflow-hidden rounded-lg bg-background-secondary mb-3"
+        style={getBackgroundStyle()}
+      >
         {imageError ? (
           <div 
             className="w-full flex items-center justify-center bg-gradient-to-br from-accent-primary/10 to-accent-secondary/10"
@@ -201,6 +249,17 @@ export function ProjectCard({
                     </DropdownMenu>
                   )}
                   
+                  {/* Save Button */}
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={handleSave}
+                    disabled={isSaving}
+                    className="h-10 w-10 p-0 rounded-full bg-black/60 hover:bg-black/80 text-white border-0 backdrop-blur-sm"
+                  >
+                    <Bookmark className={`h-4 w-4 ${saved ? 'fill-current text-accent-primary' : ''}`} />
+                  </Button>
+
                   {/* Like Button */}
                   <Button
                     variant="secondary"

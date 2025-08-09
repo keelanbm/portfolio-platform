@@ -95,7 +95,10 @@ export default function HomePage() {
           return
         }
 
-        const response = await fetch(`/api/discover?${params.toString()}`)
+        const response = await fetch(`/api/discover?${params.toString()}`, {
+          // Add timeout for faster fallback to mock data
+          signal: AbortSignal.timeout(8000) // 8 second timeout
+        })
         if (response.ok) {
           const data = await response.json()
           const newProjects = data.projects || []

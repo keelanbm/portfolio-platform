@@ -21,6 +21,7 @@ interface Project {
   comments: number
   createdAt: string
   isLiked?: boolean
+  isSaved?: boolean
   user: {
     id: string
     username: string
@@ -186,6 +187,38 @@ export function DiscoverFeed() {
     }
   }
 
+  const handleSave = async (projectId: string) => {
+    try {
+      const response = await fetch(`/api/projects/${projectId}/save`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      
+      if (!response.ok) {
+        throw new Error('Failed to toggle save')
+      }
+      
+      const result = await response.json()
+      
+      // Update the projects state with the new save status
+      setProjects(prev => prev.map(project => 
+        project.id === projectId 
+          ? { ...project, isSaved: result.saved }
+          : project
+      ))
+      
+      // Show success message
+      showToast.success(
+        result.saved ? 'Project saved!' : 'Project removed from saves'
+      )
+    } catch (error) {
+      showToast.error(toastMessages.generic.error, 'Please try again')
+      throw error
+    }
+  }
+
 
   const handleOpenModal = (projectId: string) => {
     setSelectedProjectId(projectId)
@@ -283,6 +316,7 @@ export function DiscoverFeed() {
             <ProjectCard 
               project={project}
               onLike={handleLike}
+              onSave={handleSave}
               onOpenModal={handleOpenModal}
             />
           </MasonryGridItem>

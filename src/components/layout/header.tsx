@@ -163,6 +163,13 @@ export function Header() {
             </Link>
           )}
 
+          {/* Saved - Authenticated only */}
+          {isSignedIn && (
+            <Link href="/saved" className="text-text-secondary hover:text-text-primary transition-colors duration-200 font-medium" data-tour="saved">
+              Saved
+            </Link>
+          )}
+
           {/* Collections - Authenticated only */}
           {isSignedIn && (
             <Link href="/collections" className="text-text-secondary hover:text-text-primary transition-colors duration-200 font-medium">
