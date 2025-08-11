@@ -8,7 +8,6 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -35,6 +34,7 @@ model User {
   nftMints      NftMint[]
   comments      Comment[]
   notifications Notification[]
+  events        Event[]
 
   @@map("users")
 }
@@ -72,6 +72,7 @@ model Project {
   nftMints          NftMint[]
   comments          Comment[]
   collectionProjects CollectionProject[]
+  events            Event[]
 
   @@index([createdAt(sort: Desc)]) // For recent sorting
   @@index([likeCount(sort: Desc)]) // For popular sorting  
@@ -214,6 +215,7 @@ model Comment {
   parent  Comment? @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
   replies Comment[] @relation("CommentReplies")
   likes   Like[]    // Reuse existing like system for upvotes/downvotes
+  events  Event[]
 
   @@index([projectId, createdAt(sort: Desc)]) // For project comments
   @@index([parentId, createdAt(sort: Desc)]) // For comment replies
