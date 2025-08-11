@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
         projectId: projectId ?? null,
         commentId: commentId ?? null,
         tag: tag ?? null,
-        metadata: metadata as object | null,
+        metadata: metadata || undefined,
       },
     })
 

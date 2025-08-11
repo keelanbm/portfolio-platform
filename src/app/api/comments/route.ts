@@ -187,6 +187,25 @@ export async function POST(request: NextRequest) {
     // Process mentions in the comment content
     const { validMentions } = await processMentions(content.trim())
 
+    // For development: ensure user exists in database
+    if (process.env.NODE_ENV === 'development') {
+      try {
+        await prisma.user.upsert({
+          where: { id: userId },
+          create: {
+            id: userId,
+            email: `dev-user-${userId}@example.com`,
+            username: `dev_user_${userId.slice(-8)}`,
+            displayName: `Dev User`,
+            subscriptionTier: 'FREE',
+          },
+          update: {}, // Don't update if exists
+        });
+      } catch (error) {
+        console.log('User upsert warning (this is normal):', error);
+      }
+    }
+
     const comment = await prisma.comment.create({
       data: {
         content: content.trim(),
