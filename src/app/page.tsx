@@ -58,12 +58,16 @@ export default function HomePage() {
       }
       
       if (!realData) {
-        // Use mock data
+        // Only allow example data in non-production builds
+        if (process.env.NODE_ENV !== 'production') {
         setProjects(HOMEPAGE_PROJECTS)
         setLoading(false)
         setLoadingMore(false)
         setHasMore(false)
         return
+        }
+        // In production, force real data path and show an error instead of examples
+        realData = true
       }
 
       try {
@@ -92,8 +96,8 @@ export default function HomePage() {
         }
 
         const response = await fetch(`/api/discover?${params.toString()}`, {
-          // Add timeout for faster fallback to mock data
-          signal: AbortSignal.timeout(8000) // 8 second timeout
+          // Slightly longer timeout to avoid unnecessary fallbacks in production
+          signal: AbortSignal.timeout(process.env.NODE_ENV === 'production' ? 12000 : 8000)
         })
         if (response.ok) {
           const data = await response.json()
@@ -130,11 +134,13 @@ export default function HomePage() {
       } catch (err) {
         console.error('Error fetching projects:', err)
         if (pageNum === 1 && !append) {
-          const errorMessage = 'Unable to load projects. Switching to example data.'
+          const errorMessage = 'Unable to load projects. Please try again shortly.'
           setError(errorMessage)
-          showToast.warning('Connection Issue', 'Unable to load latest projects. Showing examples instead.')
+          // In production, do NOT switch to example data to prevent invalid IDs
+          if (process.env.NODE_ENV !== 'production') {
           setProjects(HOMEPAGE_PROJECTS)
           setUseRealData(false)
+          }
           setHasMore(false)
         } else {
           showToast.error('Loading Error', 'Failed to load more projects. Please try again.')
@@ -220,6 +226,17 @@ export default function HomePage() {
         headers: { 'Content-Type': 'application/json' },
       })
 
+      if (response.status === 401) {
+        // Auth-specific feedback
+        showToast.error('Please sign in', 'You need to be signed in to like projects')
+        throw new Error('Unauthorized')
+      }
+
+      if (response.status === 404) {
+        showToast.error('Project not found', 'This project may have been removed. Please refresh.')
+        throw new Error('Project not found')
+      }
+
       if (!response.ok) {
         throw new Error('Failed to update like status')
       }
@@ -250,7 +267,8 @@ export default function HomePage() {
           : p
       ))
       
-      showToast.error('Like Failed', 'Please sign in to like projects')
+      // Only show generic error here (auth handled above)
+      showToast.error('Like failed', 'Please try again')
     }
   }
 
@@ -430,12 +448,14 @@ export default function HomePage() {
                         Clear Filters
                       </Button>
                     )}
+                    {process.env.NODE_ENV !== 'production' && (
                     <Button
                       onClick={() => setUseRealData(!useRealData)}
                       variant="outline"
                     >
                       {useRealData ? 'Switch to Examples' : 'Switch to Real Data'}
                     </Button>
+                    )}
                   </div>
                 </div>
               )}
