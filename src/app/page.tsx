@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { ProjectCard } from '@/components/ui/project-card'
 import { ProjectModal } from '@/components/project/project-modal'
-import { HeroSection } from '@/components/homepage/hero-section'
 import { CategoryFilterBar } from '@/components/homepage/category-filter-bar'
 import { HOMEPAGE_PROJECTS } from '@/data/homepage-projects'
 import { TrendingUp, Users, Award } from 'lucide-react'
@@ -276,61 +275,24 @@ export default function HomePage() {
 
   return (
     <div className="w-full">
-      {/* Compact Hero Section */}
-      <HeroSection />
-
-      {/* Data Source Toggle (Development Helper) */}
-      <div className="px-8 py-2 bg-background-secondary/30 border-b border-border-primary">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center space-x-4 text-sm">
-            <span className="text-text-secondary">
-              {useRealData ? 'Live Projects' : 'Example Projects'}
-            </span>
-            <Button
-              variant={!useRealData ? "default" : "outline"}
-              size="sm"
-              onClick={() => {
-                setUseRealData(false)
-                showToast.info('Switched to Examples', 'Now showing curated example projects')
-              }}
-              className="text-xs"
-            >
-              Examples
-            </Button>
-            <Button
-              variant={useRealData ? "default" : "outline"}
-              size="sm"
-              onClick={() => {
-                setUseRealData(true)
-                showToast.info('Switched to Live Data', 'Now showing real projects from the community')
-              }}
-              className="text-xs"
-            >
-              Live Database
-            </Button>
-          </div>
-          <div className="flex items-center space-x-4">
-            {loading && (
-              <div className="flex items-center space-x-2 text-text-secondary text-sm">
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-accent-primary"></div>
-                <span>Loading...</span>
-              </div>
-            )}
-            {error && (
-              <div className="flex items-center space-x-2 text-red-500 text-sm">
-                <span>⚠️ Error loading data</span>
-              </div>
-            )}
-            {!loading && !error && (
-              <div className="text-text-secondary text-sm">
-                {filteredProjects.length} projects
-              </div>
-            )}
+      {/* Compact Hero Section (reduced vertical space) */}
+      <div className="px-8 py-6 border-b border-border-primary bg-background-primary">
+        <div className="max-w-7xl mx-auto flex flex-col items-start gap-2"> {/* Updated with seeded data */}
+          <div className="text-sm text-text-secondary">Join thousands of creators</div>
+          <h1 className="text-3xl md:text-4xl font-bold leading-tight">
+            Showcase Your <span className="text-accent-primary">Creative Vision</span>
+          </h1>
+          <div className="flex gap-3 pt-2">
+            <Button size="sm" className="btn-primary">Start Sharing</Button>
+            <Button size="sm" variant="outline">Explore Work</Button>
           </div>
         </div>
       </div>
 
-      {/* Sticky Category Filter Bar */}
+      {/* Development Helper (hidden by default) */}
+      {/* Removed the live/examples toggle and counts for a cleaner UI */}
+
+      {/* Sticky Category Filter Bar (more compact) */}
       <CategoryFilterBar 
         selectedTags={selectedTags}
         onTagsChange={setSelectedTags}
